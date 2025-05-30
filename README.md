@@ -4,7 +4,7 @@
 3. See more battery details such as charge rate, designed capacity and battery health in the main app window.
 
 ## Getting the app
-This app requires Windows 11.
+This app requires Windows 11 and [.NET Desktop Runtime 9](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-9.0.5-windows-x64-installer).
 
 1. Install it from [Microsoft Store](https://apps.microsoft.com/detail/9PCKT2B7DZMW) or search the store for "Battery Percentage Icon" if you prefer an effortless always up-to-date app experience.
 2. Manually download it from the [Releases](https://github.com/soleon/Percentage/releases) page if you prefer a portable self-contained single exe file.
