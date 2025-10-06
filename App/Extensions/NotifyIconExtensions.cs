@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Wpf.Ui.Tray.Controls;
@@ -10,17 +9,6 @@ namespace Percentage.App.Extensions;
 internal static class NotifyIconExtensions
 {
     private const double DefaultNotifyIconSize = 16;
-
-    internal static void SetBatteryFullIcon(this NotifyIcon notifyIcon)
-    {
-        notifyIcon.SetIcon(new TextBlock
-        {
-            Text = "\uf5fc",
-            Foreground = BrushExtensions.GetBatteryNormalBrush(),
-            FontFamily = new FontFamily("Segoe Fluent Icons"),
-            FontSize = 16
-        });
-    }
 
     internal static void SetIcon(this NotifyIcon notifyIcon, FrameworkElement textBlock)
     {

@@ -235,6 +235,23 @@ public partial class NotifyIconWindow
         NotifyIcon.SetIcon(textBlock);
     }
 
+    private void SetBatteryFullIcon()
+    {
+        var textBlock = new TextBlock
+        {
+            Text = "\uf5fc",
+            Foreground = BrushExtensions.GetBatteryNormalBrush(),
+            FontFamily = new FontFamily("Segoe Fluent Icons"),
+            FontSize = 16
+        };
+
+        if (AreTextBlocksEqual(_lastUsedTextBlock, textBlock))
+            return;
+
+        _lastUsedTextBlock = textBlock;
+        NotifyIcon.SetIcon(textBlock);
+    }
+
     private void UpdateBatteryStatus()
     {
         var powerStatus = SystemInformation.PowerStatus;
@@ -265,7 +282,7 @@ public partial class NotifyIconWindow
             {
                 if (percent == 100)
                 {
-                    NotifyIcon.SetBatteryFullIcon();
+                    SetBatteryFullIcon();
 
                     var powerLineText = powerStatus.PowerLineStatus == PowerLineStatus.Online
                         ? " and connected to power"
