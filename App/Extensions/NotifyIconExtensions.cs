@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -43,7 +42,10 @@ internal static class NotifyIconExtensions
         // There's a known issue that keep creating RenderTargetBitmap in a WPF app, the COMException: MILERR_WIN32ERROR
         // may happen.
         // This is reported as https://github.com/dotnet/wpf/issues/3067.
-        // Manually forcing a GC seems to help.
+        // Manually forcing a GC seems to help. But for now due to a memory leak in WPF-UI framework we can't hit 
+        // this limit and crash with a GDI+ exception long before.
+        // See https://github.com/lepoco/wpfui/issues/1313.
+        // So let's not force expensive GC for now as tests show basically no difference.
         var renderTargetBitmap =
             new RenderTargetBitmap(
             (int)Math.Round(DefaultNotifyIconSize * dpiScale.DpiScaleX, MidpointRounding.AwayFromZero),
@@ -53,10 +55,6 @@ internal static class NotifyIconExtensions
             PixelFormats.Default);
         renderTargetBitmap.Render(textBlock);
 
-        // Force GC after each RenderTargetBitmap creation to avoid running into COMException: MILERR_WIN32ERROR.
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
-        
         notifyIcon.Icon = renderTargetBitmap;
     }
 }
