@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -10,8 +12,24 @@ internal static class NotifyIconExtensions
 {
     private const double DefaultNotifyIconSize = 16;
 
+    [DllImport("User32")]
+    private extern static int GetGuiResources(IntPtr hProcess, int uiFlags);
+
+    private static int GetGDIHandleCount()
+    {
+        using var process = Process.GetCurrentProcess();
+        return GetGuiResources(process.Handle, 0);
+    }
+
     internal static void SetIcon(this NotifyIcon notifyIcon, FrameworkElement textBlock)
     {
+        // Restart the app if we are close to the GDI handle limit (see below).
+        if (GetGDIHandleCount() > 9900)
+        {
+            Process.Start(Environment.ProcessPath);
+            Application.Current.Shutdown();
+        }
+
         // Measure the size of the element first.
         textBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
