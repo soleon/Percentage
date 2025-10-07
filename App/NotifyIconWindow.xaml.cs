@@ -5,6 +5,7 @@ using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Windows.Devices.Power;
 using Microsoft.Win32;
@@ -35,6 +36,8 @@ public partial class NotifyIconWindow
 
     private string _notificationText;
     private string _notificationTitle;
+
+    private TextBlock _lastUsedTextBlock = new();
 
     public NotifyIconWindow()
     {
@@ -201,6 +204,15 @@ public partial class NotifyIconWindow
         _batteryStatusUpdateSubject.OnNext(false);
     }
 
+    private static bool AreTextBlocksEqual(TextBlock textBlock1, TextBlock textBlock2) =>
+        textBlock1.Text == textBlock2.Text &&
+        textBlock1.Foreground.ToString() == textBlock2.Foreground.ToString() &&
+        textBlock1.FontSize == textBlock2.FontSize &&
+        textBlock1.FontFamily.Source == textBlock2.FontFamily.Source &&
+        textBlock1.FontWeight == textBlock2.FontWeight &&
+        // Currently only underline decoration is supported, so TextDecorations.Count is both enough and short
+        textBlock1.TextDecorations.Count == textBlock2.TextDecorations.Count;
+
     private void SetNotifyIconText(string text, Brush foreground)
     {
         var textBlock = new TextBlock
@@ -216,6 +228,27 @@ public partial class NotifyIconWindow
 
         if (Default.TrayIconFontUnderline) textBlock.TextDecorations = TextDecorations.Underline;
 
+        if (AreTextBlocksEqual(_lastUsedTextBlock, textBlock))
+            return;
+
+        _lastUsedTextBlock = textBlock;
+        NotifyIcon.SetIcon(textBlock);
+    }
+
+    private void SetBatteryFullIcon()
+    {
+        var textBlock = new TextBlock
+        {
+            Text = "\uf5fc",
+            Foreground = BrushExtensions.GetBatteryNormalBrush(),
+            FontFamily = new FontFamily("Segoe Fluent Icons"),
+            FontSize = 16
+        };
+
+        if (AreTextBlocksEqual(_lastUsedTextBlock, textBlock))
+            return;
+
+        _lastUsedTextBlock = textBlock;
         NotifyIcon.SetIcon(textBlock);
     }
 
@@ -249,7 +282,7 @@ public partial class NotifyIconWindow
             {
                 if (percent == 100)
                 {
-                    NotifyIcon.SetBatteryFullIcon();
+                    SetBatteryFullIcon();
 
                     var powerLineText = powerStatus.PowerLineStatus == PowerLineStatus.Online
                         ? " and connected to power"

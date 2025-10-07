@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Wpf.Ui.Tray.Controls;
@@ -12,19 +12,24 @@ internal static class NotifyIconExtensions
 {
     private const double DefaultNotifyIconSize = 16;
 
-    internal static void SetBatteryFullIcon(this NotifyIcon notifyIcon)
+    [DllImport("User32")]
+    private extern static int GetGuiResources(IntPtr hProcess, int uiFlags);
+
+    private static int GetGDIHandleCount()
     {
-        notifyIcon.SetIcon(new TextBlock
-        {
-            Text = "\uf5fc",
-            Foreground = BrushExtensions.GetBatteryNormalBrush(),
-            FontFamily = new FontFamily("Segoe Fluent Icons"),
-            FontSize = 16
-        });
+        using var process = Process.GetCurrentProcess();
+        return GetGuiResources(process.Handle, 0);
     }
 
     internal static void SetIcon(this NotifyIcon notifyIcon, FrameworkElement textBlock)
     {
+        // Restart the app if we are close to the GDI handle limit (see below).
+        if (GetGDIHandleCount() > 9900)
+        {
+            Process.Start(Environment.ProcessPath);
+            Application.Current.Shutdown();
+        }
+
         // Measure the size of the element first.
         textBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
@@ -43,7 +48,10 @@ internal static class NotifyIconExtensions
         // There's a known issue that keep creating RenderTargetBitmap in a WPF app, the COMException: MILERR_WIN32ERROR
         // may happen.
         // This is reported as https://github.com/dotnet/wpf/issues/3067.
-        // Manually forcing a GC seems to help.
+        // Manually forcing a GC seems to help. But for now due to a memory leak in WPF-UI framework we can't hit 
+        // this limit and crash with a GDI+ exception long before.
+        // See https://github.com/lepoco/wpfui/issues/1313.
+        // So let's not force expensive GC for now as tests show basically no difference.
         var renderTargetBitmap =
             new RenderTargetBitmap(
             (int)Math.Round(DefaultNotifyIconSize * dpiScale.DpiScaleX, MidpointRounding.AwayFromZero),
@@ -53,10 +61,6 @@ internal static class NotifyIconExtensions
             PixelFormats.Default);
         renderTargetBitmap.Render(textBlock);
 
-        // Force GC after each RenderTargetBitmap creation to avoid running into COMException: MILERR_WIN32ERROR.
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
-        
         notifyIcon.Icon = renderTargetBitmap;
     }
 }
