@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Percentage.App.Controls;
 
-internal class ObservableValue<T> : INotifyPropertyChanged
+internal abstract class ObservableValue<T> : INotifyPropertyChanged
 {
     public T? Value
     {

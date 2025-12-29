@@ -14,7 +14,7 @@ public class KeyValueItemsControl : ItemsControl
             new FrameworkPropertyMetadata(typeof(KeyValueItemsControl)));
     }
 
-    public override string ToString()
+    public override string? ToString()
     {
         if (ItemsSource is IEnumerable<KeyValuePair<string, object>> pairs)
             return string.Join(Environment.NewLine, pairs.Select(pair => $"{pair.Key}: {pair.Value}"));

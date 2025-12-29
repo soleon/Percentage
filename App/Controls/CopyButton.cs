@@ -21,7 +21,7 @@ public class CopyButton : Button
         Icon = new SymbolIcon(SymbolRegular.Copy20);
     }
 
-    public object TargetObject
+    public object? TargetObject
     {
         get => GetValue(TargetObjectProperty);
         set => SetValue(TargetObjectProperty, value);

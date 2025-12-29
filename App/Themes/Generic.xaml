@@ -106,9 +106,12 @@
                             </ComboBox.ItemsPanel>
                             <ComboBox.Template>
                                 <ControlTemplate TargetType="ComboBox">
-                                    <!-- This is a copy of the DefaultComboBoxStyle template from "Wpf.Ui.Controls.ComboBox" -->
-                                    <!-- The original template hard codes the items panel in the popup, it doesn't honour the value set in the "ComboBox.ItemsPanel" property. -->
-                                    <!-- Copying the original template just to overwrite the items panel to a wrap panel. -->
+                                    <!--
+                                    This is a copy of the DefaultComboBoxStyle template from "Wpf.Ui.Controls.ComboBox"
+                                    The original template hard codes the items panel in the popup.
+                                    It doesn't honour the value set in the "ComboBox.ItemsPanel" property.
+                                    Copying the original template just to overwrite the items panel to a wrap panel.
+                                    -->
                                     <Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalAlignment}">
                                         <Border

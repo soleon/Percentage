@@ -118,7 +118,7 @@ public partial class NotifyIconWindow
         SystemEvents.DisplaySettingsChanged += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
 
         // This event can be triggered multiple times when Windows changes between dark and light theme.
-        // Update tray icon colour when user preference changes settled down.
+        // Update the tray icon colour when user preference changes settled down.
         SystemEvents.UserPreferenceChanged += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
 
         // Handle user settings change with debouncing.
@@ -276,7 +276,7 @@ public partial class NotifyIconWindow
                     return;
                 }
 
-                // When battery status is normal, display percentage in tray icon.
+                // When battery status is normal, display percentage in the tray icon.
                 trayIconText = percent.ToString();
                 if (batteryChargeStatus.HasFlag(BatteryChargeStatus.Charging))
                 {
@@ -307,7 +307,7 @@ public partial class NotifyIconWindow
                 }
                 else
                 {
-                    // When battery is not charging.
+                    // When the battery is not charging.
                     if (percent <= Default.BatteryCriticalNotificationValue)
                     {
                         // When battery capacity is critical.
