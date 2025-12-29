@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.Net.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+        <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
         <ApplicationIcon>icon.ico</ApplicationIcon>
         <RootNamespace>Percentage.App</RootNamespace>
         <AssemblyName>Percentage.App</AssemblyName>
@@ -16,13 +16,15 @@
         <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
         <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
         <Platforms>AnyCPU;x64;ARM64;x86</Platforms>
-        <PackageVersion>2.1.7</PackageVersion>
+        <PackageVersion>2.1.8</PackageVersion>
         <PackageProjectUrl>https://github.com/soleon/Percentage</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/soleon/Percentage?tab=MIT-1-ov-file</PackageLicenseUrl>
         <PackageIcon>Icon.png</PackageIcon>
         <RepositoryUrl>https://github.com/soleon/Percentage</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <Authors>Long Zhou</Authors>
+        <Authors>Soleon Innovation</Authors>
+        <Nullable>enable</Nullable>
+        <WarningsAsErrors>nullable</WarningsAsErrors>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="*"/>

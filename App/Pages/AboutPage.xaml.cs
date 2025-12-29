@@ -17,9 +17,9 @@ public sealed partial class AboutPage : INotifyPropertyChanged
         Unloaded += (_, _) => App.TrayIconUpdateErrorSet -= OnTrayIconUpdateErrorSet;
     }
 
-    public Exception TrayIconUpdateError => App.GetTrayIconUpdateError();
+    public static Exception? TrayIconUpdateError => App.GetTrayIconUpdateError();
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     private void OnDonationButtonClick(object sender, RoutedEventArgs e)
     {
@@ -31,7 +31,7 @@ public sealed partial class AboutPage : INotifyPropertyChanged
         ExternalProcessExtensions.OpenFeedbackLocation();
     }
 
-    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

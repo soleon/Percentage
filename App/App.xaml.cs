@@ -39,7 +39,7 @@ public partial class App
     internal const int DefaultTrayIconFontSize = 16;
     internal const bool DefaultTrayIconFontUnderline = false;
     internal const string Id = "f05f920a-c997-4817-84bd-c54d87e40625";
-    private static Exception _trayIconUpdateError;
+    private static Exception? _trayIconUpdateError;
     internal static readonly FontFamily DefaultTrayIconFontFamily = new("Microsoft Sans Serif");
     internal static readonly ISnackbarService SnackBarService = new SnackbarService();
 
@@ -80,7 +80,7 @@ public partial class App
         ToastNotificationManagerCompat.OnActivated += OnToastNotificationActivatedAsync;
     }
 
-    internal static Exception GetTrayIconUpdateError()
+    internal static Exception? GetTrayIconUpdateError()
     {
         return _trayIconUpdateError;
     }
@@ -118,14 +118,16 @@ public partial class App
         TrayIconUpdateErrorSet?.Invoke(e);
     }
 
-    internal static event Action<Exception> TrayIconUpdateErrorSet;
+    internal static event Action<Exception>? TrayIconUpdateErrorSet;
 
     private void MigrateUserSettings()
     {
         if (Default.RefreshSeconds < 5) Default.RefreshSeconds = 5;
 
         Default.BatteryNormalColour ??=
-            ((Brush)FindResource(nameof(ThemeResource.TextFillColorPrimaryBrush)))!.ToString();
+            ((Brush)(FindResource(nameof(ThemeResource.TextFillColorPrimaryBrush)) ??
+                     throw new InvalidOperationException("Unable to find ThemeResource.TextFillColorPrimaryBrush")))
+            .ToString();
 
         if (Default.BatteryLowColour is { Length: 7 } lowColourHexValue)
             Default.BatteryLowColour = lowColourHexValue.Insert(1, "FF");

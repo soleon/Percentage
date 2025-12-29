@@ -69,7 +69,7 @@ public partial class BatteryInformation : KeyValueItemsControl
             _batteryHealth
         }.ToDictionary(x => x.Name, object (x) => x);
 
-        IDisposable updateSubscription = null;
+        IDisposable? updateSubscription = null;
         Loaded += (_, _) =>
         {
             // This is a hack to get around a strange timing bug.
@@ -181,17 +181,17 @@ public partial class BatteryInformation : KeyValueItemsControl
         _batteryStatus.Value = WordStartLetterRegex().Replace(report.Status.ToString(), " $0");
     }
 
-    private sealed partial class BatteryInformationObservableValue(SymbolRegular icon, string name)
+    private sealed class BatteryInformationObservableValue(SymbolRegular icon, string name)
         : SymbolIconObservableValue<string>(icon)
     {
         internal string Name => name;
     }
 
-    private partial class SymbolIconObservableValue<T>(SymbolRegular symbol) : ObservableValue<T>
+    private class SymbolIconObservableValue<T>(SymbolRegular symbol) : ObservableValue<T>
     {
         public SymbolIcon SymbolIcon { get; } = new(symbol);
 
-        public override string ToString()
+        public override string? ToString()
         {
             return Value?.ToString();
         }

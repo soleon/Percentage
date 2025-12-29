@@ -14,7 +14,7 @@ namespace Percentage.App.Pages;
 
 public partial class SettingsPage
 {
-    private StartupTask _startupTask;
+    private StartupTask? _startupTask;
 
     public SettingsPage()
     {
@@ -93,7 +93,7 @@ public partial class SettingsPage
 
     private void OnAutoStartUnchecked(object sender, RoutedEventArgs e)
     {
-        _startupTask.Disable();
+        _startupTask?.Disable();
     }
 
     private void OnResetButtonClick(object sender, RoutedEventArgs e)

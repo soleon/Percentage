@@ -1,20 +1,20 @@
 ﻿<Window x:Class="Percentage.App.NotifyIconWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:controls="clr-namespace:Percentage.App.Controls"
         Loaded="OnLoaded"
         ShowInTaskbar="False"
         Left="-100"
         Top="-100"
         Width="0"
         Height="0">
-    <tray:NotifyIcon x:Name="NotifyIcon"
+    <controls:SafeNotifyIcon x:Name="NotifyIcon"
                      x:FieldModifier="private"
                      FocusOnLeftClick="False"
                      LeftDoubleClick="OnNotifyIconLeftDoubleClick"
                      LeftClick="OnNotifyIconLeftClick">
-        <tray:NotifyIcon.Menu>
+        <controls:SafeNotifyIcon.Menu>
             <ContextMenu>
                 <ui:MenuItem Header="_Details"
                              Click="OnDetailsMenuItemClick"
@@ -45,6 +45,6 @@
                              Icon="{ui:SymbolIcon ArrowExit20}"
                              ToolTip="Exit application" />
             </ContextMenu>
-        </tray:NotifyIcon.Menu>
-    </tray:NotifyIcon>
+        </controls:SafeNotifyIcon.Menu>
+    </controls:SafeNotifyIcon>
 </Window>

@@ -4,19 +4,17 @@ using System.Runtime.CompilerServices;
 
 namespace Percentage.App.Controls;
 
-internal partial class ObservableValue<T> : INotifyPropertyChanged
+internal class ObservableValue<T> : INotifyPropertyChanged
 {
-    private T _value;
-
-    public T Value
+    public T? Value
     {
-        get => _value;
-        set => SetField(ref _value, value);
+        get;
+        set => SetField(ref field, value);
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    private void SetField<TValue>(ref TValue field, TValue value, [CallerMemberName] string propertyName = null)
+    private void SetField<TValue>(ref TValue field, TValue value, [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<TValue>.Default.Equals(field, value)) return;
         field = value;

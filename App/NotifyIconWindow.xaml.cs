@@ -33,15 +33,15 @@ public partial class NotifyIconWindow
     private (ToastNotificationExtensions.NotificationType Type, DateTime DateTime) _lastNotification =
         (default, default);
 
-    private string _notificationText;
-    private string _notificationTitle;
+    private string? _notificationText;
+    private string? _notificationTitle;
 
     public NotifyIconWindow()
     {
         SystemThemeWatcher.Watch(this);
         InitializeComponent();
 
-        // Setup timer to update the tray icon.
+        // Set up the timer to update the tray icon.
         _refreshTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(Default.RefreshSeconds) };
         _refreshTimer.Tick += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
     }
@@ -163,9 +163,9 @@ public partial class NotifyIconWindow
         ExternalProcessExtensions.OpenPowerSettings();
     }
 
-    private void OnUserSettingsPropertyChanged(string propertyName)
+    private void OnUserSettingsPropertyChanged(string? propertyName)
     {
-        // Always save settings change immediately in case the app crashes losing all changes.
+        // Always save settings change immediately in case the app crashes, losing all changes.
         Default.Save();
 
         switch (propertyName)
@@ -354,9 +354,9 @@ public partial class NotifyIconWindow
             }
         }
 
-        // Set tray icon tool tip based on the balloon notification texts.
+        // Set the tray icon tool tip based on the balloon notification texts.
         NotifyIcon.TooltipText = _notificationTitle == null
-            ? _notificationText
+            ? _notificationText ?? string.Empty
             : _notificationTitle + Environment.NewLine + _notificationText;
 
         SetNotifyIconText(trayIconText, brush);
@@ -364,7 +364,7 @@ public partial class NotifyIconWindow
         CheckAndSendNotification();
         return;
 
-        // Check and send notification.
+        // Check and send a notification.
         void CheckAndSendNotification()
         {
             if (notificationType == ToastNotificationExtensions.NotificationType.None)

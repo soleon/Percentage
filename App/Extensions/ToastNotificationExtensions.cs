@@ -8,17 +8,20 @@ internal static class ToastNotificationExtensions
     private const string ActionArgumentKey = "action";
     private const string NotificationTypeArgumentKey = "notificationType";
 
-    internal static bool TryGetActionArgument(this ToastArguments arguments, out Action action)
+    extension(ToastArguments arguments)
     {
-        return arguments.TryGetValue(ActionArgumentKey, out action);
+        internal bool TryGetActionArgument(out Action action)
+        {
+            return arguments.TryGetValue(ActionArgumentKey, out action);
+        }
+
+        internal bool TryGetNotificationTypeArgument(out NotificationType notificationType)
+        {
+            return arguments.TryGetValue(NotificationTypeArgumentKey, out notificationType);
+        }
     }
 
-    internal static bool TryGetNotificationTypeArgument(this ToastArguments arguments, out NotificationType notificationType)
-    {
-        return arguments.TryGetValue(NotificationTypeArgumentKey, out notificationType);
-    }
-
-    internal static void ShowToastNotification(string header, string body, NotificationType notificationType)
+    internal static void ShowToastNotification(string? header, string? body, NotificationType notificationType)
     {
         if (notificationType == NotificationType.None)
         {
