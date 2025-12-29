@@ -31,13 +31,13 @@ internal static class BrushExtensions
     internal static Brush GetBatteryNormalBrush()
     {
         return GetTargetBrush(Default.IsAutoBatteryNormalColour, Default.BatteryNormalColour,
-            (Brush)Application.Current.FindResource(nameof(ThemeResource.TextFillColorPrimaryBrush)));
+            (Brush)Application.Current.FindResource(nameof(ThemeResource.TextFillColorPrimaryBrush))!);
     }
 
 
     private static Brush GetBrushFromColourHexString(string hexString, Brush fallbackBrush)
     {
-        object colour;
+        object? colour;
         try
         {
             colour = ColorConverter.ConvertFromString(hexString);

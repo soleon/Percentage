@@ -4,29 +4,6 @@ namespace Percentage.App.Extensions;
 
 internal static class ReadableExtensions
 {
-    internal static string GetReadableSize(this long bytes)
-    {
-        string[] sizeSuffixes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"];
-
-        switch (bytes)
-        {
-            case < 0:
-            case 0:
-                return "0 Bytes";
-        }
-
-        var order = 0;
-        double size = bytes;
-
-        while (size >= 1024 && order < sizeSuffixes.Length - 1)
-        {
-            order++;
-            size /= 1024;
-        }
-
-        return $"{size:0.##} {sizeSuffixes[order]}";
-    }
-
     internal static string GetReadableTimeSpan(TimeSpan timeSpan)
     {
         var hours = timeSpan.Hours;
