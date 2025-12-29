@@ -122,12 +122,17 @@ public partial class App
 
     private void MigrateUserSettings()
     {
+        if (Default.RequiresUpgrade)
+        {
+            Default.Upgrade();
+            Default.RequiresUpgrade = false;
+            Default.Save();
+        }
+
         if (Default.RefreshSeconds < 5) Default.RefreshSeconds = 5;
 
         Default.BatteryNormalColour ??=
-            ((Brush)(FindResource(nameof(ThemeResource.TextFillColorPrimaryBrush)) ??
-                     throw new InvalidOperationException("Unable to find ThemeResource.TextFillColorPrimaryBrush")))
-            .ToString();
+            ((Brush)FindResource(nameof(ThemeResource.TextFillColorPrimaryBrush))!).ToString();
 
         if (Default.BatteryLowColour is { Length: 7 } lowColourHexValue)
             Default.BatteryLowColour = lowColourHexValue.Insert(1, "FF");

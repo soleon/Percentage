@@ -203,20 +203,27 @@ public partial class NotifyIconWindow
 
     private void SetNotifyIconText(string text, Brush foreground)
     {
-        var textBlock = new TextBlock
+        try
         {
-            Text = text,
-            Foreground = foreground,
-            FontSize = Default.TrayIconFontSize
-        };
+            var textBlock = new TextBlock
+            {
+                Text = text,
+                Foreground = foreground,
+                FontSize = Default.TrayIconFontSize
+            };
 
-        if (Default.TrayIconFontFamily != null) textBlock.FontFamily = Default.TrayIconFontFamily;
+            if (Default.TrayIconFontFamily != null) textBlock.FontFamily = Default.TrayIconFontFamily;
 
-        if (Default.TrayIconFontBold) textBlock.FontWeight = FontWeights.Bold;
+            if (Default.TrayIconFontBold) textBlock.FontWeight = FontWeights.Bold;
 
-        if (Default.TrayIconFontUnderline) textBlock.TextDecorations = TextDecorations.Underline;
+            if (Default.TrayIconFontUnderline) textBlock.TextDecorations = TextDecorations.Underline;
 
-        NotifyIcon.SetIcon(textBlock);
+            NotifyIcon.SetIcon(textBlock);
+        }
+        catch (Exception e)
+        {
+            App.SetTrayIconUpdateError(e);
+        }
     }
 
     private void UpdateBatteryStatus()
