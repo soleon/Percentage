@@ -222,7 +222,7 @@ public partial class NotifyIconWindow
         }
         catch (Exception e)
         {
-            App.SetTrayIconUpdateError(e);
+            App.SetAppError(e);
         }
     }
 

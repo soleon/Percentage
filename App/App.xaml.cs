@@ -39,9 +39,10 @@ public partial class App
     internal const int DefaultTrayIconFontSize = 16;
     internal const bool DefaultTrayIconFontUnderline = false;
     internal const string Id = "f05f920a-c997-4817-84bd-c54d87e40625";
-    private static Exception? _trayIconUpdateError;
+    private static Exception? _appError;
     internal static readonly FontFamily DefaultTrayIconFontFamily = new("Microsoft Sans Serif");
     internal static readonly ISnackbarService SnackBarService = new SnackbarService();
+    internal static event Action<Exception>? AppErrorSet;
 
     private readonly Mutex _appMutex;
 
@@ -80,9 +81,9 @@ public partial class App
         ToastNotificationManagerCompat.OnActivated += OnToastNotificationActivatedAsync;
     }
 
-    internal static Exception? GetTrayIconUpdateError()
+    internal static Exception? GetAppError()
     {
-        return _trayIconUpdateError;
+        return _appError;
     }
 
     private static void HandleException(object exception)
@@ -112,13 +113,11 @@ public partial class App
         }
     }
 
-    internal static void SetTrayIconUpdateError(Exception e)
+    internal static void SetAppError(Exception e)
     {
-        _trayIconUpdateError = e;
-        TrayIconUpdateErrorSet?.Invoke(e);
+        _appError = e;
+        AppErrorSet?.Invoke(e);
     }
-
-    internal static event Action<Exception>? TrayIconUpdateErrorSet;
 
     private void MigrateUserSettings()
     {

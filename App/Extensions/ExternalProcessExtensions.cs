@@ -23,6 +23,11 @@ internal static class ExternalProcessExtensions
     {
         StartShellExecutedProgress("https://github.com/soleon/Percentage");
     }
+    
+    internal static void OpenGitHubIssuesLocation()
+    {
+        StartShellExecutedProgress("https://github.com/soleon/Percentage/issues");
+    }
 
     internal static void ShowRatingView()
     {

@@ -12,14 +12,19 @@ public sealed partial class AboutPage : INotifyPropertyChanged
     {
         InitializeComponent();
 
-        Loaded += (_, _) => App.TrayIconUpdateErrorSet += OnTrayIconUpdateErrorSet;
+        Loaded += (_, _) => App.AppErrorSet += OnAppErrorSet;
 
-        Unloaded += (_, _) => App.TrayIconUpdateErrorSet -= OnTrayIconUpdateErrorSet;
+        Unloaded += (_, _) => App.AppErrorSet -= OnAppErrorSet;
     }
 
-    public static Exception? TrayIconUpdateError => App.GetTrayIconUpdateError();
+    public static Exception? AppError => App.GetAppError();
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    private void OnAppErrorSet(Exception _)
+    {
+        OnPropertyChanged(nameof(AppError));
+    }
 
     private void OnDonationButtonClick(object sender, RoutedEventArgs e)
     {
@@ -46,8 +51,8 @@ public sealed partial class AboutPage : INotifyPropertyChanged
         ExternalProcessExtensions.OpenSourceCodeLocation();
     }
 
-    private void OnTrayIconUpdateErrorSet(Exception _)
+    private void OnGitHubIssuesLinkClick(object sender, RoutedEventArgs e)
     {
-        OnPropertyChanged(nameof(TrayIconUpdateError));
+        ExternalProcessExtensions.OpenGitHubIssuesLocation();
     }
 }

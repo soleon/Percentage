@@ -24,19 +24,22 @@
                 <controls:ApplicationInformation x:Name="ApplicationInformation"
                                                  x:FieldModifier="private" />
                 <ui:CardControl Icon="{ui:SymbolIcon Warning20}"
-                                Visibility="{Binding TrayIconUpdateError, Converter={x:Static data:VisibilityConverter.Instance}}"
+                                Visibility="{Binding AppError, Converter={x:Static data:VisibilityConverter.Instance}}"
                                 Background="{DynamicResource InfoBarWarningSeverityBackgroundBrush}">
                     <ui:CardControl.Header>
                         <StackPanel>
                             <ui:TextBlock
                                 FontTypography="BodyStrong"
-                                Text="The tray icon couldn't be updated" />
-                            <ui:TextBlock
-                                Text="Try restarting the app if the tray icon stops updating. Copy the full error details and report this issue if it blocks you from using the app." />
+                                Text="The application has run into an error" />
+                            <ui:TextBlock TextWrapping="Wrap">
+                                    <Run>You can help to fix this by copying the error and report it at the</Run>
+                                    <Hyperlink NavigateUri="https://github.com/soleon/Percentage/issues"
+                                               Click="OnGitHubIssuesLinkClick">GitHub issues page</Hyperlink>.
+                            </ui:TextBlock>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <controls:CopyButton
-                        TargetObject="{Binding TrayIconUpdateError}"
+                        TargetObject="{Binding AppError}"
                         ToolTip="Copy full error details" />
                 </ui:CardControl>
             </StackPanel>

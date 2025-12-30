@@ -98,7 +98,6 @@
             </ui:CardControl.Header>
             <ComboBox ItemStringFormat="{}{0} seconds"
                       SelectedValue="{Binding RefreshSeconds, Source={x:Static properties:Settings.Default}, Mode=TwoWay}">
-                <system:Int32>1</system:Int32>
                 <system:Int32>5</system:Int32>
                 <system:Int32>10</system:Int32>
                 <system:Int32>30</system:Int32>
