@@ -3,6 +3,8 @@
 2. Get Windows notification when your battery is critical, low, high, and full.
 3. See more battery details such as charge rate, designed capacity and battery health in the main app window.
 
+**Note**: the native battery percentage icon is also available in Windows 11 Build 26200.7019 or Build 26100.7019. See more details on [Windows Latest](https://www.windowslatest.com/2025/11/09/windows-11-gets-a-colourful-taskbar-battery-with-percentage-that-actually-helps-now-rolling-out/).
+
 ## Getting the app
 This app requires Windows 11.
 
