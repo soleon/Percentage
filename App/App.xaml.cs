@@ -1,5 +1,8 @@
 using System;
 using System.ComponentModel;
+using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -55,6 +58,9 @@ public partial class App
             Shutdown(1);
             return;
         }
+
+        // Must run before any Settings access (incl. InitializeComponent and MigrateUserSettings).
+        TryMigratePreviousUserConfig();
 
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
@@ -117,6 +123,55 @@ public partial class App
     {
         _appError = e;
         AppErrorSet?.Invoke(e);
+    }
+
+    // MSIX Store updates (and EXE relocation) put the new user.config in a sibling
+    // hash folder; Settings.Default.Upgrade() can't see across hash folders, so copy
+    // the most recent sibling user.config forward before Settings first loads.
+    private static void TryMigratePreviousUserConfig()
+    {
+        string currentPath;
+        try
+        {
+            currentPath = ConfigurationManager
+                .OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal)
+                .FilePath;
+        }
+        catch
+        {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(currentPath) || File.Exists(currentPath)) return;
+
+        var versionDir = Path.GetDirectoryName(currentPath);
+        var hashDir = Path.GetDirectoryName(versionDir);
+        var companyDir = Path.GetDirectoryName(hashDir);
+        if (versionDir is null || hashDir is null || companyDir is null || !Directory.Exists(companyDir))
+            return;
+
+        // Hash folders look like "Percentage.App_Url_<hash>" or "Percentage.App_Path_<hash>".
+        // Match siblings by assembly-name prefix, ignoring evidence type.
+        var prefix = Path.GetFileName(hashDir).Split('_').FirstOrDefault();
+        if (string.IsNullOrEmpty(prefix)) return;
+
+        var mostRecent = Directory
+            .EnumerateDirectories(companyDir, prefix + "_*")
+            .Where(d => !string.Equals(d, hashDir, StringComparison.OrdinalIgnoreCase))
+            .SelectMany(d => Directory.EnumerateFiles(d, "user.config", SearchOption.AllDirectories))
+            .OrderByDescending(File.GetLastWriteTimeUtc)
+            .FirstOrDefault();
+        if (mostRecent is null) return;
+
+        try
+        {
+            Directory.CreateDirectory(versionDir);
+            File.Copy(mostRecent, currentPath);
+        }
+        catch
+        {
+            // Best-effort: on failure the app falls back to defaults.
+        }
     }
 
     private void MigrateUserSettings()
