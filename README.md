@@ -17,10 +17,10 @@ GitHub releases are often a few hours or days prior to the Microsoft Store relea
 
 ## Screenshots
 ### Notification
-![Dark theme notification screenshot](https://github.com/user-attachments/assets/b47ad850-22ef-4fd5-bff6-e6ce72fb8456) ![Light theme notification screenshot](https://github.com/user-attachments/assets/6eea58bd-6aa1-4f11-a1d7-dfa350c47dea)
+![Dark theme notification screenshot](https://github.com/user-attachments/assets/7398787e-f415-4c07-ba78-bf8a55d74027)
 
 ### Battery Details
-![Dark theme battery details screenshot](https://github.com/user-attachments/assets/d4c3f9d0-7153-4879-b2be-09bee0cdf0fb) ![Light theme battery details screenshot](https://github.com/user-attachments/assets/26ab2097-7554-4647-8b81-1230ab0c8154)
+![Dark theme battery details screenshot](https://github.com/user-attachments/assets/1b5e50ed-aa84-428d-bace-dbeb2ee6dfe0)
 
 ### Settings
-![Dark theme settings screenshot](https://github.com/user-attachments/assets/5dcb6cbc-5512-46d5-bf20-f175d1a057b7) ![Light theme settings screenshot](https://github.com/user-attachments/assets/c9b6416c-e87d-4e58-a334-8be2c34e2fee)
+![Dark theme settings screenshot](https://github.com/user-attachments/assets/3680582a-cc27-427a-8a64-f7fe53c841db)
