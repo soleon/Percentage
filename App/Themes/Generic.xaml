@@ -96,8 +96,22 @@
                                 <DataTemplate>
                                     <Border CornerRadius="2"
                                             Height="24"
-                                            MinWidth="24"
-                                            Background="{Binding}" />
+                                            MinWidth="24">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="{Binding}" />
+                                                <Style.Triggers>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding IsAutoColour, RelativeSource={RelativeSource AncestorType=controls:AccentColourPicker}}" Value="True" />
+                                                            <Condition Binding="{Binding IsAutoTransparent, RelativeSource={RelativeSource AncestorType=controls:AccentColourPicker}}" Value="True" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                    </MultiDataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                             <ComboBox.ItemsPanel>

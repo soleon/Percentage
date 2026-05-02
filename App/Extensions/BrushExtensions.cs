@@ -34,6 +34,30 @@ internal static class BrushExtensions
             (Brush)Application.Current.FindResource(nameof(ThemeResource.TextFillColorPrimaryBrush))!);
     }
 
+    internal static Brush? GetBatteryCriticalBackgroundBrush()
+    {
+        return GetTargetBackgroundBrush(Default.IsAutoBatteryCriticalBackgroundColour,
+            Default.BatteryCriticalBackgroundColour);
+    }
+
+    internal static Brush? GetBatteryLowBackgroundBrush()
+    {
+        return GetTargetBackgroundBrush(Default.IsAutoBatteryLowBackgroundColour,
+            Default.BatteryLowBackgroundColour);
+    }
+
+    internal static Brush? GetBatteryChargingBackgroundBrush()
+    {
+        return GetTargetBackgroundBrush(Default.IsAutoBatteryChargingBackgroundColour,
+            Default.BatteryChargingBackgroundColour);
+    }
+
+    internal static Brush? GetBatteryNormalBackgroundBrush()
+    {
+        return GetTargetBackgroundBrush(Default.IsAutoBatteryNormalBackgroundColour,
+            Default.BatteryNormalBackgroundColour);
+    }
+
 
     private static Brush GetBrushFromColourHexString(string hexString, Brush fallbackBrush)
     {
@@ -55,5 +79,19 @@ internal static class BrushExtensions
         return isUsingAutoColour
             ? new SolidColorBrush((Color)Application.Current.FindResource(nameof(ThemeResource.TextFillColorPrimary))!)
             : GetBrushFromColourHexString(targetColour, fallbackBrush);
+    }
+
+    private static Brush? GetTargetBackgroundBrush(bool isUsingAutoColour, string targetColour)
+    {
+        if (isUsingAutoColour) return null;
+        try
+        {
+            var colour = ColorConverter.ConvertFromString(targetColour);
+            return colour is null ? null : new SolidColorBrush((Color)colour);
+        }
+        catch (FormatException)
+        {
+            return null;
+        }
     }
 }

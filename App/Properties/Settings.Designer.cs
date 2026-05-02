@@ -273,7 +273,103 @@ namespace Percentage.App.Properties {
                 this["IsAutoBatteryCriticalColour"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BatteryCriticalBackgroundColour {
+            get {
+                return ((string)(this["BatteryCriticalBackgroundColour"]));
+            }
+            set {
+                this["BatteryCriticalBackgroundColour"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BatteryLowBackgroundColour {
+            get {
+                return ((string)(this["BatteryLowBackgroundColour"]));
+            }
+            set {
+                this["BatteryLowBackgroundColour"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BatteryChargingBackgroundColour {
+            get {
+                return ((string)(this["BatteryChargingBackgroundColour"]));
+            }
+            set {
+                this["BatteryChargingBackgroundColour"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BatteryNormalBackgroundColour {
+            get {
+                return ((string)(this["BatteryNormalBackgroundColour"]));
+            }
+            set {
+                this["BatteryNormalBackgroundColour"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsAutoBatteryCriticalBackgroundColour {
+            get {
+                return ((bool)(this["IsAutoBatteryCriticalBackgroundColour"]));
+            }
+            set {
+                this["IsAutoBatteryCriticalBackgroundColour"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsAutoBatteryLowBackgroundColour {
+            get {
+                return ((bool)(this["IsAutoBatteryLowBackgroundColour"]));
+            }
+            set {
+                this["IsAutoBatteryLowBackgroundColour"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsAutoBatteryChargingBackgroundColour {
+            get {
+                return ((bool)(this["IsAutoBatteryChargingBackgroundColour"]));
+            }
+            set {
+                this["IsAutoBatteryChargingBackgroundColour"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsAutoBatteryNormalBackgroundColour {
+            get {
+                return ((bool)(this["IsAutoBatteryNormalBackgroundColour"]));
+            }
+            set {
+                this["IsAutoBatteryNormalBackgroundColour"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("16")]

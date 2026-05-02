@@ -457,6 +457,14 @@
     <value>為不同電池電量等級變更系統匣圖示顏色</value>
     <comment>Description below the tray icon colour expander.</comment>
   </data>
+  <data name="Settings_TrayIconBackgroundColour" xml:space="preserve">
+    <value>Tray icon background colour</value>
+    <comment>Header of the tray icon background colour expander card on the Settings page.</comment>
+  </data>
+  <data name="Settings_TrayIconBackgroundColourDescription" xml:space="preserve">
+    <value>Change tray icon background colour for different battery levels</value>
+    <comment>Description below the tray icon background colour expander.</comment>
+  </data>
   <data name="Settings_LevelCritical" xml:space="preserve">
     <value>嚴重</value>
     <comment>Label for the critical battery level (used in colour and notification settings).</comment>

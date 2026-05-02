@@ -48,6 +48,10 @@ public class AccentColourPicker : Control
         nameof(IsAutoColour), typeof(bool), typeof(AccentColourPicker),
         new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+    public static readonly DependencyProperty IsAutoTransparentProperty = DependencyProperty.Register(
+        nameof(IsAutoTransparent), typeof(bool), typeof(AccentColourPicker),
+        new FrameworkPropertyMetadata(false));
+
     public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(
         nameof(Label), typeof(string), typeof(AccentColourPicker));
 
@@ -65,6 +69,12 @@ public class AccentColourPicker : Control
     {
         get => (bool)GetValue(IsAutoColourProperty);
         set => SetValue(IsAutoColourProperty, value);
+    }
+
+    public bool IsAutoTransparent
+    {
+        get => (bool)GetValue(IsAutoTransparentProperty);
+        set => SetValue(IsAutoTransparentProperty, value);
     }
 
     public string Label

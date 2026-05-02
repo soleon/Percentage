@@ -235,6 +235,61 @@
             </Grid>
         </ui:CardExpander>
 
+        <!-- Tray icon background colour -->
+        <ui:CardExpander
+            Icon="{ui:SymbolIcon Color20}">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <ui:TextBlock
+                        FontTypography="BodyStrong"
+                        Text="{loc:Localize Settings_TrayIconBackgroundColour}" />
+                    <ui:TextBlock
+                        Text="{loc:Localize Settings_TrayIconBackgroundColourDescription}" />
+                </StackPanel>
+            </ui:CardExpander.Header>
+            <Grid IsSharedSizeScope="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="5" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <controls:AccentColourPicker Label="{loc:Localize Settings_LevelCritical}"
+                                             IsAutoTransparent="True"
+                                             IsAutoColour="{Binding IsAutoBatteryCriticalBackgroundColour, Source={x:Static properties:Settings.Default}}"
+                                             SelectedColour="{Binding BatteryCriticalBackgroundColour, Source={x:Static properties:Settings.Default}}" />
+                <controls:AccentColourPicker Grid.Row="0"
+                                             Grid.Column="2"
+                                             Label="{loc:Localize Settings_LevelLow}"
+                                             IsAutoTransparent="True"
+                                             IsAutoColour="{Binding IsAutoBatteryLowBackgroundColour, Source={x:Static properties:Settings.Default}}"
+                                             SelectedColour="{Binding BatteryLowBackgroundColour, Source={x:Static properties:Settings.Default}}" />
+                <Rectangle Grid.RowSpan="3"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           VerticalAlignment="Stretch"
+                           Width="1"
+                           Margin="8"
+                           Fill="{ui:ThemeResource ControlElevationBorderBrush}" />
+                <controls:AccentColourPicker Grid.Row="2"
+                                             Grid.Column="0"
+                                             Label="{loc:Localize Settings_LevelCharging}"
+                                             IsAutoTransparent="True"
+                                             IsAutoColour="{Binding IsAutoBatteryChargingBackgroundColour, Source={x:Static properties:Settings.Default}}"
+                                             SelectedColour="{Binding BatteryChargingBackgroundColour, Source={x:Static properties:Settings.Default}}" />
+                <controls:AccentColourPicker Grid.Row="2"
+                                             Grid.Column="2"
+                                             Label="{loc:Localize Settings_LevelNormal}"
+                                             IsAutoTransparent="True"
+                                             SelectedColour="{Binding BatteryNormalBackgroundColour, Source={x:Static properties:Settings.Default}}"
+                                             IsAutoColour="{Binding IsAutoBatteryNormalBackgroundColour, Source={x:Static properties:Settings.Default}}" />
+            </Grid>
+        </ui:CardExpander>
+
         <!-- Battery levels and notifications -->
         <ui:CardExpander
             Icon="{ui:SymbolIcon Battery520}">

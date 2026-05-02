@@ -407,6 +407,14 @@ namespace Percentage.App.Resources {
             get { return ResourceManager.GetString("Settings_TrayIconColourDescription", resourceCulture); }
         }
 
+        public static string Settings_TrayIconBackgroundColour {
+            get { return ResourceManager.GetString("Settings_TrayIconBackgroundColour", resourceCulture); }
+        }
+
+        public static string Settings_TrayIconBackgroundColourDescription {
+            get { return ResourceManager.GetString("Settings_TrayIconBackgroundColourDescription", resourceCulture); }
+        }
+
         public static string Settings_TrayIconFont {
             get { return ResourceManager.GetString("Settings_TrayIconFont", resourceCulture); }
         }

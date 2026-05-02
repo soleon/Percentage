@@ -132,6 +132,14 @@ public partial class SettingsPage
         Default.IsAutoBatteryChargingColour = App.DefaultIsAutoBatteryChargingColour;
         Default.IsAutoBatteryLowColour = App.DefaultIsAutoBatteryLowColour;
         Default.IsAutoBatteryCriticalColour = App.DefaultIsAutoBatteryCriticalColour;
+        Default.BatteryCriticalBackgroundColour = string.Empty;
+        Default.BatteryLowBackgroundColour = string.Empty;
+        Default.BatteryChargingBackgroundColour = string.Empty;
+        Default.BatteryNormalBackgroundColour = string.Empty;
+        Default.IsAutoBatteryCriticalBackgroundColour = App.DefaultIsAutoBatteryCriticalBackgroundColour;
+        Default.IsAutoBatteryLowBackgroundColour = App.DefaultIsAutoBatteryLowBackgroundColour;
+        Default.IsAutoBatteryChargingBackgroundColour = App.DefaultIsAutoBatteryChargingBackgroundColour;
+        Default.IsAutoBatteryNormalBackgroundColour = App.DefaultIsAutoBatteryNormalBackgroundColour;
         Default.DoubleClickActivation = App.DefaultDoubleClickActivation;
         Default.ShutDownWithoutConfirmation = App.DefaultShutDownWithoutConfirmation;
         Default.Language = SupportedLanguages.SystemCultureName;

@@ -203,7 +203,7 @@ public partial class NotifyIconWindow
         _batteryStatusUpdateSubject.OnNext(false);
     }
 
-    private void SetNotifyIconText(string text, Brush foreground)
+    private void SetNotifyIconText(string text, Brush foreground, Brush? background)
     {
         try
         {
@@ -220,7 +220,7 @@ public partial class NotifyIconWindow
 
             if (Default.TrayIconFontUnderline) textBlock.TextDecorations = TextDecorations.Underline;
 
-            NotifyIcon.SetIcon(textBlock);
+            NotifyIcon.SetIcon(textBlock, background);
         }
         catch (Exception e)
         {
@@ -235,6 +235,7 @@ public partial class NotifyIconWindow
         var percent = (int)Math.Round(powerStatus.BatteryLifePercent * 100);
         var notificationType = ToastNotificationExtensions.NotificationType.None;
         Brush brush;
+        Brush? backgroundBrush;
         string trayIconText;
         switch (batteryChargeStatus)
         {
@@ -242,6 +243,7 @@ public partial class NotifyIconWindow
                 // When no battery detected.
                 trayIconText = "❌";
                 brush = BrushExtensions.GetBatteryNormalBrush();
+                backgroundBrush = BrushExtensions.GetBatteryNormalBackgroundBrush();
                 _notificationTitle = null;
                 _notificationText = Strings.Tray_NoBattery;
                 break;
@@ -249,6 +251,7 @@ public partial class NotifyIconWindow
                 // When battery status is unknown.
                 trayIconText = "❓";
                 brush = BrushExtensions.GetBatteryNormalBrush();
+                backgroundBrush = BrushExtensions.GetBatteryNormalBackgroundBrush();
                 break;
             case BatteryChargeStatus.High:
             case BatteryChargeStatus.Low:
@@ -286,6 +289,7 @@ public partial class NotifyIconWindow
                 {
                     // When the battery is charging.
                     brush = BrushExtensions.GetBatteryChargingBrush();
+                    backgroundBrush = BrushExtensions.GetBatteryChargingBackgroundBrush();
                     var report = Battery.AggregateBattery.GetReport();
                     var chargeRateInMilliWatts = report.ChargeRateInMilliwatts;
                     if (chargeRateInMilliWatts > 0)
@@ -319,6 +323,7 @@ public partial class NotifyIconWindow
                     {
                         // When battery capacity is critical.
                         brush = BrushExtensions.GetBatteryCriticalBrush();
+                        backgroundBrush = BrushExtensions.GetBatteryCriticalBackgroundBrush();
                         if (Default.BatteryCriticalNotification)
                             notificationType = ToastNotificationExtensions.NotificationType.Critical;
                     }
@@ -326,6 +331,7 @@ public partial class NotifyIconWindow
                     {
                         // When battery capacity is low.
                         brush = BrushExtensions.GetBatteryLowBrush();
+                        backgroundBrush = BrushExtensions.GetBatteryLowBackgroundBrush();
                         if (Default.BatteryLowNotification)
                             notificationType = ToastNotificationExtensions.NotificationType.Low;
                     }
@@ -333,6 +339,7 @@ public partial class NotifyIconWindow
                     {
                         // When battery capacity is normal.
                         brush = BrushExtensions.GetBatteryNormalBrush();
+                        backgroundBrush = BrushExtensions.GetBatteryNormalBackgroundBrush();
                         SetHighOrFullNotification();
                     }
 
@@ -373,7 +380,7 @@ public partial class NotifyIconWindow
             ? _notificationText ?? string.Empty
             : _notificationTitle + Environment.NewLine + _notificationText;
 
-        SetNotifyIconText(trayIconText, brush);
+        SetNotifyIconText(trayIconText, brush, backgroundBrush);
 
         CheckAndSendNotification();
         return;

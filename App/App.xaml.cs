@@ -34,9 +34,13 @@ public partial class App
     internal const int DefaultBatteryLowNotificationValue = 20;
     internal const bool DefaultDoubleClickActivation = false;
     internal const bool DefaultHideAtStartup = false;
+    internal const bool DefaultIsAutoBatteryChargingBackgroundColour = true;
     internal const bool DefaultIsAutoBatteryChargingColour = false;
+    internal const bool DefaultIsAutoBatteryCriticalBackgroundColour = true;
     internal const bool DefaultIsAutoBatteryCriticalColour = false;
+    internal const bool DefaultIsAutoBatteryLowBackgroundColour = true;
     internal const bool DefaultIsAutoBatteryLowColour = false;
+    internal const bool DefaultIsAutoBatteryNormalBackgroundColour = true;
     internal const bool DefaultIsAutoBatteryNormalColour = true;
     internal const int DefaultRefreshSeconds = 60;
     internal const bool DefaultShutDownWithoutConfirmation = false;
