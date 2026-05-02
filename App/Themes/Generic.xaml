@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:Percentage.App.Controls"
                     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-                    xmlns:data="clr-namespace:Codify.System.Windows.Data;assembly=Codify.System.Windows">
+                    xmlns:data="clr-namespace:Codify.System.Windows.Data;assembly=Codify.System.Windows"
+                    xmlns:loc="clr-namespace:Percentage.App.Localization">
     <Style TargetType="controls:KeyValueItemsControl"
            x:Key="{x:Type controls:KeyValueItemsControl}"
            BasedOn="{StaticResource {x:Type ItemsControl}}">
@@ -323,8 +324,8 @@
                             </ComboBox.Template>
                         </ComboBox>
                         <CheckBox IsChecked="{Binding IsAutoColour, RelativeSource={RelativeSource TemplatedParent}}"
-                                  Content="Auto"
-                                  ToolTip="Use system text colour"
+                                  Content="{loc:Localize Settings_AutoColour}"
+                                  ToolTip="{loc:Localize Settings_AutoColourTooltip}"
                                   Grid.Column="2" />
                     </Grid>
                 </ControlTemplate>

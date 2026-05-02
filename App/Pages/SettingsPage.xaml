@@ -5,6 +5,7 @@
       xmlns:properties="clr-namespace:Percentage.App.Properties"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       xmlns:controls="clr-namespace:Percentage.App.Controls"
+      xmlns:loc="clr-namespace:Percentage.App.Localization"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
@@ -12,8 +13,8 @@
     <StackPanel>
 
         <!-- Auto start disabled warning -->
-        <ui:InfoBar Title="Auto Start Disabled"
-                    Message="Auto start requires this app to run as a Windows Store app."
+        <ui:InfoBar Title="{loc:Localize Settings_AutoStartDisabledTitle}"
+                    Message="{loc:Localize Settings_AutoStartDisabledMessage}"
                     Severity="Warning"
                     IsOpen="True"
                     Visibility="Collapsed"
@@ -21,15 +22,33 @@
                     x:Name="AutoStartDisabledInfoBar"
                     x:FieldModifier="private" />
 
+        <!-- Language -->
+        <ui:CardControl Icon="{ui:SymbolIcon LocalLanguage20}">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <ui:TextBlock
+                        FontTypography="BodyStrong"
+                        Text="{loc:Localize Settings_LanguageHeader}" />
+                    <ui:TextBlock
+                        Text="{loc:Localize Settings_LanguageDescription}" />
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ComboBox x:Name="LanguageComboBox"
+                      x:FieldModifier="private"
+                      DisplayMemberPath="NativeDisplayName"
+                      SelectedValuePath="CultureName"
+                      SelectedValue="{Binding Language, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
+        </ui:CardControl>
+
         <!-- Auto start -->
         <ui:CardControl Icon="{ui:SymbolIcon CalendarPlay20}">
             <ui:CardControl.Header>
                 <StackPanel>
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="Auto start" />
+                        Text="{loc:Localize Settings_AutoStart}" />
                     <ui:TextBlock
-                        Text="Start the application when Windows starts up" />
+                        Text="{loc:Localize Settings_AutoStartDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
             <ui:ToggleSwitch
@@ -46,39 +65,39 @@
                 <StackPanel>
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="Hide at startup" />
+                        Text="{loc:Localize Settings_HideAtStartup}" />
                     <ui:TextBlock
-                        Text="Hide the main window when the application starts up" />
+                        Text="{loc:Localize Settings_HideAtStartupDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
             <ui:ToggleSwitch
                 IsChecked="{Binding HideAtStartup, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
         </ui:CardControl>
-        
+
         <!-- Double click tray icon to activate main UI -->
         <ui:CardControl Icon="{ui:SymbolIcon CursorClick20}">
             <ui:CardControl.Header>
                 <StackPanel>
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="Double click activation" />
+                        Text="{loc:Localize Settings_DoubleClickActivation}" />
                     <ui:TextBlock
-                        Text="Double click the tray icon to show battery details" />
+                        Text="{loc:Localize Settings_DoubleClickActivationDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
             <ui:ToggleSwitch
                 IsChecked="{Binding DoubleClickActivation, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
         </ui:CardControl>
-        
+
         <!-- Shut down without confirmation -->
         <ui:CardControl Icon="{ui:SymbolIcon Power20}">
             <ui:CardControl.Header>
                 <StackPanel>
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="Shut down without confirmation" />
+                        Text="{loc:Localize Settings_ShutDownWithoutConfirmation}" />
                     <ui:TextBlock
-                        Text="Do not show confirmation when shutting down your device" />
+                        Text="{loc:Localize Settings_ShutDownWithoutConfirmationDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
             <ui:ToggleSwitch
@@ -91,13 +110,25 @@
                 <StackPanel>
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="Refresh" />
+                        Text="{loc:Localize Settings_Refresh}" />
                     <ui:TextBlock
-                        Text="How frequent the battery status is refreshed" />
+                        Text="{loc:Localize Settings_RefreshDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
-            <ComboBox ItemStringFormat="{}{0} seconds"
-                      SelectedValue="{Binding RefreshSeconds, Source={x:Static properties:Settings.Default}, Mode=TwoWay}">
+            <ComboBox SelectedValue="{Binding RefreshSeconds, Source={x:Static properties:Settings.Default}, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{x:Static loc:LocalizedFormatConverter.Instance}">
+                                    <Binding Path="[Settings_RefreshSecondsFormat]"
+                                             Source="{x:Static loc:LocalizationManager.Instance}" />
+                                    <Binding />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
                 <system:Int32>5</system:Int32>
                 <system:Int32>10</system:Int32>
                 <system:Int32>30</system:Int32>
@@ -111,9 +142,9 @@
                 <StackPanel>
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="Tray icon font" />
+                        Text="{loc:Localize Settings_TrayIconFont}" />
                     <ui:TextBlock
-                        Text="Change tray icon font, size and style" />
+                        Text="{loc:Localize Settings_TrayIconFontDescription}" />
                 </StackPanel>
             </ui:CardExpander.Header>
             <StackPanel>
@@ -140,7 +171,7 @@
                     </ComboBox>
                 </DockPanel>
                 <DockPanel>
-                    <TextBlock Text="Size" />
+                    <TextBlock Text="{loc:Localize Settings_FontSize}" />
                     <TextBlock DockPanel.Dock="Right"
                                Text="{Binding TrayIconFontSize, Source={x:Static properties:Settings.Default}}" />
                     <Slider Margin="12"
@@ -160,9 +191,9 @@
                 <StackPanel>
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="Tray icon colour" />
+                        Text="{loc:Localize Settings_TrayIconColour}" />
                     <ui:TextBlock
-                        Text="Change tray icon colour for different battery levels" />
+                        Text="{loc:Localize Settings_TrayIconColourDescription}" />
                 </StackPanel>
             </ui:CardExpander.Header>
             <Grid IsSharedSizeScope="True">
@@ -176,12 +207,12 @@
                     <RowDefinition Height="5" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <controls:AccentColourPicker Label="Critical"
+                <controls:AccentColourPicker Label="{loc:Localize Settings_LevelCritical}"
                                              IsAutoColour="{Binding IsAutoBatteryCriticalColour, Source={x:Static properties:Settings.Default}}"
                                              SelectedColour="{Binding BatteryCriticalColour, Source={x:Static properties:Settings.Default}}" />
                 <controls:AccentColourPicker Grid.Row="0"
                                              Grid.Column="2"
-                                             Label="Low"
+                                             Label="{loc:Localize Settings_LevelLow}"
                                              IsAutoColour="{Binding IsAutoBatteryLowColour, Source={x:Static properties:Settings.Default}}"
                                              SelectedColour="{Binding BatteryLowColour, Source={x:Static properties:Settings.Default}}" />
                 <Rectangle Grid.RowSpan="3"
@@ -193,12 +224,12 @@
                            Fill="{ui:ThemeResource ControlElevationBorderBrush}" />
                 <controls:AccentColourPicker Grid.Row="2"
                                              Grid.Column="0"
-                                             Label="Charging"
+                                             Label="{loc:Localize Settings_LevelCharging}"
                                              IsAutoColour="{Binding IsAutoBatteryChargingColour, Source={x:Static properties:Settings.Default}}"
                                              SelectedColour="{Binding BatteryChargingColour, Source={x:Static properties:Settings.Default}}" />
                 <controls:AccentColourPicker Grid.Row="2"
                                              Grid.Column="2"
-                                             Label="Normal"
+                                             Label="{loc:Localize Settings_LevelNormal}"
                                              SelectedColour="{Binding BatteryNormalColour, Source={x:Static properties:Settings.Default}}"
                                              IsAutoColour="{Binding IsAutoBatteryNormalColour, Source={x:Static properties:Settings.Default}}" />
             </Grid>
@@ -211,33 +242,33 @@
                 <StackPanel>
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="Battery levels &amp; notifications" />
+                        Text="{loc:Localize Settings_BatteryLevelsAndNotifications}" />
                     <ui:TextBlock
-                        Text="Change notifications for different battery levels" />
+                        Text="{loc:Localize Settings_BatteryLevelsAndNotificationsDescription}" />
                 </StackPanel>
             </ui:CardExpander.Header>
             <StackPanel Grid.IsSharedSizeScope="True">
                 <controls:BatteryLevelNotificationSetter x:Name="CriticalBatteryLevelNotificationSetter"
                                                          x:FieldModifier="private"
-                                                         StatusName="Critical"
+                                                         StatusName="{loc:Localize Settings_LevelCritical}"
                                                          Value="{Binding BatteryCriticalNotificationValue, Source={x:Static properties:Settings.Default}, Mode=TwoWay}"
                                                          IsChecked="{Binding BatteryCriticalNotification, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
-                <controls:BatteryLevelNotificationSetter StatusName="Low"
+                <controls:BatteryLevelNotificationSetter StatusName="{loc:Localize Settings_LevelLow}"
                                                          Margin="0,12"
                                                          Value="{Binding BatteryLowNotificationValue, Source={x:Static properties:Settings.Default}, Mode=TwoWay}"
                                                          IsChecked="{Binding BatteryLowNotification, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
-                <controls:BatteryLevelNotificationSetter StatusName="High"
+                <controls:BatteryLevelNotificationSetter StatusName="{loc:Localize Settings_LevelHigh}"
                                                          Value="{Binding BatteryHighNotificationValue, Source={x:Static properties:Settings.Default}, Mode=TwoWay}"
                                                          IsChecked="{Binding BatteryHighNotification, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
                 <Grid Height="{Binding ActualHeight, ElementName=CriticalBatteryLevelNotificationSetter}"
                       Margin="0,12,0,0">
-                    <TextBlock Text="Full" />
+                    <TextBlock Text="{loc:Localize Settings_LevelFull}" />
                     <ui:ToggleSwitch HorizontalAlignment="Right"
                                      IsChecked="{Binding BatteryFullNotification, Source={x:Static properties:Settings.Default}}" />
                 </Grid>
             </StackPanel>
         </ui:CardExpander>
-        
+
         <!-- Open system power settings -->
         <ui:CardControl Icon="{ui:SymbolIcon FlashSettings20}"
                         Content="{ui:SymbolIcon Open20}"
@@ -246,9 +277,9 @@
                 <StackPanel>
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="Power &amp; battery" />
+                        Text="{loc:Localize Settings_PowerAndBattery}" />
                     <ui:TextBlock
-                        Text="Open system power and battery settings" />
+                        Text="{loc:Localize Settings_PowerAndBatteryDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
         </ui:CardControl>
@@ -256,7 +287,7 @@
         <!-- Reset all settings button -->
         <ui:Button Appearance="Caution"
                    HorizontalAlignment="Right"
-                   Content="Reset All Settings"
+                   Content="{loc:Localize Settings_ResetAll}"
                    Icon="{ui:SymbolIcon ErrorCircle20}"
                    Click="OnResetButtonClick" />
     </StackPanel>

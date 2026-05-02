@@ -1,8 +1,9 @@
-﻿<Window x:Class="Percentage.App.NotifyIconWindow"
+<Window x:Class="Percentage.App.NotifyIconWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:controls="clr-namespace:Percentage.App.Controls"
+        xmlns:loc="clr-namespace:Percentage.App.Localization"
         Loaded="OnLoaded"
         ShowInTaskbar="False"
         Left="-100"
@@ -16,34 +17,34 @@
                      LeftClick="OnNotifyIconLeftClick">
         <controls:SafeNotifyIcon.Menu>
             <ContextMenu>
-                <ui:MenuItem Header="_Details"
+                <ui:MenuItem Header="{loc:Localize Tray_DetailsHeader}"
                              Click="OnDetailsMenuItemClick"
                              Icon="{ui:SymbolIcon AppsListDetail20}"
-                             ToolTip="Show battery details" />
-                <ui:MenuItem Header="App _settings"
+                             ToolTip="{loc:Localize Tray_DetailsTooltip}" />
+                <ui:MenuItem Header="{loc:Localize Tray_AppSettingsHeader}"
                              Click="OnAppSettingsMenuItemClick"
                              Icon="{ui:SymbolIcon Settings20}"
-                             ToolTip="Open application settings" />
-                <ui:MenuItem Header="_Power &amp; battery settings"
+                             ToolTip="{loc:Localize Tray_AppSettingsTooltip}" />
+                <ui:MenuItem Header="{loc:Localize Tray_PowerSettingsHeader}"
                              Click="OnSystemSettingsMenuItemClick"
                              Icon="{ui:SymbolIcon FlashSettings20}"
-                             ToolTip="Open Windows system power and battery settings" />
-                <ui:MenuItem Header="_Sleep device"
-                             ToolTip="Turn your device to sleep mode"
+                             ToolTip="{loc:Localize Tray_PowerSettingsTooltip}" />
+                <ui:MenuItem Header="{loc:Localize Tray_SleepHeader}"
+                             ToolTip="{loc:Localize Tray_SleepTooltip}"
                              Icon="{ui:SymbolIcon WeatherMoon20}"
                              Click="OnSleepMenuItemClick" />
-                <ui:MenuItem Header="Sh_ut down device"
-                             ToolTip="Shut down your device"
+                <ui:MenuItem Header="{loc:Localize Tray_ShutDownHeader}"
+                             ToolTip="{loc:Localize Tray_ShutDownTooltip}"
                              Icon="{ui:SymbolIcon Power20}"
                              Click="OnShutDownMenuItemClick" />
-                <ui:MenuItem Header="_About"
+                <ui:MenuItem Header="{loc:Localize Tray_AboutHeader}"
                              Click="OnAboutMenuItemClick"
                              Icon="{ui:SymbolIcon Info20}"
-                             ToolTip="Show application information" />
-                <ui:MenuItem Header="E_xit"
+                             ToolTip="{loc:Localize Tray_AboutTooltip}" />
+                <ui:MenuItem Header="{loc:Localize Tray_ExitHeader}"
                              Click="OnExitMenuItemClick"
                              Icon="{ui:SymbolIcon ArrowExit20}"
-                             ToolTip="Exit application" />
+                             ToolTip="{loc:Localize Tray_ExitTooltip}" />
             </ContextMenu>
         </controls:SafeNotifyIcon.Menu>
     </controls:SafeNotifyIcon>

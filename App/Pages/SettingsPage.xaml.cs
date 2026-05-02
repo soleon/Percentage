@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Media;
 using Windows.ApplicationModel;
 using Percentage.App.Extensions;
+using Percentage.App.Localization;
+using Percentage.App.Resources;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Markup;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
@@ -19,6 +21,8 @@ public partial class SettingsPage
     public SettingsPage()
     {
         InitializeComponent();
+
+        LanguageComboBox.ItemsSource = SupportedLanguages.All;
 
         new Func<Task>(async () =>
         {
@@ -51,27 +55,24 @@ public partial class SettingsPage
                 AutoStartToggleSwitch.IsChecked = false;
                 await new MessageBox
                 {
-                    Title = "Auto start disabled",
-                    Content = "Auto start for this app has been disabled.\r\n\r\n" +
-                              "To re-enable it, please go to \"Settings > Apps > Startup\" to enable \"Battery Percentage Icon\"."
+                    Title = Strings.Settings_AutoStartDisabledDialogTitle,
+                    Content = Strings.Settings_AutoStartDisabledDialogContent
                 }.ShowDialogAsync();
                 break;
             case StartupTaskState.DisabledByUser:
                 AutoStartToggleSwitch.IsChecked = false;
                 await new MessageBox
                 {
-                    Title = "Auto start disabled by user",
-                    Content = "Auto start for this app has been disabled manually in system settings.\r\n\r\n" +
-                              "To re-enable it, please go to \"Settings > Apps > Startup\" to enable \"Battery Percentage Icon\"."
+                    Title = Strings.Settings_AutoStartDisabledByUserDialogTitle,
+                    Content = Strings.Settings_AutoStartDisabledByUserDialogContent
                 }.ShowDialogAsync();
                 break;
             case StartupTaskState.DisabledByPolicy:
                 AutoStartToggleSwitch.IsChecked = false;
                 await new MessageBox
                 {
-                    Title = "Auto start disabled by policy",
-                    Content = "Auto start for this app has been disabled manually by system policy.\r\n\r\n" +
-                              "To re-enable it, remove any system policies that restrict auto start, and go to \"Settings > Apps > Startup\" to enable \"Battery Percentage Icon\"."
+                    Title = Strings.Settings_AutoStartDisabledByPolicyDialogTitle,
+                    Content = Strings.Settings_AutoStartDisabledByPolicyDialogContent
                 }.ShowDialogAsync();
                 break;
             case StartupTaskState.Enabled:
@@ -100,12 +101,12 @@ public partial class SettingsPage
     {
         var result = new MessageBox
         {
-            Title = "Reset All Settings",
-            Content = "Are you sure you want to reset all settings to their default values?",
+            Title = Strings.Settings_ResetDialogTitle,
+            Content = Strings.Settings_ResetDialogContent,
             IsPrimaryButtonEnabled = true,
-            PrimaryButtonText = "Reset",
+            PrimaryButtonText = Strings.Settings_ResetDialogReset,
             PrimaryButtonAppearance = ControlAppearance.Caution,
-            CloseButtonText = "Cancel"
+            CloseButtonText = Strings.Settings_ResetDialogCancel
         }.ShowDialogAsync().GetAwaiter().GetResult();
 
         if (result != MessageBoxResult.Primary) return;
@@ -133,6 +134,7 @@ public partial class SettingsPage
         Default.IsAutoBatteryCriticalColour = App.DefaultIsAutoBatteryCriticalColour;
         Default.DoubleClickActivation = App.DefaultDoubleClickActivation;
         Default.ShutDownWithoutConfirmation = App.DefaultShutDownWithoutConfirmation;
+        Default.Language = SupportedLanguages.SystemCultureName;
 
         _ = EnableAutoStart();
     }

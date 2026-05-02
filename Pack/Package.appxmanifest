@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
@@ -15,7 +15,7 @@
     Version="2.1.10.0" />
 
   <Properties>
-    <DisplayName>Battery Percentage Icon</DisplayName>
+    <DisplayName>ms-resource:AppDisplayName</DisplayName>
     <PublisherDisplayName>Soleon Innovation</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -26,7 +26,20 @@
   </Dependencies>
 
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="en-us" />
+    <Resource Language="ar" />
+    <Resource Language="de" />
+    <Resource Language="es" />
+    <Resource Language="fr" />
+    <Resource Language="he" />
+    <Resource Language="it" />
+    <Resource Language="ja" />
+    <Resource Language="ko" />
+    <Resource Language="pl" />
+    <Resource Language="pt-BR" />
+    <Resource Language="ru" />
+    <Resource Language="zh-Hans" />
+    <Resource Language="zh-Hant" />
   </Resources>
 
   <Applications>
@@ -34,8 +47,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Battery Percentage Icon"
-        Description="Display your battery percentage and status in the Windows system tray."
+        DisplayName="ms-resource:AppDisplayName"
+        Description="ms-resource:AppDescription"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
@@ -47,7 +60,7 @@
           <uap5:StartupTask
             TaskId="f05f920a-c997-4817-84bd-c54d87e40625"
             Enabled="true"
-            DisplayName="Battery Percentage Icon" />
+            DisplayName="ms-resource:AppDisplayName" />
         </uap5:Extension>
 
         <!--Specify which CLSID to activate when toast clicked-->

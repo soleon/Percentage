@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Application-level errors and dialogs -->
+  <data name="App_OutOfMemoryTitle" xml:space="preserve">
+    <value>系统内存不足</value>
+    <comment>MessageBox title shown when an OutOfMemoryException reaches the global handler.</comment>
+  </data>
+  <data name="App_OutOfMemoryBody" xml:space="preserve">
+    <value>电池电量图标 {0} 版本因内存不足而无法完成某些操作。
+请考虑关闭一些正在运行的应用程序或后台服务以释放内存。</value>
+    <comment>MessageBox body for OutOfMemoryException. {0} = app version (e.g. 2.1.10).</comment>
+  </data>
+  <data name="App_GeneralErrorTitle" xml:space="preserve">
+    <value>您发现了一个错误</value>
+    <comment>MessageBox title for unhandled exceptions other than OutOfMemoryException.</comment>
+  </data>
+  <data name="App_GeneralErrorBody" xml:space="preserve">
+    <value>电池电量图标 {0} 版本遇到了一个错误。您可以通过以下方式帮助修复此问题：
+1. 在此消息上按 Ctrl+C
+2. 将复制的错误信息提交至 https://github.com/soleon/Percentage/issues
+
+{1}</value>
+    <comment>MessageBox body for general unhandled exceptions. {0} = app version. {1} = exception details. The GitHub issues URL is part of the support workflow and must remain.</comment>
+  </data>
+
+  <!-- Main window and navigation -->
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>电池电量图标</value>
+    <comment>Main application window title.</comment>
+  </data>
+  <data name="Nav_Details" xml:space="preserve">
+    <value>详细信息</value>
+    <comment>Navigation menu entry for the battery details page.</comment>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>设置</value>
+    <comment>Navigation menu entry for the settings page.</comment>
+  </data>
+  <data name="Nav_About" xml:space="preserve">
+    <value>关于</value>
+    <comment>Navigation menu entry for the about page.</comment>
+  </data>
+
+  <!-- Tray context menu -->
+  <data name="Tray_DetailsHeader" xml:space="preserve">
+    <value>详细信息(_D)</value>
+    <comment>Tray context menu item header. The underscore marks the keyboard mnemonic - keep exactly one underscore in the translation.</comment>
+  </data>
+  <data name="Tray_DetailsTooltip" xml:space="preserve">
+    <value>显示电池详细信息</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_AppSettingsHeader" xml:space="preserve">
+    <value>应用设置(_S)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_AppSettingsTooltip" xml:space="preserve">
+    <value>打开应用程序设置</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_PowerSettingsHeader" xml:space="preserve">
+    <value>电源和电池设置(_P)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic. The ampersand is XML-encoded.</comment>
+  </data>
+  <data name="Tray_PowerSettingsTooltip" xml:space="preserve">
+    <value>打开 Windows 系统电源和电池设置</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_SleepHeader" xml:space="preserve">
+    <value>设备睡眠(_S)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_SleepTooltip" xml:space="preserve">
+    <value>将设备转为睡眠模式</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_ShutDownHeader" xml:space="preserve">
+    <value>关闭设备(_U)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_ShutDownTooltip" xml:space="preserve">
+    <value>关闭您的设备</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_AboutHeader" xml:space="preserve">
+    <value>关于(_A)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_AboutTooltip" xml:space="preserve">
+    <value>显示应用程序信息</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_ExitHeader" xml:space="preserve">
+    <value>退出(_X)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_ExitTooltip" xml:space="preserve">
+    <value>退出应用程序</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+
+  <!-- Tray notifications and tooltip text -->
+  <data name="Tray_NoBattery" xml:space="preserve">
+    <value>未检测到电池</value>
+    <comment>Tray tooltip text shown when the system reports no battery.</comment>
+  </data>
+  <data name="Tray_FullyChargedTooltip" xml:space="preserve">
+    <value>电池已充满</value>
+    <comment>Tray tooltip and toast body when battery is at 100% and not connected to power.</comment>
+  </data>
+  <data name="Tray_FullyChargedAndPluggedTooltip" xml:space="preserve">
+    <value>电池已充满并已连接电源</value>
+    <comment>Tray tooltip and toast body when battery is at 100% and connected to power.</comment>
+  </data>
+  <data name="Tray_FullyChargedTitle" xml:space="preserve">
+    <value>已充满</value>
+    <comment>Toast notification title when battery is at 100% and not connected to power.</comment>
+  </data>
+  <data name="Tray_FullyChargedAndPluggedTitle" xml:space="preserve">
+    <value>已充满并已连接电源</value>
+    <comment>Toast notification title when battery is at 100% and connected to power.</comment>
+  </data>
+  <data name="Tray_ChargingTitle" xml:space="preserve">
+    <value>{0}% 充电中</value>
+    <comment>Toast notification title and tooltip line for a charging battery. {0} = integer battery percentage.</comment>
+  </data>
+  <data name="Tray_ChargingBodyEta" xml:space="preserve">
+    <value>距离充满还需 {0}</value>
+    <comment>Toast notification body for a charging battery with an ETA. {0} = readable time span (e.g. "1 hour 5 minutes").</comment>
+  </data>
+  <data name="Tray_DischargingTitlePlugged" xml:space="preserve">
+    <value>{0}% 已连接(未充电)</value>
+    <comment>Toast notification title and tooltip line for a battery that is plugged in but not charging. {0} = integer battery percentage.</comment>
+  </data>
+  <data name="Tray_DischargingTitleOnBattery" xml:space="preserve">
+    <value>{0}% 使用电池</value>
+    <comment>Toast notification title and tooltip line for a battery that is running on battery power. {0} = integer battery percentage.</comment>
+  </data>
+  <data name="Tray_DischargingBodyTimeRemaining" xml:space="preserve">
+    <value>剩余 {0}</value>
+    <comment>Toast notification body for a discharging battery. {0} = readable time span.</comment>
+  </data>
+
+  <!-- Toast notification buttons -->
+  <data name="Toast_ButtonDetails" xml:space="preserve">
+    <value>详细信息</value>
+    <comment>Toast notification action button to open the details page.</comment>
+  </data>
+  <data name="Toast_ButtonDisable" xml:space="preserve">
+    <value>禁用</value>
+    <comment>Toast notification action button to disable the notification type that fired the toast.</comment>
+  </data>
+
+  <!-- Shutdown confirmation dialog -->
+  <data name="Shutdown_DialogTitle" xml:space="preserve">
+    <value>关机</value>
+    <comment>Title of the confirmation dialog shown when the user clicks "Shut down device".</comment>
+  </data>
+  <data name="Shutdown_DialogContent" xml:space="preserve">
+    <value>确定要关闭您的设备吗？</value>
+    <comment>Body of the shutdown confirmation dialog.</comment>
+  </data>
+  <data name="Shutdown_DialogYes" xml:space="preserve">
+    <value>是</value>
+    <comment>Primary button on the shutdown confirmation dialog: shut down once.</comment>
+  </data>
+  <data name="Shutdown_DialogAlwaysYes" xml:space="preserve">
+    <value>始终是</value>
+    <comment>Secondary button on the shutdown confirmation dialog: shut down and never confirm again.</comment>
+  </data>
+  <data name="Shutdown_DialogNo" xml:space="preserve">
+    <value>否</value>
+    <comment>Close button on the shutdown confirmation dialog: do not shut down.</comment>
+  </data>
+
+  <!-- About page -->
+  <data name="About_AppInfo" xml:space="preserve">
+    <value>应用信息</value>
+    <comment>Header of the app information card on the About page.</comment>
+  </data>
+  <data name="About_ErrorTitle" xml:space="preserve">
+    <value>应用程序遇到错误</value>
+    <comment>Header shown on the About page when the app captured an unhandled exception.</comment>
+  </data>
+  <data name="About_ErrorMessageBefore" xml:space="preserve">
+    <value>您可以通过复制错误并将其报告到</value>
+    <comment>About page error explanation, immediately preceding the GitHub issues hyperlink.</comment>
+  </data>
+  <data name="About_ErrorLinkText" xml:space="preserve">
+    <value>GitHub 问题页面</value>
+    <comment>About page hyperlink text that leads to the GitHub issues page.</comment>
+  </data>
+  <data name="About_CopyErrorTooltip" xml:space="preserve">
+    <value>复制完整错误详细信息</value>
+    <comment>Tooltip on the About page button that copies the full error to the clipboard.</comment>
+  </data>
+  <data name="About_ReportIssue" xml:space="preserve">
+    <value>报告问题</value>
+    <comment>Header of the "Report an issue" card on the About page.</comment>
+  </data>
+  <data name="About_LinkGitHub" xml:space="preserve">
+    <value>GitHub</value>
+    <comment>Hyperlink button text - the brand name "GitHub" is normally not localized.</comment>
+  </data>
+  <data name="About_RateApp" xml:space="preserve">
+    <value>为应用评分</value>
+    <comment>Header of the "Rate the app" card on the About page.</comment>
+  </data>
+  <data name="About_SupportMyWork" xml:space="preserve">
+    <value>支持我的工作</value>
+    <comment>Header of the "Support my work" card on the About page.</comment>
+  </data>
+  <data name="About_LinkPayPal" xml:space="preserve">
+    <value>PayPal</value>
+    <comment>Hyperlink button text - the brand name "PayPal" is normally not localized.</comment>
+  </data>
+  <data name="About_SourceCode" xml:space="preserve">
+    <value>源代码</value>
+    <comment>Header of the "Source code" card on the About page.</comment>
+  </data>
+
+  <!-- Details page -->
+  <data name="Details_PageTitle" xml:space="preserve">
+    <value>详细信息</value>
+    <comment>Title of the Details page.</comment>
+  </data>
+  <data name="Details_RefreshButton" xml:space="preserve">
+    <value>刷新</value>
+    <comment>Button on the Details page that triggers an immediate battery status refresh.</comment>
+  </data>
+  <data name="Details_CopyButton" xml:space="preserve">
+    <value>复制</value>
+    <comment>Button on the Details page that copies all battery information to the clipboard.</comment>
+  </data>
+
+  <!-- Battery information labels (Details page) -->
+  <data name="Battery_Health" xml:space="preserve">
+    <value>电池健康度</value>
+    <comment>Label for the battery health row on the Details page.</comment>
+  </data>
+  <data name="Battery_Capacity" xml:space="preserve">
+    <value>电池电量</value>
+    <comment>Label for the current battery percentage row on the Details page.</comment>
+  </data>
+  <data name="Battery_Status" xml:space="preserve">
+    <value>电池状态</value>
+    <comment>Label for the battery status row on the Details page.</comment>
+  </data>
+  <data name="Battery_Time" xml:space="preserve">
+    <value>电池时间</value>
+    <comment>Label for the time remaining / time until full row on the Details page.</comment>
+  </data>
+  <data name="Battery_ChargeRate" xml:space="preserve">
+    <value>充电速率</value>
+    <comment>Label for the charge rate row on the Details page.</comment>
+  </data>
+  <data name="Battery_DesignCapacity" xml:space="preserve">
+    <value>设计容量</value>
+    <comment>Label for the design capacity row on the Details page.</comment>
+  </data>
+  <data name="Battery_FullChargeCapacity" xml:space="preserve">
+    <value>满充容量</value>
+    <comment>Label for the full charge capacity row on the Details page.</comment>
+  </data>
+  <data name="Battery_PowerLineStatus" xml:space="preserve">
+    <value>电源连接状态</value>
+    <comment>Label for the power line status row on the Details page.</comment>
+  </data>
+  <data name="Battery_RemainingChargeCapacity" xml:space="preserve">
+    <value>剩余电量</value>
+    <comment>Label for the remaining charge capacity row on the Details page.</comment>
+  </data>
+
+  <!-- Battery values shown in Details page rows -->
+  <data name="Battery_ValueUnknown" xml:space="preserve">
+    <value>未知</value>
+    <comment>Value placeholder used when a battery information field cannot be determined.</comment>
+  </data>
+  <data name="Battery_ValueNotCharging" xml:space="preserve">
+    <value>未充电</value>
+    <comment>Value shown for the charge rate when the battery is plugged in but not charging.</comment>
+  </data>
+  <data name="Battery_ValueConnected" xml:space="preserve">
+    <value>已连接</value>
+    <comment>Value shown for the power line status when external power is connected.</comment>
+  </data>
+  <data name="Battery_ValueDisconnected" xml:space="preserve">
+    <value>已断开</value>
+    <comment>Value shown for the power line status when running on battery.</comment>
+  </data>
+  <data name="Battery_TimeUntilFull" xml:space="preserve">
+    <value>距离充满还需 {0}</value>
+    <comment>Battery Time row when charging. {0} = readable time span (e.g. "1 hour 5 minutes").</comment>
+  </data>
+  <data name="Battery_TimeRemaining" xml:space="preserve">
+    <value>剩余 {0}</value>
+    <comment>Battery Time row when discharging. {0} = readable time span.</comment>
+  </data>
+
+  <!-- App information labels (About page) -->
+  <data name="AppInfo_Version" xml:space="preserve">
+    <value>应用版本</value>
+    <comment>Label for the application version row in the About page.</comment>
+  </data>
+  <data name="AppInfo_RuntimeVersion" xml:space="preserve">
+    <value>运行时版本</value>
+    <comment>Label for the .NET runtime version row in the About page.</comment>
+  </data>
+  <data name="AppInfo_RuntimeArchitecture" xml:space="preserve">
+    <value>运行时架构</value>
+    <comment>Label for the runtime architecture row in the About page.</comment>
+  </data>
+
+  <!-- Settings page - language picker -->
+  <data name="Settings_LanguageHeader" xml:space="preserve">
+    <value>语言</value>
+    <comment>Header of the language picker card on the Settings page.</comment>
+  </data>
+  <data name="Settings_LanguageDescription" xml:space="preserve">
+    <value>选择此应用使用的语言</value>
+    <comment>Description below the language picker header on the Settings page.</comment>
+  </data>
+  <data name="Settings_LanguageSystem" xml:space="preserve">
+    <value>使用系统语言</value>
+    <comment>Default entry in the language picker that defers to the OS UI language.</comment>
+  </data>
+
+  <!-- Settings page - other settings -->
+  <data name="Settings_AutoStartDisabledTitle" xml:space="preserve">
+    <value>自动启动已禁用</value>
+    <comment>InfoBar title shown on the Settings page when the auto-start feature is unavailable.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledMessage" xml:space="preserve">
+    <value>自动启动要求此应用作为 Windows 应用商店应用运行。</value>
+    <comment>InfoBar message body explaining why auto-start is disabled.</comment>
+  </data>
+  <data name="Settings_AutoStart" xml:space="preserve">
+    <value>自动启动</value>
+    <comment>Header of the auto-start toggle card on the Settings page.</comment>
+  </data>
+  <data name="Settings_AutoStartDescription" xml:space="preserve">
+    <value>Windows 启动时启动此应用</value>
+    <comment>Description below the auto-start toggle.</comment>
+  </data>
+  <data name="Settings_HideAtStartup" xml:space="preserve">
+    <value>启动时隐藏</value>
+    <comment>Header of the "Hide at startup" toggle card on the Settings page.</comment>
+  </data>
+  <data name="Settings_HideAtStartupDescription" xml:space="preserve">
+    <value>应用启动时隐藏主窗口</value>
+    <comment>Description below the "Hide at startup" toggle.</comment>
+  </data>
+  <data name="Settings_DoubleClickActivation" xml:space="preserve">
+    <value>双击激活</value>
+    <comment>Header of the double-click activation toggle card on the Settings page.</comment>
+  </data>
+  <data name="Settings_DoubleClickActivationDescription" xml:space="preserve">
+    <value>双击托盘图标以显示电池详细信息</value>
+    <comment>Description below the double-click activation toggle.</comment>
+  </data>
+  <data name="Settings_ShutDownWithoutConfirmation" xml:space="preserve">
+    <value>关机时不显示确认</value>
+    <comment>Header of the "Shut down without confirmation" toggle card on the Settings page.</comment>
+  </data>
+  <data name="Settings_ShutDownWithoutConfirmationDescription" xml:space="preserve">
+    <value>关闭设备时不显示确认对话框</value>
+    <comment>Description below the "Shut down without confirmation" toggle.</comment>
+  </data>
+  <data name="Settings_Refresh" xml:space="preserve">
+    <value>刷新</value>
+    <comment>Header of the refresh-interval picker card on the Settings page.</comment>
+  </data>
+  <data name="Settings_RefreshDescription" xml:space="preserve">
+    <value>电池状态刷新的频率</value>
+    <comment>Description below the refresh interval picker.</comment>
+  </data>
+  <data name="Settings_RefreshSecondsFormat" xml:space="preserve">
+    <value>{0} 秒</value>
+    <comment>Format used by the refresh-interval picker entries. {0} = integer number of seconds.</comment>
+  </data>
+  <data name="Settings_TrayIconFont" xml:space="preserve">
+    <value>托盘图标字体</value>
+    <comment>Header of the tray icon font expander card on the Settings page.</comment>
+  </data>
+  <data name="Settings_TrayIconFontDescription" xml:space="preserve">
+    <value>更改托盘图标的字体、大小和样式</value>
+    <comment>Description below the tray icon font expander.</comment>
+  </data>
+  <data name="Settings_FontSize" xml:space="preserve">
+    <value>大小</value>
+    <comment>Label next to the tray icon font size slider.</comment>
+  </data>
+  <data name="Settings_TrayIconColour" xml:space="preserve">
+    <value>托盘图标颜色</value>
+    <comment>Header of the tray icon colour expander card on the Settings page.</comment>
+  </data>
+  <data name="Settings_TrayIconColourDescription" xml:space="preserve">
+    <value>为不同电池电量级别更改托盘图标颜色</value>
+    <comment>Description below the tray icon colour expander.</comment>
+  </data>
+  <data name="Settings_LevelCritical" xml:space="preserve">
+    <value>严重</value>
+    <comment>Label for the critical battery level (used in colour and notification settings).</comment>
+  </data>
+  <data name="Settings_LevelLow" xml:space="preserve">
+    <value>低</value>
+    <comment>Label for the low battery level (used in colour and notification settings).</comment>
+  </data>
+  <data name="Settings_LevelHigh" xml:space="preserve">
+    <value>高</value>
+    <comment>Label for the high battery level (used in notification settings).</comment>
+  </data>
+  <data name="Settings_LevelCharging" xml:space="preserve">
+    <value>充电中</value>
+    <comment>Label for the charging battery level (used in colour settings).</comment>
+  </data>
+  <data name="Settings_LevelNormal" xml:space="preserve">
+    <value>正常</value>
+    <comment>Label for the normal battery level (used in colour settings).</comment>
+  </data>
+  <data name="Settings_LevelFull" xml:space="preserve">
+    <value>充满</value>
+    <comment>Label for the full (100%) battery level (used in notification settings).</comment>
+  </data>
+  <data name="Settings_BatteryLevelsAndNotifications" xml:space="preserve">
+    <value>电池电量和通知</value>
+    <comment>Header of the battery-levels-and-notifications expander card on the Settings page.</comment>
+  </data>
+  <data name="Settings_BatteryLevelsAndNotificationsDescription" xml:space="preserve">
+    <value>为不同电池电量级别更改通知</value>
+    <comment>Description below the battery levels and notifications expander.</comment>
+  </data>
+  <data name="Settings_PowerAndBattery" xml:space="preserve">
+    <value>电源和电池</value>
+    <comment>Header of the system power and battery card on the Settings page.</comment>
+  </data>
+  <data name="Settings_PowerAndBatteryDescription" xml:space="preserve">
+    <value>打开系统电源和电池设置</value>
+    <comment>Description below the system power and battery card.</comment>
+  </data>
+  <data name="Settings_ResetAll" xml:space="preserve">
+    <value>重置所有设置</value>
+    <comment>Caption of the reset-all-settings button on the Settings page.</comment>
+  </data>
+  <data name="Settings_AutoColour" xml:space="preserve">
+    <value>自动</value>
+    <comment>Checkbox label next to each colour picker that toggles automatic system colour mode.</comment>
+  </data>
+  <data name="Settings_AutoColourTooltip" xml:space="preserve">
+    <value>使用系统文本颜色</value>
+    <comment>Tooltip on the "Auto" checkbox of each colour picker.</comment>
+  </data>
+
+  <!-- Settings page - dialogs -->
+  <data name="Settings_AutoStartDisabledDialogTitle" xml:space="preserve">
+    <value>自动启动已禁用</value>
+    <comment>Dialog title shown when enabling auto-start results in a Disabled state.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledDialogContent" xml:space="preserve">
+    <value>此应用的自动启动已被禁用。
+
+要重新启用，请前往“设置 &gt; 应用 &gt; 启动”启用“电池电量图标”。</value>
+    <comment>Dialog body for the Disabled state. The path "Settings &gt; Apps &gt; Startup" and the app name in quotes both refer to Windows-rendered UI text and should match what the user sees on their machine.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledByUserDialogTitle" xml:space="preserve">
+    <value>自动启动已被用户禁用</value>
+    <comment>Dialog title shown when enabling auto-start results in a DisabledByUser state.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledByUserDialogContent" xml:space="preserve">
+    <value>此应用的自动启动已在系统设置中手动禁用。
+
+要重新启用，请前往“设置 &gt; 应用 &gt; 启动”启用“电池电量图标”。</value>
+    <comment>Dialog body for the DisabledByUser state.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledByPolicyDialogTitle" xml:space="preserve">
+    <value>自动启动已被策略禁用</value>
+    <comment>Dialog title shown when enabling auto-start results in a DisabledByPolicy state.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledByPolicyDialogContent" xml:space="preserve">
+    <value>此应用的自动启动已被系统策略手动禁用。
+
+要重新启用，请移除限制自动启动的系统策略，然后前往“设置 &gt; 应用 &gt; 启动”启用“电池电量图标”。</value>
+    <comment>Dialog body for the DisabledByPolicy state.</comment>
+  </data>
+  <data name="Settings_ResetDialogTitle" xml:space="preserve">
+    <value>重置所有设置</value>
+    <comment>Title of the reset-all-settings confirmation dialog.</comment>
+  </data>
+  <data name="Settings_ResetDialogContent" xml:space="preserve">
+    <value>确定要将所有设置重置为默认值吗？</value>
+    <comment>Body of the reset-all-settings confirmation dialog.</comment>
+  </data>
+  <data name="Settings_ResetDialogReset" xml:space="preserve">
+    <value>重置</value>
+    <comment>Primary button on the reset-all-settings confirmation dialog.</comment>
+  </data>
+  <data name="Settings_ResetDialogCancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Close button on the reset-all-settings confirmation dialog.</comment>
+  </data>
+
+  <!-- Readable time-span fragments -->
+  <data name="Readable_LessThanOneMinute" xml:space="preserve">
+    <value>少于 1 分钟</value>
+    <comment>Time-span fragment used when the time span is shorter than one minute.</comment>
+  </data>
+  <data name="Readable_HourSingular" xml:space="preserve">
+    <value>1 小时</value>
+    <comment>Time-span fragment used when the hour count is exactly 1.</comment>
+  </data>
+  <data name="Readable_HourPlural" xml:space="preserve">
+    <value>{0} 小时</value>
+    <comment>Time-span fragment used when the hour count is greater than 1. {0} = integer number of hours.</comment>
+  </data>
+  <data name="Readable_MinuteSingular" xml:space="preserve">
+    <value>1 分钟</value>
+    <comment>Time-span fragment used when the minute count is exactly 1.</comment>
+  </data>
+  <data name="Readable_MinutePlural" xml:space="preserve">
+    <value>{0} 分钟</value>
+    <comment>Time-span fragment used when the minute count is greater than 1. {0} = integer number of minutes.</comment>
+  </data>
+</root>

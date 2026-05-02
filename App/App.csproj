@@ -25,6 +25,8 @@
         <Authors>Soleon Innovation</Authors>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>nullable</WarningsAsErrors>
+        <NeutralLanguage>en</NeutralLanguage>
+        <SatelliteResourceLanguages>en;es;fr;de;pt-BR;ja;ru;zh-Hans;zh-Hant;it;ko;pl;he;ar</SatelliteResourceLanguages>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="*"/>
@@ -42,6 +44,22 @@
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
+        <!--
+            Strings.resx is the neutral (English) resource. New translations are added by dropping a
+            sibling Strings.<culture>.resx; MSBuild auto-discovers them and produces a satellite
+            assembly per culture (bin/<culture>/Percentage.App.resources.dll). When that day comes,
+            list shipped cultures in <SatelliteResourceLanguages> above so unwanted ones are pruned
+            from the build output.
+        -->
+        <EmbeddedResource Update="Resources\Strings.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <Compile Update="Resources\Strings.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Strings.resx</DependentUpon>
+        </Compile>
         <Content Include="..\README.md">
             <Link>README.md</Link>
         </Content>

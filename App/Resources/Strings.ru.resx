@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Application-level errors and dialogs -->
+  <data name="App_OutOfMemoryTitle" xml:space="preserve">
+    <value>Системе не хватает памяти</value>
+    <comment>MessageBox title shown when an OutOfMemoryException reaches the global handler.</comment>
+  </data>
+  <data name="App_OutOfMemoryBody" xml:space="preserve">
+    <value>Значку процента заряда батареи версии {0} не хватило памяти для выполнения некоторых операций.
+Попробуйте закрыть запущенные приложения или фоновые службы, чтобы освободить память.</value>
+    <comment>MessageBox body for OutOfMemoryException. {0} = app version (e.g. 2.1.10).</comment>
+  </data>
+  <data name="App_GeneralErrorTitle" xml:space="preserve">
+    <value>Вы нашли ошибку</value>
+    <comment>MessageBox title for unhandled exceptions other than OutOfMemoryException.</comment>
+  </data>
+  <data name="App_GeneralErrorBody" xml:space="preserve">
+    <value>Значок процента заряда батареи версии {0} столкнулся с ошибкой. Помогите её исправить:
+1. Нажмите Ctrl+C на этом сообщении
+2. Сообщите о скопированной ошибке на https://github.com/soleon/Percentage/issues
+
+{1}</value>
+    <comment>MessageBox body for general unhandled exceptions. {0} = app version. {1} = exception details. The GitHub issues URL is part of the support workflow and must remain.</comment>
+  </data>
+
+  <!-- Main window and navigation -->
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>Значок процента заряда батареи</value>
+    <comment>Main application window title.</comment>
+  </data>
+  <data name="Nav_Details" xml:space="preserve">
+    <value>Сведения</value>
+    <comment>Navigation menu entry for the battery details page.</comment>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>Параметры</value>
+    <comment>Navigation menu entry for the settings page.</comment>
+  </data>
+  <data name="Nav_About" xml:space="preserve">
+    <value>О программе</value>
+    <comment>Navigation menu entry for the about page.</comment>
+  </data>
+
+  <!-- Tray context menu -->
+  <data name="Tray_DetailsHeader" xml:space="preserve">
+    <value>Сведения(_D)</value>
+    <comment>Tray context menu item header. The underscore marks the keyboard mnemonic - keep exactly one underscore in the translation.</comment>
+  </data>
+  <data name="Tray_DetailsTooltip" xml:space="preserve">
+    <value>Показать сведения о батарее</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_AppSettingsHeader" xml:space="preserve">
+    <value>Параметры приложения(_S)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_AppSettingsTooltip" xml:space="preserve">
+    <value>Открыть параметры приложения</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_PowerSettingsHeader" xml:space="preserve">
+    <value>Питание и батарея(_P)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic. The ampersand is XML-encoded.</comment>
+  </data>
+  <data name="Tray_PowerSettingsTooltip" xml:space="preserve">
+    <value>Открыть параметры питания и батареи Windows</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_SleepHeader" xml:space="preserve">
+    <value>Спящий режим(_S)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_SleepTooltip" xml:space="preserve">
+    <value>Перевести устройство в спящий режим</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_ShutDownHeader" xml:space="preserve">
+    <value>Завершение работы(_U)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_ShutDownTooltip" xml:space="preserve">
+    <value>Завершить работу устройства</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_AboutHeader" xml:space="preserve">
+    <value>О программе(_A)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_AboutTooltip" xml:space="preserve">
+    <value>Показать сведения о приложении</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+  <data name="Tray_ExitHeader" xml:space="preserve">
+    <value>Выход(_X)</value>
+    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+  </data>
+  <data name="Tray_ExitTooltip" xml:space="preserve">
+    <value>Выйти из приложения</value>
+    <comment>Tray context menu item tooltip.</comment>
+  </data>
+
+  <!-- Tray notifications and tooltip text -->
+  <data name="Tray_NoBattery" xml:space="preserve">
+    <value>Батарея не обнаружена</value>
+    <comment>Tray tooltip text shown when the system reports no battery.</comment>
+  </data>
+  <data name="Tray_FullyChargedTooltip" xml:space="preserve">
+    <value>Батарея полностью заряжена</value>
+    <comment>Tray tooltip and toast body when battery is at 100% and not connected to power.</comment>
+  </data>
+  <data name="Tray_FullyChargedAndPluggedTooltip" xml:space="preserve">
+    <value>Батарея полностью заряжена и подключена к сети</value>
+    <comment>Tray tooltip and toast body when battery is at 100% and connected to power.</comment>
+  </data>
+  <data name="Tray_FullyChargedTitle" xml:space="preserve">
+    <value>Полностью заряжена</value>
+    <comment>Toast notification title when battery is at 100% and not connected to power.</comment>
+  </data>
+  <data name="Tray_FullyChargedAndPluggedTitle" xml:space="preserve">
+    <value>Полностью заряжена и подключена к сети</value>
+    <comment>Toast notification title when battery is at 100% and connected to power.</comment>
+  </data>
+  <data name="Tray_ChargingTitle" xml:space="preserve">
+    <value>{0}% — зарядка</value>
+    <comment>Toast notification title and tooltip line for a charging battery. {0} = integer battery percentage.</comment>
+  </data>
+  <data name="Tray_ChargingBodyEta" xml:space="preserve">
+    <value>{0} до полной зарядки</value>
+    <comment>Toast notification body for a charging battery with an ETA. {0} = readable time span (e.g. "1 hour 5 minutes").</comment>
+  </data>
+  <data name="Tray_DischargingTitlePlugged" xml:space="preserve">
+    <value>{0}% подключена (не заряжается)</value>
+    <comment>Toast notification title and tooltip line for a battery that is plugged in but not charging. {0} = integer battery percentage.</comment>
+  </data>
+  <data name="Tray_DischargingTitleOnBattery" xml:space="preserve">
+    <value>{0}% от батареи</value>
+    <comment>Toast notification title and tooltip line for a battery that is running on battery power. {0} = integer battery percentage.</comment>
+  </data>
+  <data name="Tray_DischargingBodyTimeRemaining" xml:space="preserve">
+    <value>Осталось {0}</value>
+    <comment>Toast notification body for a discharging battery. {0} = readable time span.</comment>
+  </data>
+
+  <!-- Toast notification buttons -->
+  <data name="Toast_ButtonDetails" xml:space="preserve">
+    <value>Сведения</value>
+    <comment>Toast notification action button to open the details page.</comment>
+  </data>
+  <data name="Toast_ButtonDisable" xml:space="preserve">
+    <value>Отключить</value>
+    <comment>Toast notification action button to disable the notification type that fired the toast.</comment>
+  </data>
+
+  <!-- Shutdown confirmation dialog -->
+  <data name="Shutdown_DialogTitle" xml:space="preserve">
+    <value>Завершение работы</value>
+    <comment>Title of the confirmation dialog shown when the user clicks "Shut down device".</comment>
+  </data>
+  <data name="Shutdown_DialogContent" xml:space="preserve">
+    <value>Действительно завершить работу устройства?</value>
+    <comment>Body of the shutdown confirmation dialog.</comment>
+  </data>
+  <data name="Shutdown_DialogYes" xml:space="preserve">
+    <value>Да</value>
+    <comment>Primary button on the shutdown confirmation dialog: shut down once.</comment>
+  </data>
+  <data name="Shutdown_DialogAlwaysYes" xml:space="preserve">
+    <value>Всегда да</value>
+    <comment>Secondary button on the shutdown confirmation dialog: shut down and never confirm again.</comment>
+  </data>
+  <data name="Shutdown_DialogNo" xml:space="preserve">
+    <value>Нет</value>
+    <comment>Close button on the shutdown confirmation dialog: do not shut down.</comment>
+  </data>
+
+  <!-- About page -->
+  <data name="About_AppInfo" xml:space="preserve">
+    <value>Сведения о приложении</value>
+    <comment>Header of the app information card on the About page.</comment>
+  </data>
+  <data name="About_ErrorTitle" xml:space="preserve">
+    <value>В приложении произошла ошибка</value>
+    <comment>Header shown on the About page when the app captured an unhandled exception.</comment>
+  </data>
+  <data name="About_ErrorMessageBefore" xml:space="preserve">
+    <value>Помогите её исправить, скопировав ошибку и сообщив о ней на</value>
+    <comment>About page error explanation, immediately preceding the GitHub issues hyperlink.</comment>
+  </data>
+  <data name="About_ErrorLinkText" xml:space="preserve">
+    <value>странице задач GitHub</value>
+    <comment>About page hyperlink text that leads to the GitHub issues page.</comment>
+  </data>
+  <data name="About_CopyErrorTooltip" xml:space="preserve">
+    <value>Скопировать полные сведения об ошибке</value>
+    <comment>Tooltip on the About page button that copies the full error to the clipboard.</comment>
+  </data>
+  <data name="About_ReportIssue" xml:space="preserve">
+    <value>Сообщить о проблеме</value>
+    <comment>Header of the "Report an issue" card on the About page.</comment>
+  </data>
+  <data name="About_LinkGitHub" xml:space="preserve">
+    <value>GitHub</value>
+    <comment>Hyperlink button text - the brand name "GitHub" is normally not localized.</comment>
+  </data>
+  <data name="About_RateApp" xml:space="preserve">
+    <value>Оценить приложение</value>
+    <comment>Header of the "Rate the app" card on the About page.</comment>
+  </data>
+  <data name="About_SupportMyWork" xml:space="preserve">
+    <value>Поддержать мою работу</value>
+    <comment>Header of the "Support my work" card on the About page.</comment>
+  </data>
+  <data name="About_LinkPayPal" xml:space="preserve">
+    <value>PayPal</value>
+    <comment>Hyperlink button text - the brand name "PayPal" is normally not localized.</comment>
+  </data>
+  <data name="About_SourceCode" xml:space="preserve">
+    <value>Исходный код</value>
+    <comment>Header of the "Source code" card on the About page.</comment>
+  </data>
+
+  <!-- Details page -->
+  <data name="Details_PageTitle" xml:space="preserve">
+    <value>Сведения</value>
+    <comment>Title of the Details page.</comment>
+  </data>
+  <data name="Details_RefreshButton" xml:space="preserve">
+    <value>Обновить</value>
+    <comment>Button on the Details page that triggers an immediate battery status refresh.</comment>
+  </data>
+  <data name="Details_CopyButton" xml:space="preserve">
+    <value>Копировать</value>
+    <comment>Button on the Details page that copies all battery information to the clipboard.</comment>
+  </data>
+
+  <!-- Battery information labels (Details page) -->
+  <data name="Battery_Health" xml:space="preserve">
+    <value>Состояние батареи</value>
+    <comment>Label for the battery health row on the Details page.</comment>
+  </data>
+  <data name="Battery_Capacity" xml:space="preserve">
+    <value>Заряд батареи</value>
+    <comment>Label for the current battery percentage row on the Details page.</comment>
+  </data>
+  <data name="Battery_Status" xml:space="preserve">
+    <value>Статус батареи</value>
+    <comment>Label for the battery status row on the Details page.</comment>
+  </data>
+  <data name="Battery_Time" xml:space="preserve">
+    <value>Время работы батареи</value>
+    <comment>Label for the time remaining / time until full row on the Details page.</comment>
+  </data>
+  <data name="Battery_ChargeRate" xml:space="preserve">
+    <value>Скорость зарядки</value>
+    <comment>Label for the charge rate row on the Details page.</comment>
+  </data>
+  <data name="Battery_DesignCapacity" xml:space="preserve">
+    <value>Проектная ёмкость</value>
+    <comment>Label for the design capacity row on the Details page.</comment>
+  </data>
+  <data name="Battery_FullChargeCapacity" xml:space="preserve">
+    <value>Ёмкость полного заряда</value>
+    <comment>Label for the full charge capacity row on the Details page.</comment>
+  </data>
+  <data name="Battery_PowerLineStatus" xml:space="preserve">
+    <value>Состояние подключения к сети</value>
+    <comment>Label for the power line status row on the Details page.</comment>
+  </data>
+  <data name="Battery_RemainingChargeCapacity" xml:space="preserve">
+    <value>Оставшаяся ёмкость заряда</value>
+    <comment>Label for the remaining charge capacity row on the Details page.</comment>
+  </data>
+
+  <!-- Battery values shown in Details page rows -->
+  <data name="Battery_ValueUnknown" xml:space="preserve">
+    <value>Неизвестно</value>
+    <comment>Value placeholder used when a battery information field cannot be determined.</comment>
+  </data>
+  <data name="Battery_ValueNotCharging" xml:space="preserve">
+    <value>Не заряжается</value>
+    <comment>Value shown for the charge rate when the battery is plugged in but not charging.</comment>
+  </data>
+  <data name="Battery_ValueConnected" xml:space="preserve">
+    <value>Подключено</value>
+    <comment>Value shown for the power line status when external power is connected.</comment>
+  </data>
+  <data name="Battery_ValueDisconnected" xml:space="preserve">
+    <value>Отключено</value>
+    <comment>Value shown for the power line status when running on battery.</comment>
+  </data>
+  <data name="Battery_TimeUntilFull" xml:space="preserve">
+    <value>{0} до полной зарядки</value>
+    <comment>Battery Time row when charging. {0} = readable time span (e.g. "1 hour 5 minutes").</comment>
+  </data>
+  <data name="Battery_TimeRemaining" xml:space="preserve">
+    <value>Осталось {0}</value>
+    <comment>Battery Time row when discharging. {0} = readable time span.</comment>
+  </data>
+
+  <!-- App information labels (About page) -->
+  <data name="AppInfo_Version" xml:space="preserve">
+    <value>Версия приложения</value>
+    <comment>Label for the application version row in the About page.</comment>
+  </data>
+  <data name="AppInfo_RuntimeVersion" xml:space="preserve">
+    <value>Версия среды выполнения</value>
+    <comment>Label for the .NET runtime version row in the About page.</comment>
+  </data>
+  <data name="AppInfo_RuntimeArchitecture" xml:space="preserve">
+    <value>Архитектура среды выполнения</value>
+    <comment>Label for the runtime architecture row in the About page.</comment>
+  </data>
+
+  <!-- Settings page - language picker -->
+  <data name="Settings_LanguageHeader" xml:space="preserve">
+    <value>Язык</value>
+    <comment>Header of the language picker card on the Settings page.</comment>
+  </data>
+  <data name="Settings_LanguageDescription" xml:space="preserve">
+    <value>Выберите язык, используемый этим приложением</value>
+    <comment>Description below the language picker header on the Settings page.</comment>
+  </data>
+  <data name="Settings_LanguageSystem" xml:space="preserve">
+    <value>Использовать язык системы</value>
+    <comment>Default entry in the language picker that defers to the OS UI language.</comment>
+  </data>
+
+  <!-- Settings page - other settings -->
+  <data name="Settings_AutoStartDisabledTitle" xml:space="preserve">
+    <value>Автозапуск отключён</value>
+    <comment>InfoBar title shown on the Settings page when the auto-start feature is unavailable.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledMessage" xml:space="preserve">
+    <value>Для автозапуска это приложение должно работать как приложение Microsoft Store.</value>
+    <comment>InfoBar message body explaining why auto-start is disabled.</comment>
+  </data>
+  <data name="Settings_AutoStart" xml:space="preserve">
+    <value>Автозапуск</value>
+    <comment>Header of the auto-start toggle card on the Settings page.</comment>
+  </data>
+  <data name="Settings_AutoStartDescription" xml:space="preserve">
+    <value>Запускать приложение при старте Windows</value>
+    <comment>Description below the auto-start toggle.</comment>
+  </data>
+  <data name="Settings_HideAtStartup" xml:space="preserve">
+    <value>Скрывать при запуске</value>
+    <comment>Header of the "Hide at startup" toggle card on the Settings page.</comment>
+  </data>
+  <data name="Settings_HideAtStartupDescription" xml:space="preserve">
+    <value>Скрывать главное окно при запуске приложения</value>
+    <comment>Description below the "Hide at startup" toggle.</comment>
+  </data>
+  <data name="Settings_DoubleClickActivation" xml:space="preserve">
+    <value>Активация двойным щелчком</value>
+    <comment>Header of the double-click activation toggle card on the Settings page.</comment>
+  </data>
+  <data name="Settings_DoubleClickActivationDescription" xml:space="preserve">
+    <value>Двойной щелчок по значку показывает сведения о батарее</value>
+    <comment>Description below the double-click activation toggle.</comment>
+  </data>
+  <data name="Settings_ShutDownWithoutConfirmation" xml:space="preserve">
+    <value>Завершение работы без подтверждения</value>
+    <comment>Header of the "Shut down without confirmation" toggle card on the Settings page.</comment>
+  </data>
+  <data name="Settings_ShutDownWithoutConfirmationDescription" xml:space="preserve">
+    <value>Не показывать подтверждение при завершении работы устройства</value>
+    <comment>Description below the "Shut down without confirmation" toggle.</comment>
+  </data>
+  <data name="Settings_Refresh" xml:space="preserve">
+    <value>Обновление</value>
+    <comment>Header of the refresh-interval picker card on the Settings page.</comment>
+  </data>
+  <data name="Settings_RefreshDescription" xml:space="preserve">
+    <value>Частота обновления состояния батареи</value>
+    <comment>Description below the refresh interval picker.</comment>
+  </data>
+  <data name="Settings_RefreshSecondsFormat" xml:space="preserve">
+    <value>{0} с</value>
+    <comment>Format used by the refresh-interval picker entries. {0} = integer number of seconds.</comment>
+  </data>
+  <data name="Settings_TrayIconFont" xml:space="preserve">
+    <value>Шрифт значка</value>
+    <comment>Header of the tray icon font expander card on the Settings page.</comment>
+  </data>
+  <data name="Settings_TrayIconFontDescription" xml:space="preserve">
+    <value>Изменить шрифт, размер и стиль значка</value>
+    <comment>Description below the tray icon font expander.</comment>
+  </data>
+  <data name="Settings_FontSize" xml:space="preserve">
+    <value>Размер</value>
+    <comment>Label next to the tray icon font size slider.</comment>
+  </data>
+  <data name="Settings_TrayIconColour" xml:space="preserve">
+    <value>Цвет значка</value>
+    <comment>Header of the tray icon colour expander card on the Settings page.</comment>
+  </data>
+  <data name="Settings_TrayIconColourDescription" xml:space="preserve">
+    <value>Изменить цвет значка для разных уровней заряда батареи</value>
+    <comment>Description below the tray icon colour expander.</comment>
+  </data>
+  <data name="Settings_LevelCritical" xml:space="preserve">
+    <value>Критический</value>
+    <comment>Label for the critical battery level (used in colour and notification settings).</comment>
+  </data>
+  <data name="Settings_LevelLow" xml:space="preserve">
+    <value>Низкий</value>
+    <comment>Label for the low battery level (used in colour and notification settings).</comment>
+  </data>
+  <data name="Settings_LevelHigh" xml:space="preserve">
+    <value>Высокий</value>
+    <comment>Label for the high battery level (used in notification settings).</comment>
+  </data>
+  <data name="Settings_LevelCharging" xml:space="preserve">
+    <value>Зарядка</value>
+    <comment>Label for the charging battery level (used in colour settings).</comment>
+  </data>
+  <data name="Settings_LevelNormal" xml:space="preserve">
+    <value>Обычный</value>
+    <comment>Label for the normal battery level (used in colour settings).</comment>
+  </data>
+  <data name="Settings_LevelFull" xml:space="preserve">
+    <value>Полный</value>
+    <comment>Label for the full (100%) battery level (used in notification settings).</comment>
+  </data>
+  <data name="Settings_BatteryLevelsAndNotifications" xml:space="preserve">
+    <value>Уровни заряда и уведомления</value>
+    <comment>Header of the battery-levels-and-notifications expander card on the Settings page.</comment>
+  </data>
+  <data name="Settings_BatteryLevelsAndNotificationsDescription" xml:space="preserve">
+    <value>Изменить уведомления для разных уровней заряда</value>
+    <comment>Description below the battery levels and notifications expander.</comment>
+  </data>
+  <data name="Settings_PowerAndBattery" xml:space="preserve">
+    <value>Питание и батарея</value>
+    <comment>Header of the system power and battery card on the Settings page.</comment>
+  </data>
+  <data name="Settings_PowerAndBatteryDescription" xml:space="preserve">
+    <value>Открыть системные параметры питания и батареи</value>
+    <comment>Description below the system power and battery card.</comment>
+  </data>
+  <data name="Settings_ResetAll" xml:space="preserve">
+    <value>Сбросить все параметры</value>
+    <comment>Caption of the reset-all-settings button on the Settings page.</comment>
+  </data>
+  <data name="Settings_AutoColour" xml:space="preserve">
+    <value>Авто</value>
+    <comment>Checkbox label next to each colour picker that toggles automatic system colour mode.</comment>
+  </data>
+  <data name="Settings_AutoColourTooltip" xml:space="preserve">
+    <value>Использовать системный цвет текста</value>
+    <comment>Tooltip on the "Auto" checkbox of each colour picker.</comment>
+  </data>
+
+  <!-- Settings page - dialogs -->
+  <data name="Settings_AutoStartDisabledDialogTitle" xml:space="preserve">
+    <value>Автозапуск отключён</value>
+    <comment>Dialog title shown when enabling auto-start results in a Disabled state.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledDialogContent" xml:space="preserve">
+    <value>Автозапуск этого приложения отключён.
+
+Чтобы снова включить его, перейдите в «Параметры &gt; Приложения &gt; Автозагрузка» и включите «Battery Percentage Icon».</value>
+    <comment>Dialog body for the Disabled state. The path "Settings &gt; Apps &gt; Startup" and the app name in quotes both refer to Windows-rendered UI text and should match what the user sees on their machine.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledByUserDialogTitle" xml:space="preserve">
+    <value>Автозапуск отключён пользователем</value>
+    <comment>Dialog title shown when enabling auto-start results in a DisabledByUser state.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledByUserDialogContent" xml:space="preserve">
+    <value>Автозапуск этого приложения был вручную отключён в системных параметрах.
+
+Чтобы снова включить его, перейдите в «Параметры &gt; Приложения &gt; Автозагрузка» и включите «Battery Percentage Icon».</value>
+    <comment>Dialog body for the DisabledByUser state.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledByPolicyDialogTitle" xml:space="preserve">
+    <value>Автозапуск отключён политикой</value>
+    <comment>Dialog title shown when enabling auto-start results in a DisabledByPolicy state.</comment>
+  </data>
+  <data name="Settings_AutoStartDisabledByPolicyDialogContent" xml:space="preserve">
+    <value>Автозапуск этого приложения был вручную отключён системной политикой.
+
+Чтобы снова включить его, удалите системные политики, ограничивающие автозапуск, затем перейдите в «Параметры &gt; Приложения &gt; Автозагрузка» и включите «Battery Percentage Icon».</value>
+    <comment>Dialog body for the DisabledByPolicy state.</comment>
+  </data>
+  <data name="Settings_ResetDialogTitle" xml:space="preserve">
+    <value>Сбросить все параметры</value>
+    <comment>Title of the reset-all-settings confirmation dialog.</comment>
+  </data>
+  <data name="Settings_ResetDialogContent" xml:space="preserve">
+    <value>Действительно сбросить все параметры к значениям по умолчанию?</value>
+    <comment>Body of the reset-all-settings confirmation dialog.</comment>
+  </data>
+  <data name="Settings_ResetDialogReset" xml:space="preserve">
+    <value>Сбросить</value>
+    <comment>Primary button on the reset-all-settings confirmation dialog.</comment>
+  </data>
+  <data name="Settings_ResetDialogCancel" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>Close button on the reset-all-settings confirmation dialog.</comment>
+  </data>
+
+  <!-- Readable time-span fragments -->
+  <data name="Readable_LessThanOneMinute" xml:space="preserve">
+    <value>менее 1 минуты</value>
+    <comment>Time-span fragment used when the time span is shorter than one minute.</comment>
+  </data>
+  <data name="Readable_HourSingular" xml:space="preserve">
+    <value>1 час</value>
+    <comment>Time-span fragment used when the hour count is exactly 1.</comment>
+  </data>
+  <data name="Readable_HourPlural" xml:space="preserve">
+    <value>{0} ч</value>
+    <comment>Time-span fragment used when the hour count is greater than 1. Russian plurals require 3 forms (one/few/many); abbreviation "ч" sidesteps the 2-form schema. {0} = integer number of hours.</comment>
+  </data>
+  <data name="Readable_MinuteSingular" xml:space="preserve">
+    <value>1 минута</value>
+    <comment>Time-span fragment used when the minute count is exactly 1.</comment>
+  </data>
+  <data name="Readable_MinutePlural" xml:space="preserve">
+    <value>{0} мин</value>
+    <comment>Time-span fragment used when the minute count is greater than 1. Russian plurals require 3 forms (one/few/many); abbreviation "мин" sidesteps the 2-form schema. {0} = integer number of minutes.</comment>
+  </data>
+</root>

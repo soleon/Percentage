@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Microsoft.Toolkit.Uwp.Notifications;
+using Percentage.App.Resources;
 
 namespace Percentage.App.Extensions;
 
@@ -34,9 +35,9 @@ internal static class ToastNotificationExtensions
             new ToastContentBuilder()
                 .AddText(header)
                 .AddText(body)
-                .AddButton(new ToastButton().SetContent("Details")
+                .AddButton(new ToastButton().SetContent(Strings.Toast_ButtonDetails)
                     .AddArgument(ActionArgumentKey, Action.ViewDetails))
-                .AddButton(new ToastButton().SetContent("Disable")
+                .AddButton(new ToastButton().SetContent(Strings.Toast_ButtonDisable)
                     .AddArgument(ActionArgumentKey, Action.DisableBatteryNotification)
                     .AddArgument(NotificationTypeArgumentKey, notificationType))
                 .AddButton(new ToastButtonDismiss())

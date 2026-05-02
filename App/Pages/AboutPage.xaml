@@ -6,6 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:data="clr-namespace:Codify.System.Windows.Data;assembly=Codify.System.Windows"
+      xmlns:loc="clr-namespace:Percentage.App.Localization"
       mc:Ignorable="d"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       d:DesignWidth="400">
@@ -17,7 +18,7 @@
                     <controls:CopyButton TargetObject="{Binding ElementName=ApplicationInformation}"
                                          DockPanel.Dock="Right"
                                          Margin="0,0,12,0" />
-                    <TextBlock Text="App info" />
+                    <TextBlock Text="{loc:Localize About_AppInfo}" />
                 </DockPanel>
             </ui:CardExpander.Header>
             <StackPanel>
@@ -30,40 +31,40 @@
                         <StackPanel>
                             <ui:TextBlock
                                 FontTypography="BodyStrong"
-                                Text="The application has run into an error" />
+                                Text="{loc:Localize About_ErrorTitle}" />
                             <ui:TextBlock TextWrapping="Wrap">
-                                    <Run>You can help to fix this by copying the error and report it at the</Run>
+                                    <Run Text="{loc:Localize About_ErrorMessageBefore}" />
                                     <Hyperlink NavigateUri="https://github.com/soleon/Percentage/issues"
-                                               Click="OnGitHubIssuesLinkClick">GitHub issues page</Hyperlink>.
+                                               Click="OnGitHubIssuesLinkClick"><Run Text="{loc:Localize About_ErrorLinkText}" /></Hyperlink>.
                             </ui:TextBlock>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <controls:CopyButton
                         TargetObject="{Binding AppError}"
-                        ToolTip="Copy full error details" />
+                        ToolTip="{loc:Localize About_CopyErrorTooltip}" />
                 </ui:CardControl>
             </StackPanel>
         </ui:CardExpander>
         <ui:CardControl Icon="{ui:SymbolIcon Mail20}"
-                        Header="Report an issue">
-            <ui:HyperlinkButton Content="GitHub"
+                        Header="{loc:Localize About_ReportIssue}">
+            <ui:HyperlinkButton Content="{loc:Localize About_LinkGitHub}"
                                 Click="OnFeedbackButtonClick" />
         </ui:CardControl>
         <ui:CardControl Icon="{ui:SymbolIcon StarHalf20}"
-                        Header="Rate the app">
+                        Header="{loc:Localize About_RateApp}">
             <ui:HyperlinkButton Click="OnRatingButtonClick">
                 <ui:RatingControl IsHitTestVisible="False" />
             </ui:HyperlinkButton>
         </ui:CardControl>
         <ui:CardControl Icon="{ui:SymbolIcon DrinkCoffee20}"
-                        Header="Support my work">
-            <ui:HyperlinkButton Content="PayPal"
+                        Header="{loc:Localize About_SupportMyWork}">
+            <ui:HyperlinkButton Content="{loc:Localize About_LinkPayPal}"
                                 Click="OnDonationButtonClick" />
         </ui:CardControl>
         <ui:CardControl Icon="{ui:SymbolIcon CodeCs16}"
-                        Header="Source code"
+                        Header="{loc:Localize About_SourceCode}"
                         Margin="0">
-            <ui:HyperlinkButton Content="GitHub"
+            <ui:HyperlinkButton Content="{loc:Localize About_LinkGitHub}"
                                 Click="OnSourceCodeButtonClick" />
         </ui:CardControl>
     </StackPanel>

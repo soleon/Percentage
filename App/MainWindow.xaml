@@ -3,10 +3,11 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  xmlns:pages="clr-namespace:Percentage.App.Pages"
+                 xmlns:loc="clr-namespace:Percentage.App.Localization"
                  DataContext="{Binding RelativeSource={RelativeSource Self}, Mode=OneTime}"
                  ExtendsContentIntoTitleBar="True"
                  WindowBackdropType="Acrylic"
-                 Title="Battery Percentage Icon"
+                 Title="{loc:Localize Main_WindowTitle}"
                  Height="800"
                  Width="600"
                  WindowStartupLocation="CenterScreen">
@@ -24,18 +25,18 @@
                                   Margin="42,32,42,20" />
             </ui:NavigationView.Header>
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Content="Details"
+                <ui:NavigationViewItem Content="{loc:Localize Nav_Details}"
                                        NavigationCacheMode="Enabled"
                                        TargetPageType="pages:DetailsPage"
                                        Icon="{ui:SymbolIcon TextBulletListSquare24}" />
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem
-                    Content="Settings"
+                    Content="{loc:Localize Nav_Settings}"
                     TargetPageType="pages:SettingsPage"
                     Icon="{ui:SymbolIcon Settings20}" />
                 <ui:NavigationViewItem
-                    Content="About"
+                    Content="{loc:Localize Nav_About}"
                     TargetPageType="pages:AboutPage"
                     Icon="{ui:SymbolIcon Info20}" />
             </ui:NavigationView.FooterMenuItems>

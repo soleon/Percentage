@@ -9,7 +9,9 @@ using System.Windows;
 using System.Windows.Media;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Percentage.App.Extensions;
+using Percentage.App.Localization;
 using Percentage.App.Pages;
+using Percentage.App.Resources;
 using Wpf.Ui;
 using Wpf.Ui.Markup;
 using static Percentage.App.Properties.Settings;
@@ -83,6 +85,10 @@ public partial class App
         // User settings migration for backward compatibility.
         MigrateUserSettings();
 
+        // Apply the user's chosen language (or fall back to OS UI culture) before the first
+        // window loads so every binding resolves against the right culture from the start.
+        LocalizationManager.Instance.ApplyFromSettings();
+
         // Subscribe to toast notification activations.
         ToastNotificationManagerCompat.OnActivated += OnToastNotificationActivatedAsync;
     }
@@ -99,23 +105,21 @@ public partial class App
         if (exception is OutOfMemoryException)
         {
             MessageBox.Show(
-                $"Battery Percentage Icon version {version} did not have enough memory to perform some work.\r\n" +
-                "Please consider closing some running applications or background services to free up some memory.",
-                "Your system memory is running low",
+                string.Format(Strings.App_OutOfMemoryBody, version),
+                Strings.App_OutOfMemoryTitle,
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
         }
         else
         {
-            const string title = "You Found An Error";
-            var message =
-                $"Battery Percentage Icon version {version} has run into an error. You can help to fix this by:\r\n" +
-                "1. Press Ctrl+C on this message\r\n" +
-                "2. Report the copied error at https://github.com/soleon/Percentage/issues\r\n\r\n" +
-                (exception is Exception exp
-                    ? exp.ToString()
-                    : $"Error type: {exception.GetType().FullName}\r\n{exception}");
-            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+            var details = exception is Exception exp
+                ? exp.ToString()
+                : $"Error type: {exception.GetType().FullName}\r\n{exception}";
+            MessageBox.Show(
+                string.Format(Strings.App_GeneralErrorBody, version, details),
+                Strings.App_GeneralErrorTitle,
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
         }
     }
 

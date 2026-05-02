@@ -1,23 +1,12 @@
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using Codify.System.ComponentModel;
 
 namespace Percentage.App.Controls;
 
-internal abstract class ObservableValue<T> : INotifyPropertyChanged
+internal abstract class ObservableValue<T> : NotificationObject
 {
     public T? Value
     {
         get;
-        set => SetField(ref field, value);
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    private void SetField<TValue>(ref TValue field, TValue value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<TValue>.Default.Equals(field, value)) return;
-        field = value;
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        set => SetValue(ref field, value);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Windows.Devices.Power;
 using Microsoft.Win32;
 using Percentage.App.Extensions;
 using Percentage.App.Pages;
+using Percentage.App.Resources;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Application = System.Windows.Application;
@@ -52,13 +54,13 @@ public partial class NotifyIconWindow
         {
             var result = await new MessageBox
             {
-                Title = "Shut Down",
-                Content = "Are you sure you want to shut down your device?",
+                Title = Strings.Shutdown_DialogTitle,
+                Content = Strings.Shutdown_DialogContent,
                 PrimaryButtonAppearance = ControlAppearance.Caution,
-                PrimaryButtonText = "Yes",
+                PrimaryButtonText = Strings.Shutdown_DialogYes,
                 SecondaryButtonAppearance = ControlAppearance.Caution,
-                SecondaryButtonText = "Always Yes",
-                CloseButtonText = "No"
+                SecondaryButtonText = Strings.Shutdown_DialogAlwaysYes,
+                CloseButtonText = Strings.Shutdown_DialogNo
             }.ShowDialogAsync().ConfigureAwait(false);
 
             switch (result)
@@ -241,7 +243,7 @@ public partial class NotifyIconWindow
                 trayIconText = "❌";
                 brush = BrushExtensions.GetBatteryNormalBrush();
                 _notificationTitle = null;
-                _notificationText = "No battery detected";
+                _notificationText = Strings.Tray_NoBattery;
                 break;
             case BatteryChargeStatus.Unknown:
                 // When battery status is unknown.
@@ -254,22 +256,24 @@ public partial class NotifyIconWindow
             case BatteryChargeStatus.Charging:
             default:
             {
+                var isPlugged = powerStatus.PowerLineStatus == PowerLineStatus.Online;
+
                 if (percent == 100)
                 {
                     NotifyIcon.SetBatteryFullIcon();
 
-                    var powerLineText = powerStatus.PowerLineStatus == PowerLineStatus.Online
-                        ? " and connected to power"
-                        : null;
-
-                    NotifyIcon.TooltipText = _notificationText = "Your battery is fully charged" + powerLineText;
+                    NotifyIcon.TooltipText = _notificationText = isPlugged
+                        ? Strings.Tray_FullyChargedAndPluggedTooltip
+                        : Strings.Tray_FullyChargedTooltip;
 
                     // If we don't need to show a fully charged notification, we can return straight away.
                     if (!Default.BatteryFullNotification) return;
 
                     // Show fully charged notification.
 
-                    _notificationTitle = "Fully charged" + powerLineText;
+                    _notificationTitle = isPlugged
+                        ? Strings.Tray_FullyChargedAndPluggedTitle
+                        : Strings.Tray_FullyChargedTitle;
                     notificationType = ToastNotificationExtensions.NotificationType.Full;
                     CheckAndSendNotification();
 
@@ -277,7 +281,7 @@ public partial class NotifyIconWindow
                 }
 
                 // When battery status is normal, display percentage in the tray icon.
-                trayIconText = percent.ToString();
+                trayIconText = percent.ToString(CultureInfo.InvariantCulture);
                 if (batteryChargeStatus.HasFlag(BatteryChargeStatus.Charging))
                 {
                     // When the battery is charging.
@@ -286,21 +290,24 @@ public partial class NotifyIconWindow
                     var chargeRateInMilliWatts = report.ChargeRateInMilliwatts;
                     if (chargeRateInMilliWatts > 0)
                     {
-                        _notificationTitle = percent + "% charging";
+                        _notificationTitle = string.Format(CultureInfo.CurrentCulture, Strings.Tray_ChargingTitle, percent);
 
                         var fullChargeCapacityInMilliWattHours = report.FullChargeCapacityInMilliwattHours;
                         var remainingCapacityInMilliWattHours = report.RemainingCapacityInMilliwattHours;
                         if (fullChargeCapacityInMilliWattHours.HasValue &&
                             remainingCapacityInMilliWattHours.HasValue)
-                            _notificationText = ReadableExtensions.GetReadableTimeSpan(TimeSpan.FromHours(
-                                (fullChargeCapacityInMilliWattHours.Value -
-                                 remainingCapacityInMilliWattHours.Value) /
-                                (double)chargeRateInMilliWatts.Value)) + " until fully charged";
+                            _notificationText = string.Format(
+                                CultureInfo.CurrentCulture,
+                                Strings.Tray_ChargingBodyEta,
+                                ReadableExtensions.GetReadableTimeSpan(TimeSpan.FromHours(
+                                    (fullChargeCapacityInMilliWattHours.Value -
+                                     remainingCapacityInMilliWattHours.Value) /
+                                    (double)chargeRateInMilliWatts.Value)));
                     }
                     else
                     {
                         _notificationTitle = null;
-                        _notificationText = percent + "% charging";
+                        _notificationText = string.Format(CultureInfo.CurrentCulture, Strings.Tray_ChargingTitle, percent);
                     }
 
                     SetHighOrFullNotification();
@@ -329,23 +336,23 @@ public partial class NotifyIconWindow
                         SetHighOrFullNotification();
                     }
 
+                    var dischargingTitleFormat = isPlugged
+                        ? Strings.Tray_DischargingTitlePlugged
+                        : Strings.Tray_DischargingTitleOnBattery;
+
                     if (powerStatus.BatteryLifeRemaining > 0)
                     {
-                        _notificationTitle = $"{percent}% {(powerStatus.PowerLineStatus == PowerLineStatus.Online
-                            ? "connected (not charging)"
-                            : "on battery")}";
-                        _notificationText =
+                        _notificationTitle = string.Format(CultureInfo.CurrentCulture, dischargingTitleFormat, percent);
+                        _notificationText = string.Format(
+                            CultureInfo.CurrentCulture,
+                            Strings.Tray_DischargingBodyTimeRemaining,
                             ReadableExtensions.GetReadableTimeSpan(
-                                TimeSpan.FromSeconds(powerStatus.BatteryLifeRemaining)) +
-                            " remaining";
+                                TimeSpan.FromSeconds(powerStatus.BatteryLifeRemaining)));
                     }
                     else
                     {
                         _notificationTitle = null;
-                        _notificationText =
-                            $"{percent}% {(powerStatus.PowerLineStatus == PowerLineStatus.Online
-                                ? "connected (not charging)"
-                                : "on battery")}";
+                        _notificationText = string.Format(CultureInfo.CurrentCulture, dischargingTitleFormat, percent);
                     }
                 }
 

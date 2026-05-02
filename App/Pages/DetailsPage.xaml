@@ -3,17 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="clr-namespace:Percentage.App.Controls"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:loc="clr-namespace:Percentage.App.Localization"
       DataContext="{Binding RelativeSource={RelativeSource Self}, Mode=OneTime}"
-      Title="Details">
+      Title="{loc:Localize Details_PageTitle}">
     <StackPanel>
         <controls:BatteryInformation x:Name="BatteryInformation"
                                      x:FieldModifier="private" />
         <Grid>
             <ui:Button Icon="{ui:SymbolIcon ArrowClockwise20}"
-                       Content="Refresh"
+                       Content="{loc:Localize Details_RefreshButton}"
                        Click="OnRefreshButtonClick" />
             <controls:CopyButton HorizontalAlignment="Right"
-                                 Content="Copy"
+                                 Content="{loc:Localize Details_CopyButton}"
                                  TargetObject="{Binding ElementName=BatteryInformation}" />
         </Grid>
     </StackPanel>
