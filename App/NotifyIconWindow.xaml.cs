@@ -1,23 +1,18 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Threading;
-using Windows.Devices.Power;
 using Microsoft.Win32;
 using Percentage.App.Extensions;
 using Percentage.App.Pages;
 using Percentage.App.Resources;
+using Percentage.App.Services;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Application = System.Windows.Application;
 using Brush = System.Windows.Media.Brush;
-using PowerLineStatus = System.Windows.Forms.PowerLineStatus;
-using TimeSpan = System.TimeSpan;
 using static Percentage.App.Properties.Settings;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
 using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
@@ -26,17 +21,24 @@ using TextBlock = System.Windows.Controls.TextBlock;
 
 namespace Percentage.App;
 
+#pragma warning disable CA1001 // Owns _batteryStatusUpdateSubject; this is the app's tray-icon window with WPF Application lifetime.
 public partial class NotifyIconWindow
+#pragma warning restore CA1001
 {
-    private static readonly TimeSpan DebounceTimeSpan = TimeSpan.FromMilliseconds(500);
+    private static readonly TimeSpan _debounceTimeSpan = TimeSpan.FromMilliseconds(500);
     private readonly Subject<bool> _batteryStatusUpdateSubject = new();
     private readonly DispatcherTimer _refreshTimer;
+    private readonly TextBlock _trayTextBlock = new();
 
     private (ToastNotificationExtensions.NotificationType Type, DateTime DateTime) _lastNotification =
         (default, default);
 
     private string? _notificationText;
     private string? _notificationTitle;
+
+    // Loaded can fire more than once if the window's content is re-rooted; the actual
+    // Rx Subscribe / timer start below must run only once per process.
+    private bool _initialised;
 
     public NotifyIconWindow()
     {
@@ -46,6 +48,14 @@ public partial class NotifyIconWindow
         // Set up the timer to update the tray icon.
         _refreshTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(Default.RefreshSeconds) };
         _refreshTimer.Tick += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
+
+        // SystemEvents are static publishers that root their handler lambdas for the
+        // process lifetime; attach them once in the constructor (not OnLoaded) so a
+        // re-Loaded never stacks duplicate handlers. The actual subscriber (Subject
+        // .Subscribe below) lives in OnLoaded for a different reason — see there.
+        SystemEvents.PowerModeChanged += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
+        SystemEvents.DisplaySettingsChanged += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
+        SystemEvents.UserPreferenceChanged += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
     }
 
     private static async Task ShutDownAsync()
@@ -81,55 +91,82 @@ public partial class NotifyIconWindow
         ExternalProcessExtensions.ShutDownDevice();
     }
 
-    private void OnAboutMenuItemClick(object sender, RoutedEventArgs e)
-    {
+    private void OnAboutMenuItemClick(object sender, RoutedEventArgs e) =>
         Application.Current.ActivateMainWindow().NavigateToPage<AboutPage>();
-    }
 
-    private void OnAppSettingsMenuItemClick(object sender, RoutedEventArgs e)
-    {
+    private void OnAppSettingsMenuItemClick(object sender, RoutedEventArgs e) =>
         Application.Current.ActivateMainWindow().NavigateToPage<SettingsPage>();
-    }
 
-    private void OnDetailsMenuItemClick(object sender, RoutedEventArgs e)
-    {
+    private void OnDetailsMenuItemClick(object sender, RoutedEventArgs e) =>
         Application.Current.ActivateMainWindow().NavigateToPage<DetailsPage>();
-    }
 
-    private void OnExitMenuItemClick(object sender, RoutedEventArgs e)
-    {
-        Application.Current.Shutdown();
-    }
+    private void OnExitMenuItemClick(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
 
     private void OnLoaded(object sender, RoutedEventArgs args)
     {
         Visibility = Visibility.Collapsed;
 
-        if (!Default.HideAtStartup) Application.Current.ActivateMainWindow().NavigateToPage<DetailsPage>();
+        if (_initialised)
+        {
+            // Loaded fires per re-rooting; only do the one-time wiring + initial
+            // tick / timer start the first time.
+            return;
+        }
+        _initialised = true;
 
-        // Debounce all calls to update battery status.
-        // This should be the only place that calls the UpdateBatteryStatus method.
-        _batteryStatusUpdateSubject.Throttle(DebounceTimeSpan).ObserveOn(AsyncOperationManager.SynchronizationContext)
-            .Subscribe(_ => UpdateBatteryStatus());
+        if (!Default.HideAtStartup)
+        {
+            Application.Current.ActivateMainWindow().NavigateToPage<DetailsPage>();
+        }
 
-        // Update battery status when the computer resumes or when the power status changes with debouncing.
-        SystemEvents.PowerModeChanged += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
+        // The Subject.Subscribe calls deliberately live here — not in the constructor —
+        // so that the very first UpdateBatteryStatus, and therefore the first
+        // notifyIcon.Icon = bitmap assignment, runs against an already-Registered
+        // NotifyIcon. WPF-UI's TrayManager.ModifyIcon early-returns when
+        // !IsRegistered (Wpf.Ui.Tray 4.2.1, TrayManager.cs:345-353) and IsRegistered
+        // is only flipped true from inside NotifyIcon.OnRender (NotifyIcon.cs:1713-1721,
+        // which calls Register() the first time it paints). Loaded fires after the
+        // initial render pass, so subscribing here guarantees we never push an icon
+        // before Register() has captured the HICON via Hicon.FromSource. SystemEvents
+        // emissions that arrive earlier are intentionally dropped (Subject<T> doesn't
+        // replay) — the OS rarely fires them before the visual tree is ready, and the
+        // explicit OnNext below covers the cold-start refresh.
+        //
+        // Each subscriber wraps in try/catch routing to SetAppError so a transient OS
+        // failure (e.g. WMI / Battery.AggregateBattery glitch) does not terminate the
+        // Rx chain — an unhandled OnNext exception ends the subscription, which would
+        // silently disable future tray refreshes.
+        _batteryStatusUpdateSubject
+            .Throttle(_debounceTimeSpan)
+            .ObserveOn(AsyncOperationManager.SynchronizationContext)
+            .Subscribe(_ =>
+            {
+                try
+                {
+                    UpdateBatteryStatus();
+                }
+                catch (Exception ex) when (ex is not OutOfMemoryException)
+                {
+                    App.SetAppError(ex);
+                }
+            });
 
-        // Update battery status when the display settings change with debouncing.
-        // This will redraw the tray icon to ensure optimal icon resolution under the current display settings.
-        SystemEvents.DisplaySettingsChanged += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
-
-        // This event can be triggered multiple times when Windows changes between dark and light theme.
-        // Update the tray icon colour when user preference changes settled down.
-        SystemEvents.UserPreferenceChanged += (_, _) => _batteryStatusUpdateSubject.OnNext(false);
-
-        // Handle user settings change with debouncing.
         Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
                 handler => Default.PropertyChanged += handler,
                 handler => Default.PropertyChanged -= handler)
-            .Throttle(DebounceTimeSpan)
+            .Throttle(_debounceTimeSpan)
             .ObserveOn(AsyncOperationManager.SynchronizationContext)
-            .Subscribe(pattern => OnUserSettingsPropertyChanged(pattern.EventArgs.PropertyName));
+            .Subscribe(pattern =>
+            {
+                try
+                {
+                    OnUserSettingsPropertyChanged(pattern.EventArgs.PropertyName);
+                }
+                catch (Exception ex) when (ex is not OutOfMemoryException)
+                {
+                    App.SetAppError(ex);
+                }
+            });
 
         // Initial update.
         _batteryStatusUpdateSubject.OnNext(false);
@@ -138,37 +175,32 @@ public partial class NotifyIconWindow
         _refreshTimer.Start();
     }
 
-    private void OnNotifyIconLeftClick(NotifyIcon sender, RoutedEventArgs e)
-    {
-        if (!Default.DoubleClickActivation)
-            Application.Current.ActivateMainWindow().NavigateToPage<DetailsPage>();
-    }
+    private void OnShutDownMenuItemClick(object sender, RoutedEventArgs e) => _ = ShutDownAsync();
 
-    private void OnNotifyIconLeftDoubleClick(NotifyIcon sender, RoutedEventArgs e)
-    {
-        if (Default.DoubleClickActivation)
-            Application.Current.ActivateMainWindow().NavigateToPage<DetailsPage>();
-    }
+    private void OnSleepMenuItemClick(object sender, RoutedEventArgs e) => ExternalProcessExtensions.SleepDevice();
 
-    private void OnShutDownMenuItemClick(object sender, RoutedEventArgs e)
-    {
-        _ = ShutDownAsync();
-    }
-
-    private void OnSleepMenuItemClick(object sender, RoutedEventArgs e)
-    {
-        ExternalProcessExtensions.SleepDevice();
-    }
-
-    private void OnSystemSettingsMenuItemClick(object sender, RoutedEventArgs e)
-    {
+    private void OnSystemSettingsMenuItemClick(object sender, RoutedEventArgs e) =>
         ExternalProcessExtensions.OpenPowerSettings();
-    }
 
     private void OnUserSettingsPropertyChanged(string? propertyName)
     {
         // Always save settings change immediately in case the app crashes, losing all changes.
-        Default.Save();
+        // ApplicationSettingsBase is wrapped via Synchronized() in the generated Settings class,
+        // so background-thread Save() is safe; offloading keeps user.config disk I/O off the
+        // dispatcher. A failing Save() (disk full, ACL, antivirus quarantine) surfaces through
+        // SetAppError instead of the dispatcher's MessageBox path so a transient I/O hiccup
+        // doesn't interrupt the user with a modal dialog.
+        _ = Task.Run(static () =>
+        {
+            try
+            {
+                Default.Save();
+            }
+            catch (Exception ex) when (ex is not OutOfMemoryException)
+            {
+                App.SetAppError(ex);
+            }
+        });
 
         switch (propertyName)
         {
@@ -177,50 +209,59 @@ public partial class NotifyIconWindow
                 break;
             case nameof(Default.BatteryCriticalNotificationValue):
                 if (Default.BatteryLowNotificationValue < Default.BatteryCriticalNotificationValue)
+                {
                     Default.BatteryLowNotificationValue = Default.BatteryCriticalNotificationValue;
+                }
+
                 if (Default.BatteryHighNotificationValue < Default.BatteryCriticalNotificationValue)
+                {
                     Default.BatteryHighNotificationValue = Default.BatteryCriticalNotificationValue;
+                }
+
                 break;
             case nameof(Default.BatteryLowNotificationValue):
                 if (Default.BatteryCriticalNotificationValue > Default.BatteryLowNotificationValue)
+                {
                     Default.BatteryCriticalNotificationValue = Default.BatteryLowNotificationValue;
+                }
+
                 if (Default.BatteryHighNotificationValue < Default.BatteryLowNotificationValue)
+                {
                     Default.BatteryHighNotificationValue = Default.BatteryLowNotificationValue;
+                }
+
                 break;
             case nameof(Default.BatteryHighNotificationValue):
                 if (Default.BatteryCriticalNotificationValue > Default.BatteryHighNotificationValue)
+                {
                     Default.BatteryCriticalNotificationValue = Default.BatteryHighNotificationValue;
+                }
+
                 if (Default.BatteryLowNotificationValue > Default.BatteryHighNotificationValue)
+                {
                     Default.BatteryLowNotificationValue = Default.BatteryHighNotificationValue;
+                }
+
                 break;
         }
 
         _batteryStatusUpdateSubject.OnNext(false);
     }
 
-    public void RequestBatteryStatusUpdate()
-    {
-        _batteryStatusUpdateSubject.OnNext(false);
-    }
+    public void RequestBatteryStatusUpdate() => _batteryStatusUpdateSubject.OnNext(false);
 
     private void SetNotifyIconText(string text, Brush foreground, Brush? background)
     {
         try
         {
-            var textBlock = new TextBlock
-            {
-                Text = text,
-                Foreground = foreground,
-                FontSize = Default.TrayIconFontSize
-            };
+            _trayTextBlock.Text = text;
+            _trayTextBlock.Foreground = foreground;
+            _trayTextBlock.FontSize = Default.TrayIconFontSize;
+            _trayTextBlock.FontFamily = Default.TrayIconFontFamily ?? App.DefaultTrayIconFontFamily;
+            _trayTextBlock.FontWeight = Default.TrayIconFontBold ? FontWeights.Bold : FontWeights.Normal;
+            _trayTextBlock.TextDecorations = Default.TrayIconFontUnderline ? TextDecorations.Underline : null;
 
-            if (Default.TrayIconFontFamily != null) textBlock.FontFamily = Default.TrayIconFontFamily;
-
-            if (Default.TrayIconFontBold) textBlock.FontWeight = FontWeights.Bold;
-
-            if (Default.TrayIconFontUnderline) textBlock.TextDecorations = TextDecorations.Underline;
-
-            NotifyIcon.SetIcon(textBlock, background);
+            NotifyIcon.SetIcon(_trayTextBlock, background);
         }
         catch (Exception e)
         {
@@ -230,177 +271,109 @@ public partial class NotifyIconWindow
 
     private void UpdateBatteryStatus()
     {
-        var powerStatus = SystemInformation.PowerStatus;
-        var batteryChargeStatus = powerStatus.BatteryChargeStatus;
-        var percent = (int)Math.Round(powerStatus.BatteryLifePercent * 100);
-        var notificationType = ToastNotificationExtensions.NotificationType.None;
-        Brush brush;
-        Brush? backgroundBrush;
-        string trayIconText;
-        switch (batteryChargeStatus)
+        var readings = SystemBatterySource.Instance.Read();
+        BatteryEvaluator.Thresholds thresholds = new(
+            Default.BatteryCriticalNotificationValue,
+            Default.BatteryLowNotificationValue,
+            Default.BatteryHighNotificationValue,
+            Default.BatteryFullNotification,
+            Default.BatteryHighNotification,
+            Default.BatteryLowNotification,
+            Default.BatteryCriticalNotification);
+
+        var decision = BatteryEvaluator.Evaluate(readings, thresholds, CultureInfo.CurrentCulture);
+
+        _notificationTitle = decision.TooltipTitle;
+        _notificationText = decision.TooltipBody;
+
+        // Legacy parity: the Full case never prefixes the tooltip with the title even when the
+        // toast title is set. The toast itself receives the title separately via _notificationTitle.
+        NotifyIcon.TooltipText = decision.TooltipTitle is null || decision.Situation == BatterySituation.Full
+            ? decision.TooltipBody
+            : decision.TooltipTitle + Environment.NewLine + decision.TooltipBody;
+
+        if (decision is { Situation: BatterySituation.Full, TrayIconText: null })
         {
-            case BatteryChargeStatus.NoSystemBattery:
-                // When no battery detected.
-                trayIconText = "❌";
-                brush = BrushExtensions.GetBatteryNormalBrush();
-                backgroundBrush = BrushExtensions.GetBatteryNormalBackgroundBrush();
-                _notificationTitle = null;
-                _notificationText = Strings.Tray_NoBattery;
-                break;
-            case BatteryChargeStatus.Unknown:
-                // When battery status is unknown.
-                trayIconText = "❓";
-                brush = BrushExtensions.GetBatteryNormalBrush();
-                backgroundBrush = BrushExtensions.GetBatteryNormalBackgroundBrush();
-                break;
-            case BatteryChargeStatus.High:
-            case BatteryChargeStatus.Low:
-            case BatteryChargeStatus.Critical:
-            case BatteryChargeStatus.Charging:
-            default:
+            NotifyIcon.SetBatteryFullIcon();
+        }
+        else if (decision.TrayIconText is { } trayText)
+        {
+            var foreground = decision.VisualCategory switch
             {
-                var isPlugged = powerStatus.PowerLineStatus == PowerLineStatus.Online;
+                BatteryVisualCategory.Charging => BrushExtensions.GetBatteryChargingBrush(),
+                BatteryVisualCategory.Low => BrushExtensions.GetBatteryLowBrush(),
+                BatteryVisualCategory.Critical => BrushExtensions.GetBatteryCriticalBrush(),
+                _ => BrushExtensions.GetBatteryNormalBrush()
+            };
+            var background = decision.VisualCategory switch
+            {
+                BatteryVisualCategory.Charging => BrushExtensions.GetBatteryChargingBackgroundBrush(),
+                BatteryVisualCategory.Low => BrushExtensions.GetBatteryLowBackgroundBrush(),
+                BatteryVisualCategory.Critical => BrushExtensions.GetBatteryCriticalBackgroundBrush(),
+                _ => BrushExtensions.GetBatteryNormalBackgroundBrush()
+            };
+            SetNotifyIconText(trayText, foreground, background);
+        }
 
-                if (percent == 100)
-                {
-                    NotifyIcon.SetBatteryFullIcon();
+        if (decision.Notification != BatteryNotificationCategory.None)
+        {
+            CheckAndSendNotification(decision.Notification);
+        }
 
-                    NotifyIcon.TooltipText = _notificationText = isPlugged
-                        ? Strings.Tray_FullyChargedAndPluggedTooltip
-                        : Strings.Tray_FullyChargedTooltip;
+        return;
 
-                    // If we don't need to show a fully charged notification, we can return straight away.
-                    if (!Default.BatteryFullNotification) return;
+        void CheckAndSendNotification(BatteryNotificationCategory category)
+        {
+            var utcNow = DateTime.UtcNow;
+            var type = ToType(category);
 
-                    // Show fully charged notification.
+            // Reminder types (Critical/Low) repeat every 5 minutes while the condition holds, so
+            // the user keeps being prodded to plug in. Milestone types (High/Full) fire once per
+            // type-change and stay quiet until the situation changes again - repeating them on a
+            // timer would just be noise once the user has seen "you can unplug now". The previous
+            // implementation updated the timestamp unconditionally, which reset the 5-minute
+            // window on every tick and silently suppressed all repeat reminders.
+            var typeChanged = _lastNotification.Type != type;
+            var isReminderType = type is ToastNotificationExtensions.NotificationType.Critical
+                or ToastNotificationExtensions.NotificationType.Low;
+            var dueForRepeat = isReminderType
+                               && utcNow - _lastNotification.DateTime > TimeSpan.FromMinutes(5);
 
-                    _notificationTitle = isPlugged
-                        ? Strings.Tray_FullyChargedAndPluggedTitle
-                        : Strings.Tray_FullyChargedTitle;
-                    notificationType = ToastNotificationExtensions.NotificationType.Full;
-                    CheckAndSendNotification();
-
-                    return;
-                }
-
-                // When battery status is normal, display percentage in the tray icon.
-                trayIconText = percent.ToString(CultureInfo.InvariantCulture);
-                if (batteryChargeStatus.HasFlag(BatteryChargeStatus.Charging))
-                {
-                    // When the battery is charging.
-                    brush = BrushExtensions.GetBatteryChargingBrush();
-                    backgroundBrush = BrushExtensions.GetBatteryChargingBackgroundBrush();
-                    var report = Battery.AggregateBattery.GetReport();
-                    var chargeRateInMilliWatts = report.ChargeRateInMilliwatts;
-                    if (chargeRateInMilliWatts > 0)
-                    {
-                        _notificationTitle = string.Format(CultureInfo.CurrentCulture, Strings.Tray_ChargingTitle, percent);
-
-                        var fullChargeCapacityInMilliWattHours = report.FullChargeCapacityInMilliwattHours;
-                        var remainingCapacityInMilliWattHours = report.RemainingCapacityInMilliwattHours;
-                        if (fullChargeCapacityInMilliWattHours.HasValue &&
-                            remainingCapacityInMilliWattHours.HasValue)
-                            _notificationText = string.Format(
-                                CultureInfo.CurrentCulture,
-                                Strings.Tray_ChargingBodyEta,
-                                ReadableExtensions.GetReadableTimeSpan(TimeSpan.FromHours(
-                                    (fullChargeCapacityInMilliWattHours.Value -
-                                     remainingCapacityInMilliWattHours.Value) /
-                                    (double)chargeRateInMilliWatts.Value)));
-                    }
-                    else
-                    {
-                        _notificationTitle = null;
-                        _notificationText = string.Format(CultureInfo.CurrentCulture, Strings.Tray_ChargingTitle, percent);
-                    }
-
-                    SetHighOrFullNotification();
-                }
-                else
-                {
-                    // When the battery is not charging.
-                    if (percent <= Default.BatteryCriticalNotificationValue)
-                    {
-                        // When battery capacity is critical.
-                        brush = BrushExtensions.GetBatteryCriticalBrush();
-                        backgroundBrush = BrushExtensions.GetBatteryCriticalBackgroundBrush();
-                        if (Default.BatteryCriticalNotification)
-                            notificationType = ToastNotificationExtensions.NotificationType.Critical;
-                    }
-                    else if (percent <= Default.BatteryLowNotificationValue)
-                    {
-                        // When battery capacity is low.
-                        brush = BrushExtensions.GetBatteryLowBrush();
-                        backgroundBrush = BrushExtensions.GetBatteryLowBackgroundBrush();
-                        if (Default.BatteryLowNotification)
-                            notificationType = ToastNotificationExtensions.NotificationType.Low;
-                    }
-                    else
-                    {
-                        // When battery capacity is normal.
-                        brush = BrushExtensions.GetBatteryNormalBrush();
-                        backgroundBrush = BrushExtensions.GetBatteryNormalBackgroundBrush();
-                        SetHighOrFullNotification();
-                    }
-
-                    var dischargingTitleFormat = isPlugged
-                        ? Strings.Tray_DischargingTitlePlugged
-                        : Strings.Tray_DischargingTitleOnBattery;
-
-                    if (powerStatus.BatteryLifeRemaining > 0)
-                    {
-                        _notificationTitle = string.Format(CultureInfo.CurrentCulture, dischargingTitleFormat, percent);
-                        _notificationText = string.Format(
-                            CultureInfo.CurrentCulture,
-                            Strings.Tray_DischargingBodyTimeRemaining,
-                            ReadableExtensions.GetReadableTimeSpan(
-                                TimeSpan.FromSeconds(powerStatus.BatteryLifeRemaining)));
-                    }
-                    else
-                    {
-                        _notificationTitle = null;
-                        _notificationText = string.Format(CultureInfo.CurrentCulture, dischargingTitleFormat, percent);
-                    }
-                }
-
-                break;
-
-                void SetHighOrFullNotification()
-                {
-                    if (percent == Default.BatteryHighNotificationValue && Default.BatteryHighNotification)
-                        notificationType = ToastNotificationExtensions.NotificationType.High;
-                    else if (percent == 100 && Default.BatteryFullNotification)
-                        notificationType = ToastNotificationExtensions.NotificationType.Full;
-                }
+            if (typeChanged || dueForRepeat)
+            {
+                ToastNotificationExtensions.ShowToastNotification(_notificationTitle, _notificationText, type);
+                _lastNotification = (type, utcNow);
             }
         }
 
-        // Set the tray icon tool tip based on the balloon notification texts.
-        NotifyIcon.TooltipText = _notificationTitle == null
-            ? _notificationText ?? string.Empty
-            : _notificationTitle + Environment.NewLine + _notificationText;
-
-        SetNotifyIconText(trayIconText, brush, backgroundBrush);
-
-        CheckAndSendNotification();
-        return;
-
-        // Check and send a notification.
-        void CheckAndSendNotification()
+        static ToastNotificationExtensions.NotificationType ToType(BatteryNotificationCategory c)
         {
-            if (notificationType == ToastNotificationExtensions.NotificationType.None)
-                // No notification required.
-                return;
-
-            var utcNow = DateTime.UtcNow;
-            if (_lastNotification.Type != notificationType ||
-                utcNow - _lastNotification.DateTime > TimeSpan.FromMinutes(5))
-                // Notification is required if the existing notification type is different from the previous one or
-                // battery status is the same, but it has been more than 5 minutes since the last notification was shown.
-                ToastNotificationExtensions.ShowToastNotification(_notificationTitle, _notificationText,
-                    notificationType);
-
-            _lastNotification = (notificationType, utcNow);
+            return c switch
+            {
+                BatteryNotificationCategory.Critical => ToastNotificationExtensions.NotificationType.Critical,
+                BatteryNotificationCategory.Low => ToastNotificationExtensions.NotificationType.Low,
+                BatteryNotificationCategory.High => ToastNotificationExtensions.NotificationType.High,
+                BatteryNotificationCategory.Full => ToastNotificationExtensions.NotificationType.Full,
+                _ => ToastNotificationExtensions.NotificationType.None
+            };
         }
     }
+
+#pragma warning disable CA1822 // XAML-wired (LeftClick="...") event handlers must be instance members.
+    private void OnNotifyIconLeftClick(NotifyIcon sender, RoutedEventArgs e)
+    {
+        if (!Default.DoubleClickActivation)
+        {
+            Application.Current.ActivateMainWindow().NavigateToPage<DetailsPage>();
+        }
+    }
+
+    private void OnNotifyIconLeftDoubleClick(NotifyIcon sender, RoutedEventArgs e)
+    {
+        if (Default.DoubleClickActivation)
+        {
+            Application.Current.ActivateMainWindow().NavigateToPage<DetailsPage>();
+        }
+    }
+#pragma warning restore CA1822
 }

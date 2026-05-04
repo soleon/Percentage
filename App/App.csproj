@@ -16,24 +16,51 @@
         <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
         <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
         <Platforms>AnyCPU;x64;ARM64;x86</Platforms>
-        <PackageVersion>2.1.10</PackageVersion>
+        <PackageVersion>2.1.11</PackageVersion>
         <PackageProjectUrl>https://github.com/soleon/Percentage</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/soleon/Percentage?tab=MIT-1-ov-file</PackageLicenseUrl>
         <PackageIcon>Icon.png</PackageIcon>
         <RepositoryUrl>https://github.com/soleon/Percentage</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <Authors>Soleon Innovation</Authors>
-        <Nullable>enable</Nullable>
-        <WarningsAsErrors>nullable</WarningsAsErrors>
         <NeutralLanguage>en</NeutralLanguage>
-        <SatelliteResourceLanguages>en;es;fr;de;pt-BR;ja;ru;zh-Hans;zh-Hant;it;ko;pl;he;ar</SatelliteResourceLanguages>
+        <SatelliteResourceLanguages>es;fr;de;pt-BR;ja;ru;zh-Hans;zh-Hant;it;ko;pl;he;ar</SatelliteResourceLanguages>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="*"/>
-        <PackageReference Include="System.Management" Version="*"/>
+        <!--
+            UseWindowsForms=true makes the SDK auto-import System.Drawing and System.Windows.Forms,
+            which collide with System.Windows.Media.Brush/Color/FontFamily and Wpf.Ui.Tray.Controls.NotifyIcon
+            referenced across this WPF + WinForms hybrid app. Files that genuinely need
+            System.Windows.Forms (the four Battery* services / control) keep their explicit using.
+        -->
+        <Using Remove="System.Drawing"/>
+        <Using Remove="System.Windows.Forms"/>
+    </ItemGroup>
+    <ItemGroup>
+        <!--
+            Version="*" pulls latest stable on every restore (deliberate per AGENTS.md
+            §Dependency and Platform Policy). To pin a specific version for a known-bad upstream,
+            replace "*" with that version and add a comment explaining why.
+        -->
+        <!--
+            Microsoft.Toolkit.Uwp.Notifications is labelled deprecated on NuGet (Microsoft now
+            points new code at Microsoft.Windows.AppNotifications in the Windows App SDK).
+            We deliberately stay on it: it is in maintenance, not removed, still ships, and
+            the WinAppSDK migration cost outweighs the benefit for this small tray app —
+            ~25 MB added to the portable self-contained EXE (per AGENTS.md §Dependency Policy
+            "App download size is user-visible"), an auto-bootstrapper injected into Main(),
+            an on-disk icon extracted to LocalAppData for the COM activator, plus assorted
+            MSBuild workarounds for WinAppSDK's PriGen and content auto-include behaviour.
+            Revisit if Microsoft un-deprecates the toolkit package or removes it from NuGet.
+        -->
         <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="*"/>
         <PackageReference Include="WPF-UI.Tray" Version="*"/>
         <PackageReference Include="System.Reactive" Version="*"/>
+        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="*">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <InternalsVisibleTo Include="Percentage.App.Tests"/>
         <Resource Include="Icon.png"/>
         <Compile Update="Properties\Settings.Designer.cs">
             <DesignTimeSharedInput>True</DesignTimeSharedInput>

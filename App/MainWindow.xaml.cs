@@ -12,8 +12,5 @@ public sealed partial class MainWindow
         App.SnackBarService.SetSnackbarPresenter(SnackbarPresenter);
     }
 
-    internal void NavigateToPage<T>() where T : Page
-    {
-        NavigationView.Navigate(typeof(T));
-    }
+    internal void NavigateToPage<T>() where T : Page => NavigationView.Navigate(typeof(T));
 }

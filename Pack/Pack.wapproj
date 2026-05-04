@@ -156,6 +156,15 @@
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
   <ItemGroup>
+    <!--
+      Pinned to the same Windows SDK build (10.0.26100) as App.csproj's
+      <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework> and this wapproj's
+      <TargetPlatformVersion>10.0.26100.0</TargetPlatformVersion>. NU1605 package-downgrade
+      errors fire when SDK.BuildTools is older than TargetPlatformVersion's SDK build, so
+      whenever those Windows SDK numbers move, bump this Version to a 10.0.<sameSdkBuild>.x
+      release. The .1742 servicing revision is the floor required by app-isolation
+      packaging support per https://learn.microsoft.com/windows/win32/secauthz/app-isolation-packaging-with-vs.
+    -->
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>

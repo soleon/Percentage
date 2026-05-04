@@ -1,86 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Package
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
-  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
-  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap com desktop">
+        xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+        xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+        xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+        xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+        xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+        xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+        IgnorableNamespaces="uap rescap com desktop">
 
-  <Identity
-    Name="61867SoleonInnovation.BatteryPercentageIcon"
-    Publisher="CN=B0B1FE5B-CC73-4F71-BD3F-7B809647826C"
-    Version="2.1.11.0" />
+    <Identity
+            Name="61867SoleonInnovation.BatteryPercentageIcon"
+            Publisher="CN=B0B1FE5B-CC73-4F71-BD3F-7B809647826C"
+            Version="2.1.11.0"/>
 
-  <Properties>
-    <DisplayName>ms-resource:AppDisplayName</DisplayName>
-    <PublisherDisplayName>Soleon Innovation</PublisherDisplayName>
-    <Logo>Images\StoreLogo.png</Logo>
-  </Properties>
+    <Properties>
+        <DisplayName>ms-resource:AppDisplayName</DisplayName>
+        <PublisherDisplayName>Soleon Innovation</PublisherDisplayName>
+        <Logo>Images\StoreLogo.png</Logo>
+    </Properties>
 
-  <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
-  </Dependencies>
+    <Dependencies>
+        <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0"/>
+        <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.0" MaxVersionTested="10.0.22000.0"/>
+    </Dependencies>
 
-  <Resources>
-    <Resource Language="en-us" />
-    <Resource Language="ar" />
-    <Resource Language="de" />
-    <Resource Language="es" />
-    <Resource Language="fr" />
-    <Resource Language="he" />
-    <Resource Language="it" />
-    <Resource Language="ja" />
-    <Resource Language="ko" />
-    <Resource Language="pl" />
-    <Resource Language="pt-BR" />
-    <Resource Language="ru" />
-    <Resource Language="zh-Hans" />
-    <Resource Language="zh-Hant" />
-  </Resources>
+    <Resources>
+        <Resource Language="en-us"/>
+        <Resource Language="ar"/>
+        <Resource Language="de"/>
+        <Resource Language="es"/>
+        <Resource Language="fr"/>
+        <Resource Language="he"/>
+        <Resource Language="it"/>
+        <Resource Language="ja"/>
+        <Resource Language="ko"/>
+        <Resource Language="pl"/>
+        <Resource Language="pt-BR"/>
+        <Resource Language="ru"/>
+        <Resource Language="zh-Hans"/>
+        <Resource Language="zh-Hant"/>
+    </Resources>
 
-  <Applications>
-    <Application Id="App"
-      Executable="$targetnametoken$.exe"
-      EntryPoint="$targetentrypoint$">
-      <uap:VisualElements
-        DisplayName="ms-resource:AppDisplayName"
-        Description="ms-resource:AppDescription"
-        BackgroundColor="transparent"
-        Square150x150Logo="Images\Square150x150Logo.png"
-        Square44x44Logo="Images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png"  Square71x71Logo="Images\SmallTile.png" Square310x310Logo="Images\LargeTile.png"/>
-        <uap:SplashScreen Image="Images\SplashScreen.png" />
-      </uap:VisualElements>
-      <Extensions>
-        <uap5:Extension Category="windows.startupTask" EntryPoint="Windows.FullTrustApplication">
-          <uap5:StartupTask
-            TaskId="f05f920a-c997-4817-84bd-c54d87e40625"
-            Enabled="true"
-            DisplayName="ms-resource:AppDisplayName" />
-        </uap5:Extension>
+    <Applications>
+        <Application Id="App"
+                     Executable="$targetnametoken$.exe"
+                     EntryPoint="$targetentrypoint$">
+            <uap:VisualElements
+                    DisplayName="ms-resource:AppDisplayName"
+                    Description="ms-resource:AppDescription"
+                    BackgroundColor="transparent"
+                    Square150x150Logo="Images\Square150x150Logo.png"
+                    Square44x44Logo="Images\Square44x44Logo.png">
+                <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" Square71x71Logo="Images\SmallTile.png"
+                                 Square310x310Logo="Images\LargeTile.png"/>
+                <uap:SplashScreen Image="Images\SplashScreen.png"/>
+            </uap:VisualElements>
+            <Extensions>
+                <uap5:Extension Category="windows.startupTask" EntryPoint="Windows.FullTrustApplication">
+                    <uap5:StartupTask
+                            TaskId="f05f920a-c997-4817-84bd-c54d87e40625"
+                            Enabled="true"
+                            DisplayName="ms-resource:AppDisplayName"/>
+                </uap5:Extension>
 
-        <!--Specify which CLSID to activate when toast clicked-->
-        <desktop:Extension Category="windows.toastNotificationActivation">
-          <desktop:ToastNotificationActivation ToastActivatorCLSID="549f9494-b2ef-4e7a-89a4-f36ad71025a0" />
-        </desktop:Extension>
+                <!--Specify which CLSID to activate when toast clicked-->
+                <desktop:Extension Category="windows.toastNotificationActivation">
+                    <desktop:ToastNotificationActivation ToastActivatorCLSID="549f9494-b2ef-4e7a-89a4-f36ad71025a0"/>
+                </desktop:Extension>
 
-        <!--Register COM CLSID LocalServer32 registry key-->
-        <com:Extension Category="windows.comServer">
-          <com:ComServer>
-            <com:ExeServer Executable="App\Percentage.App.exe" Arguments="-ToastActivated" DisplayName="Toast activator">
-              <com:Class Id="549f9494-b2ef-4e7a-89a4-f36ad71025a0" DisplayName="Toast activator"/>
-            </com:ExeServer>
-          </com:ComServer>
-        </com:Extension>
-      </Extensions>
-    </Application>
-  </Applications>
+                <!--Register COM CLSID LocalServer32 registry key-->
+                <com:Extension Category="windows.comServer">
+                    <com:ComServer>
+                        <com:ExeServer Executable="App\Percentage.App.exe" Arguments="-ToastActivated"
+                                       DisplayName="Toast activator">
+                            <com:Class Id="549f9494-b2ef-4e7a-89a4-f36ad71025a0" DisplayName="Toast activator"/>
+                        </com:ExeServer>
+                    </com:ComServer>
+                </com:Extension>
+            </Extensions>
+        </Application>
+    </Applications>
 
-  <Capabilities>
-    <rescap:Capability Name="runFullTrust" />
-  </Capabilities>
+    <Capabilities>
+        <rescap:Capability Name="runFullTrust"/>
+    </Capabilities>
 </Package>

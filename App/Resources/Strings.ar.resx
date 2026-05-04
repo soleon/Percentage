@@ -1,590 +1,612 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
 
-  <!-- Application-level errors and dialogs -->
-  <data name="App_OutOfMemoryTitle" xml:space="preserve">
+    <!-- Application-level errors and dialogs -->
+    <data name="App_OutOfMemoryTitle" xml:space="preserve">
     <value>ذاكرة النظام منخفضة</value>
-    <comment>MessageBox title shown when an OutOfMemoryException reaches the global handler.</comment>
+        <comment>MessageBox title shown when an OutOfMemoryException reaches the global handler.</comment>
   </data>
-  <data name="App_OutOfMemoryBody" xml:space="preserve">
+    <data name="App_OutOfMemoryBody" xml:space="preserve">
     <value>لم يكن لدى أيقونة نسبة البطارية الإصدار {0} ذاكرة كافية لأداء بعض المهام.
 يُرجى التفكير في إغلاق بعض التطبيقات أو خدمات الخلفية لتحرير الذاكرة.</value>
-    <comment>MessageBox body for OutOfMemoryException. {0} = app version (e.g. 2.1.10).</comment>
+        <comment>MessageBox body for OutOfMemoryException. {0} = app version (e.g. 2.1.10).</comment>
   </data>
-  <data name="App_GeneralErrorTitle" xml:space="preserve">
+    <data name="App_GeneralErrorTitle" xml:space="preserve">
     <value>وجدت خطأ</value>
-    <comment>MessageBox title for unhandled exceptions other than OutOfMemoryException.</comment>
+        <comment>MessageBox title for unhandled exceptions other than OutOfMemoryException.</comment>
   </data>
-  <data name="App_GeneralErrorBody" xml:space="preserve">
+    <data name="App_GeneralErrorBody" xml:space="preserve">
     <value>واجه أيقونة نسبة البطارية الإصدار {0} خطأً. يمكنك المساعدة في إصلاحه عن طريق:
 1. الضغط على Ctrl+C على هذه الرسالة
 2. الإبلاغ عن الخطأ المنسوخ على https://github.com/soleon/Percentage/issues
 
 {1}</value>
-    <comment>MessageBox body for general unhandled exceptions. {0} = app version. {1} = exception details. The GitHub issues URL is part of the support workflow and must remain.</comment>
+        <comment>MessageBox body for general unhandled exceptions. {0} = app version. {1} = exception details. The GitHub issues URL is part of the support workflow and must remain.</comment>
   </data>
 
-  <!-- Main window and navigation -->
-  <data name="Main_WindowTitle" xml:space="preserve">
+    <!-- Main window and navigation -->
+    <data name="Main_WindowTitle" xml:space="preserve">
     <value>أيقونة نسبة البطارية</value>
-    <comment>Main application window title.</comment>
+        <comment>Main application window title.</comment>
   </data>
-  <data name="Nav_Details" xml:space="preserve">
+    <data name="Nav_Details" xml:space="preserve">
     <value>التفاصيل</value>
-    <comment>Navigation menu entry for the battery details page.</comment>
+        <comment>Navigation menu entry for the battery details page.</comment>
   </data>
-  <data name="Nav_Settings" xml:space="preserve">
+    <data name="Nav_Settings" xml:space="preserve">
     <value>الإعدادات</value>
-    <comment>Navigation menu entry for the settings page.</comment>
+        <comment>Navigation menu entry for the settings page.</comment>
   </data>
-  <data name="Nav_About" xml:space="preserve">
+    <data name="Nav_About" xml:space="preserve">
     <value>حول</value>
-    <comment>Navigation menu entry for the about page.</comment>
+        <comment>Navigation menu entry for the about page.</comment>
   </data>
 
-  <!-- Tray context menu -->
-  <data name="Tray_DetailsHeader" xml:space="preserve">
+    <!-- Tray context menu -->
+    <data name="Tray_DetailsHeader" xml:space="preserve">
     <value>التفاصيل(_D)</value>
-    <comment>Tray context menu item header. The underscore marks the keyboard mnemonic - keep exactly one underscore in the translation.</comment>
+        <comment>Tray context menu item header. The underscore marks the keyboard mnemonic - keep exactly one underscore in the translation.</comment>
   </data>
-  <data name="Tray_DetailsTooltip" xml:space="preserve">
+    <data name="Tray_DetailsTooltip" xml:space="preserve">
     <value>عرض تفاصيل البطارية</value>
-    <comment>Tray context menu item tooltip.</comment>
+        <comment>Tray context menu item tooltip.</comment>
   </data>
-  <data name="Tray_AppSettingsHeader" xml:space="preserve">
+    <data name="Tray_AppSettingsHeader" xml:space="preserve">
     <value>إعدادات التطبيق(_S)</value>
-    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+        <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
   </data>
-  <data name="Tray_AppSettingsTooltip" xml:space="preserve">
+    <data name="Tray_AppSettingsTooltip" xml:space="preserve">
     <value>فتح إعدادات التطبيق</value>
-    <comment>Tray context menu item tooltip.</comment>
+        <comment>Tray context menu item tooltip.</comment>
   </data>
-  <data name="Tray_PowerSettingsHeader" xml:space="preserve">
+    <data name="Tray_PowerSettingsHeader" xml:space="preserve">
     <value>إعدادات الطاقة والبطارية(_P)</value>
-    <comment>Tray context menu item header. Keep exactly one underscore mnemonic. The ampersand is XML-encoded.</comment>
+        <comment>Tray context menu item header. Keep exactly one underscore mnemonic. The ampersand is XML-encoded.</comment>
   </data>
-  <data name="Tray_PowerSettingsTooltip" xml:space="preserve">
+    <data name="Tray_PowerSettingsTooltip" xml:space="preserve">
     <value>فتح إعدادات الطاقة والبطارية لنظام Windows</value>
-    <comment>Tray context menu item tooltip.</comment>
+        <comment>Tray context menu item tooltip.</comment>
   </data>
-  <data name="Tray_SleepHeader" xml:space="preserve">
+    <data name="Tray_SleepHeader" xml:space="preserve">
     <value>وضع السكون(_S)</value>
-    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+        <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
   </data>
-  <data name="Tray_SleepTooltip" xml:space="preserve">
+    <data name="Tray_SleepTooltip" xml:space="preserve">
     <value>تحويل الجهاز إلى وضع السكون</value>
-    <comment>Tray context menu item tooltip.</comment>
+        <comment>Tray context menu item tooltip.</comment>
   </data>
-  <data name="Tray_ShutDownHeader" xml:space="preserve">
+    <data name="Tray_ShutDownHeader" xml:space="preserve">
     <value>إيقاف تشغيل الجهاز(_U)</value>
-    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+        <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
   </data>
-  <data name="Tray_ShutDownTooltip" xml:space="preserve">
+    <data name="Tray_ShutDownTooltip" xml:space="preserve">
     <value>إيقاف تشغيل الجهاز</value>
-    <comment>Tray context menu item tooltip.</comment>
+        <comment>Tray context menu item tooltip.</comment>
   </data>
-  <data name="Tray_AboutHeader" xml:space="preserve">
+    <data name="Tray_AboutHeader" xml:space="preserve">
     <value>حول(_A)</value>
-    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+        <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
   </data>
-  <data name="Tray_AboutTooltip" xml:space="preserve">
+    <data name="Tray_AboutTooltip" xml:space="preserve">
     <value>عرض معلومات التطبيق</value>
-    <comment>Tray context menu item tooltip.</comment>
+        <comment>Tray context menu item tooltip.</comment>
   </data>
-  <data name="Tray_ExitHeader" xml:space="preserve">
+    <data name="Tray_ExitHeader" xml:space="preserve">
     <value>خروج(_X)</value>
-    <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
+        <comment>Tray context menu item header. Keep exactly one underscore mnemonic.</comment>
   </data>
-  <data name="Tray_ExitTooltip" xml:space="preserve">
+    <data name="Tray_ExitTooltip" xml:space="preserve">
     <value>الخروج من التطبيق</value>
-    <comment>Tray context menu item tooltip.</comment>
+        <comment>Tray context menu item tooltip.</comment>
   </data>
 
-  <!-- Tray notifications and tooltip text -->
-  <data name="Tray_NoBattery" xml:space="preserve">
+    <!-- Tray notifications and tooltip text -->
+    <data name="Tray_NoBattery" xml:space="preserve">
     <value>لم يتم اكتشاف بطارية</value>
-    <comment>Tray tooltip text shown when the system reports no battery.</comment>
+        <comment>Tray tooltip text shown when the system reports no battery.</comment>
   </data>
-  <data name="Tray_FullyChargedTooltip" xml:space="preserve">
+    <data name="Tray_FullyChargedTooltip" xml:space="preserve">
     <value>البطارية مشحونة بالكامل</value>
-    <comment>Tray tooltip and toast body when battery is at 100% and not connected to power.</comment>
+        <comment>Tray tooltip and toast body when battery is at 100% and not connected to power.</comment>
   </data>
-  <data name="Tray_FullyChargedAndPluggedTooltip" xml:space="preserve">
+    <data name="Tray_FullyChargedAndPluggedTooltip" xml:space="preserve">
     <value>البطارية مشحونة بالكامل ومتصلة بالكهرباء</value>
-    <comment>Tray tooltip and toast body when battery is at 100% and connected to power.</comment>
+        <comment>Tray tooltip and toast body when battery is at 100% and connected to power.</comment>
   </data>
-  <data name="Tray_FullyChargedTitle" xml:space="preserve">
+    <data name="Tray_FullyChargedTitle" xml:space="preserve">
     <value>مشحونة بالكامل</value>
-    <comment>Toast notification title when battery is at 100% and not connected to power.</comment>
+        <comment>Toast notification title when battery is at 100% and not connected to power.</comment>
   </data>
-  <data name="Tray_FullyChargedAndPluggedTitle" xml:space="preserve">
+    <data name="Tray_FullyChargedAndPluggedTitle" xml:space="preserve">
     <value>مشحونة بالكامل ومتصلة بالكهرباء</value>
-    <comment>Toast notification title when battery is at 100% and connected to power.</comment>
+        <comment>Toast notification title when battery is at 100% and connected to power.</comment>
   </data>
-  <data name="Tray_ChargingTitle" xml:space="preserve">
+    <data name="Tray_ChargingTitle" xml:space="preserve">
     <value>{0}% قيد الشحن</value>
-    <comment>Toast notification title and tooltip line for a charging battery. {0} = integer battery percentage.</comment>
+        <comment>Toast notification title and tooltip line for a charging battery. {0} = integer battery percentage.</comment>
   </data>
-  <data name="Tray_ChargingBodyEta" xml:space="preserve">
+    <data name="Tray_ChargingBodyEta" xml:space="preserve">
     <value>{0} حتى الشحن الكامل</value>
-    <comment>Toast notification body for a charging battery with an ETA. {0} = readable time span (e.g. "1 hour 5 minutes").</comment>
+        <comment>Toast notification body for a charging battery with an ETA. {0} = readable time span (e.g. "1 hour 5 minutes").</comment>
   </data>
-  <data name="Tray_DischargingTitlePlugged" xml:space="preserve">
+    <data name="Tray_DischargingTitlePlugged" xml:space="preserve">
     <value>{0}% متصلة (لا تشحن)</value>
-    <comment>Toast notification title and tooltip line for a battery that is plugged in but not charging. {0} = integer battery percentage.</comment>
+        <comment>Toast notification title and tooltip line for a battery that is plugged in but not charging. {0} = integer battery percentage.</comment>
   </data>
-  <data name="Tray_DischargingTitleOnBattery" xml:space="preserve">
+    <data name="Tray_DischargingTitleOnBattery" xml:space="preserve">
     <value>{0}% على البطارية</value>
-    <comment>Toast notification title and tooltip line for a battery that is running on battery power. {0} = integer battery percentage.</comment>
+        <comment>Toast notification title and tooltip line for a battery that is running on battery power. {0} = integer battery percentage.</comment>
   </data>
-  <data name="Tray_DischargingBodyTimeRemaining" xml:space="preserve">
+    <data name="Tray_DischargingBodyTimeRemaining" xml:space="preserve">
     <value>متبقي {0}</value>
-    <comment>Toast notification body for a discharging battery. {0} = readable time span.</comment>
+        <comment>Toast notification body for a discharging battery. {0} = readable time span.</comment>
   </data>
 
-  <!-- Toast notification buttons -->
-  <data name="Toast_ButtonDetails" xml:space="preserve">
+    <!-- Toast notification buttons -->
+    <data name="Toast_ButtonDetails" xml:space="preserve">
     <value>التفاصيل</value>
-    <comment>Toast notification action button to open the details page.</comment>
+        <comment>Toast notification action button to open the details page.</comment>
   </data>
-  <data name="Toast_ButtonDisable" xml:space="preserve">
+    <data name="Toast_ButtonDisable" xml:space="preserve">
     <value>تعطيل</value>
-    <comment>Toast notification action button to disable the notification type that fired the toast.</comment>
+        <comment>Toast notification action button to disable the notification type that fired the toast.</comment>
   </data>
 
-  <!-- Shutdown confirmation dialog -->
-  <data name="Shutdown_DialogTitle" xml:space="preserve">
+    <!-- Shutdown confirmation dialog -->
+    <data name="Shutdown_DialogTitle" xml:space="preserve">
     <value>إيقاف التشغيل</value>
-    <comment>Title of the confirmation dialog shown when the user clicks "Shut down device".</comment>
+        <comment>Title of the confirmation dialog shown when the user clicks "Shut down device".</comment>
   </data>
-  <data name="Shutdown_DialogContent" xml:space="preserve">
+    <data name="Shutdown_DialogContent" xml:space="preserve">
     <value>هل أنت متأكد من رغبتك في إيقاف تشغيل الجهاز؟</value>
-    <comment>Body of the shutdown confirmation dialog.</comment>
+        <comment>Body of the shutdown confirmation dialog.</comment>
   </data>
-  <data name="Shutdown_DialogYes" xml:space="preserve">
+    <data name="Shutdown_DialogYes" xml:space="preserve">
     <value>نعم</value>
-    <comment>Primary button on the shutdown confirmation dialog: shut down once.</comment>
+        <comment>Primary button on the shutdown confirmation dialog: shut down once.</comment>
   </data>
-  <data name="Shutdown_DialogAlwaysYes" xml:space="preserve">
+    <data name="Shutdown_DialogAlwaysYes" xml:space="preserve">
     <value>نعم دائمًا</value>
-    <comment>Secondary button on the shutdown confirmation dialog: shut down and never confirm again.</comment>
+        <comment>Secondary button on the shutdown confirmation dialog: shut down and never confirm again.</comment>
   </data>
-  <data name="Shutdown_DialogNo" xml:space="preserve">
+    <data name="Shutdown_DialogNo" xml:space="preserve">
     <value>لا</value>
-    <comment>Close button on the shutdown confirmation dialog: do not shut down.</comment>
+        <comment>Close button on the shutdown confirmation dialog: do not shut down.</comment>
   </data>
 
-  <!-- About page -->
-  <data name="About_AppInfo" xml:space="preserve">
+    <!-- About page -->
+    <data name="About_AppInfo" xml:space="preserve">
     <value>معلومات التطبيق</value>
-    <comment>Header of the app information card on the About page.</comment>
+        <comment>Header of the app information card on the About page.</comment>
   </data>
-  <data name="About_ErrorTitle" xml:space="preserve">
+    <data name="About_ErrorTitle" xml:space="preserve">
     <value>واجه التطبيق خطأً</value>
-    <comment>Header shown on the About page when the app captured an unhandled exception.</comment>
+        <comment>Header shown on the About page when the app captured an unhandled exception.</comment>
   </data>
-  <data name="About_ErrorMessageBefore" xml:space="preserve">
+    <data name="About_ErrorMessageBefore" xml:space="preserve">
     <value>يمكنك المساعدة في إصلاحه بنسخ الخطأ والإبلاغ عنه في</value>
-    <comment>About page error explanation, immediately preceding the GitHub issues hyperlink.</comment>
+        <comment>About page error explanation, immediately preceding the GitHub issues hyperlink.</comment>
   </data>
-  <data name="About_ErrorLinkText" xml:space="preserve">
+    <data name="About_ErrorLinkText" xml:space="preserve">
     <value>صفحة مشكلات GitHub</value>
-    <comment>About page hyperlink text that leads to the GitHub issues page.</comment>
+        <comment>About page hyperlink text that leads to the GitHub issues page.</comment>
   </data>
-  <data name="About_CopyErrorTooltip" xml:space="preserve">
+    <data name="About_CopyErrorTooltip" xml:space="preserve">
     <value>نسخ تفاصيل الخطأ كاملةً</value>
-    <comment>Tooltip on the About page button that copies the full error to the clipboard.</comment>
+        <comment>Tooltip on the About page button that copies the full error to the clipboard.</comment>
   </data>
-  <data name="About_ReportIssue" xml:space="preserve">
+    <data name="Copy_Tooltip" xml:space="preserve">
+    <value>نسخ إلى الحافظة</value>
+        <comment>Default tooltip on the small copy-to-clipboard button next to a battery readout row.</comment>
+  </data>
+    <data name="Copy_NothingToCopyTitle" xml:space="preserve">
+    <value>لا يوجد شيء للنسخ</value>
+        <comment>Snackbar title shown when the user clicks Copy on a row that has no value yet.</comment>
+  </data>
+    <data name="Copy_NothingToCopyBody" xml:space="preserve">
+    <value>لا يوجد شيء لنسخه إلى الحافظة.</value>
+        <comment>Snackbar body shown when the user clicks Copy on a row that has no value yet.</comment>
+  </data>
+    <data name="Copy_CopiedTitle" xml:space="preserve">
+    <value>تم النسخ إلى الحافظة</value>
+        <comment>Snackbar title shown when copy-to-clipboard succeeds.</comment>
+  </data>
+    <data name="About_ReportIssue" xml:space="preserve">
     <value>الإبلاغ عن مشكلة</value>
-    <comment>Header of the "Report an issue" card on the About page.</comment>
+        <comment>Header of the "Report an issue" card on the About page.</comment>
   </data>
-  <data name="About_LinkGitHub" xml:space="preserve">
+    <data name="About_LinkGitHub" xml:space="preserve">
     <value>GitHub</value>
-    <comment>Hyperlink button text - the brand name "GitHub" is normally not localized.</comment>
+        <comment>Hyperlink button text - the brand name "GitHub" is normally not localized.</comment>
   </data>
-  <data name="About_RateApp" xml:space="preserve">
+    <data name="About_RateApp" xml:space="preserve">
     <value>تقييم التطبيق</value>
-    <comment>Header of the "Rate the app" card on the About page.</comment>
+        <comment>Header of the "Rate the app" card on the About page.</comment>
   </data>
-  <data name="About_SupportMyWork" xml:space="preserve">
+    <data name="About_SupportMyWork" xml:space="preserve">
     <value>ادعم عملي</value>
-    <comment>Header of the "Support my work" card on the About page.</comment>
+        <comment>Header of the "Support my work" card on the About page.</comment>
   </data>
-  <data name="About_LinkPayPal" xml:space="preserve">
+    <data name="About_LinkPayPal" xml:space="preserve">
     <value>PayPal</value>
-    <comment>Hyperlink button text - the brand name "PayPal" is normally not localized.</comment>
+        <comment>Hyperlink button text - the brand name "PayPal" is normally not localized.</comment>
   </data>
-  <data name="About_SourceCode" xml:space="preserve">
+    <data name="About_SourceCode" xml:space="preserve">
     <value>الكود المصدري</value>
-    <comment>Header of the "Source code" card on the About page.</comment>
+        <comment>Header of the "Source code" card on the About page.</comment>
   </data>
 
-  <!-- Details page -->
-  <data name="Details_PageTitle" xml:space="preserve">
+    <!-- Details page -->
+    <data name="Details_PageTitle" xml:space="preserve">
     <value>التفاصيل</value>
-    <comment>Title of the Details page.</comment>
+        <comment>Title of the Details page.</comment>
   </data>
-  <data name="Details_RefreshButton" xml:space="preserve">
+    <data name="Details_RefreshButton" xml:space="preserve">
     <value>تحديث</value>
-    <comment>Button on the Details page that triggers an immediate battery status refresh.</comment>
+        <comment>Button on the Details page that triggers an immediate battery status refresh.</comment>
   </data>
-  <data name="Details_CopyButton" xml:space="preserve">
+    <data name="Details_CopyButton" xml:space="preserve">
     <value>نسخ</value>
-    <comment>Button on the Details page that copies all battery information to the clipboard.</comment>
+        <comment>Button on the Details page that copies all battery information to the clipboard.</comment>
   </data>
 
-  <!-- Battery information labels (Details page) -->
-  <data name="Battery_Health" xml:space="preserve">
+    <!-- Battery information labels (Details page) -->
+    <data name="Battery_Health" xml:space="preserve">
     <value>صحة البطارية</value>
-    <comment>Label for the battery health row on the Details page.</comment>
+        <comment>Label for the battery health row on the Details page.</comment>
   </data>
-  <data name="Battery_Capacity" xml:space="preserve">
+    <data name="Battery_Capacity" xml:space="preserve">
     <value>سعة البطارية</value>
-    <comment>Label for the current battery percentage row on the Details page.</comment>
+        <comment>Label for the current battery percentage row on the Details page.</comment>
   </data>
-  <data name="Battery_Status" xml:space="preserve">
+    <data name="Battery_Status" xml:space="preserve">
     <value>حالة البطارية</value>
-    <comment>Label for the battery status row on the Details page.</comment>
+        <comment>Label for the battery status row on the Details page.</comment>
   </data>
-  <data name="Battery_Time" xml:space="preserve">
+    <data name="Battery_Time" xml:space="preserve">
     <value>وقت البطارية</value>
-    <comment>Label for the time remaining / time until full row on the Details page.</comment>
+        <comment>Label for the time remaining / time until full row on the Details page.</comment>
   </data>
-  <data name="Battery_ChargeRate" xml:space="preserve">
+    <data name="Battery_ChargeRate" xml:space="preserve">
     <value>معدل الشحن</value>
-    <comment>Label for the charge rate row on the Details page.</comment>
+        <comment>Label for the charge rate row on the Details page.</comment>
   </data>
-  <data name="Battery_DesignCapacity" xml:space="preserve">
+    <data name="Battery_DesignCapacity" xml:space="preserve">
     <value>السعة التصميمية</value>
-    <comment>Label for the design capacity row on the Details page.</comment>
+        <comment>Label for the design capacity row on the Details page.</comment>
   </data>
-  <data name="Battery_FullChargeCapacity" xml:space="preserve">
+    <data name="Battery_FullChargeCapacity" xml:space="preserve">
     <value>سعة الشحن الكاملة</value>
-    <comment>Label for the full charge capacity row on the Details page.</comment>
+        <comment>Label for the full charge capacity row on the Details page.</comment>
   </data>
-  <data name="Battery_PowerLineStatus" xml:space="preserve">
+    <data name="Battery_PowerLineStatus" xml:space="preserve">
     <value>حالة خط الكهرباء</value>
-    <comment>Label for the power line status row on the Details page.</comment>
+        <comment>Label for the power line status row on the Details page.</comment>
   </data>
-  <data name="Battery_RemainingChargeCapacity" xml:space="preserve">
+    <data name="Battery_RemainingChargeCapacity" xml:space="preserve">
     <value>سعة الشحن المتبقية</value>
-    <comment>Label for the remaining charge capacity row on the Details page.</comment>
+        <comment>Label for the remaining charge capacity row on the Details page.</comment>
   </data>
 
-  <!-- Battery values shown in Details page rows -->
-  <data name="Battery_ValueUnknown" xml:space="preserve">
+    <!-- Battery values shown in Details page rows -->
+    <data name="Battery_ValueUnknown" xml:space="preserve">
     <value>غير معروف</value>
-    <comment>Value placeholder used when a battery information field cannot be determined.</comment>
+        <comment>Value placeholder used when a battery information field cannot be determined.</comment>
   </data>
-  <data name="Battery_ValueNotCharging" xml:space="preserve">
+    <data name="Battery_ValueNotCharging" xml:space="preserve">
     <value>لا تشحن</value>
-    <comment>Value shown for the charge rate when the battery is plugged in but not charging.</comment>
+        <comment>Value shown for the charge rate when the battery is plugged in but not charging.</comment>
   </data>
-  <data name="Battery_ValueConnected" xml:space="preserve">
+    <data name="Battery_ValueConnected" xml:space="preserve">
     <value>متصلة</value>
-    <comment>Value shown for the power line status when external power is connected.</comment>
+        <comment>Value shown for the power line status when external power is connected.</comment>
   </data>
-  <data name="Battery_ValueDisconnected" xml:space="preserve">
+    <data name="Battery_ValueDisconnected" xml:space="preserve">
     <value>غير متصلة</value>
-    <comment>Value shown for the power line status when running on battery.</comment>
+        <comment>Value shown for the power line status when running on battery.</comment>
   </data>
-  <data name="Battery_TimeUntilFull" xml:space="preserve">
+    <data name="Battery_TimeUntilFull" xml:space="preserve">
     <value>{0} حتى الشحن الكامل</value>
-    <comment>Battery Time row when charging. {0} = readable time span (e.g. "1 hour 5 minutes").</comment>
+        <comment>Battery Time row when charging. {0} = readable time span (e.g. "1 hour 5 minutes").</comment>
   </data>
-  <data name="Battery_TimeRemaining" xml:space="preserve">
+    <data name="Battery_TimeRemaining" xml:space="preserve">
     <value>متبقي {0}</value>
-    <comment>Battery Time row when discharging. {0} = readable time span.</comment>
+        <comment>Battery Time row when discharging. {0} = readable time span.</comment>
   </data>
 
-  <!-- App information labels (About page) -->
-  <data name="AppInfo_Version" xml:space="preserve">
+    <!-- App information labels (About page) -->
+    <data name="AppInfo_Version" xml:space="preserve">
     <value>إصدار التطبيق</value>
-    <comment>Label for the application version row in the About page.</comment>
+        <comment>Label for the application version row in the About page.</comment>
   </data>
-  <data name="AppInfo_RuntimeVersion" xml:space="preserve">
+    <data name="AppInfo_RuntimeVersion" xml:space="preserve">
     <value>إصدار وقت التشغيل</value>
-    <comment>Label for the .NET runtime version row in the About page.</comment>
+        <comment>Label for the .NET runtime version row in the About page.</comment>
   </data>
-  <data name="AppInfo_RuntimeArchitecture" xml:space="preserve">
+    <data name="AppInfo_RuntimeArchitecture" xml:space="preserve">
     <value>بنية وقت التشغيل</value>
-    <comment>Label for the runtime architecture row in the About page.</comment>
+        <comment>Label for the runtime architecture row in the About page.</comment>
   </data>
 
-  <!-- Settings page - language picker -->
-  <data name="Settings_LanguageHeader" xml:space="preserve">
+    <!-- Settings page - language picker -->
+    <data name="Settings_LanguageHeader" xml:space="preserve">
     <value>اللغة</value>
-    <comment>Header of the language picker card on the Settings page.</comment>
+        <comment>Header of the language picker card on the Settings page.</comment>
   </data>
-  <data name="Settings_LanguageDescription" xml:space="preserve">
+    <data name="Settings_LanguageDescription" xml:space="preserve">
     <value>اختر اللغة المستخدمة في هذا التطبيق</value>
-    <comment>Description below the language picker header on the Settings page.</comment>
+        <comment>Description below the language picker header on the Settings page.</comment>
   </data>
-  <data name="Settings_LanguageSystem" xml:space="preserve">
+    <data name="Settings_LanguageSystem" xml:space="preserve">
     <value>استخدم لغة النظام</value>
-    <comment>Default entry in the language picker that defers to the OS UI language.</comment>
+        <comment>Default entry in the language picker that defers to the OS UI language.</comment>
   </data>
 
-  <!-- Settings page - other settings -->
-  <data name="Settings_AutoStartDisabledTitle" xml:space="preserve">
+    <!-- Settings page - other settings -->
+    <data name="Settings_AutoStartDisabledTitle" xml:space="preserve">
     <value>البدء التلقائي معطل</value>
-    <comment>InfoBar title shown on the Settings page when the auto-start feature is unavailable.</comment>
+        <comment>InfoBar title shown on the Settings page when the auto-start feature is unavailable.</comment>
   </data>
-  <data name="Settings_AutoStartDisabledMessage" xml:space="preserve">
+    <data name="Settings_AutoStartDisabledMessage" xml:space="preserve">
     <value>يتطلب البدء التلقائي تشغيل هذا التطبيق كتطبيق متجر Microsoft.</value>
-    <comment>InfoBar message body explaining why auto-start is disabled.</comment>
+        <comment>InfoBar message body explaining why auto-start is disabled.</comment>
   </data>
-  <data name="Settings_AutoStart" xml:space="preserve">
+    <data name="Settings_AutoStart" xml:space="preserve">
     <value>البدء التلقائي</value>
-    <comment>Header of the auto-start toggle card on the Settings page.</comment>
+        <comment>Header of the auto-start toggle card on the Settings page.</comment>
   </data>
-  <data name="Settings_AutoStartDescription" xml:space="preserve">
+    <data name="Settings_AutoStartDescription" xml:space="preserve">
     <value>تشغيل التطبيق عند بدء تشغيل Windows</value>
-    <comment>Description below the auto-start toggle.</comment>
+        <comment>Description below the auto-start toggle.</comment>
   </data>
-  <data name="Settings_HideAtStartup" xml:space="preserve">
+    <data name="Settings_HideAtStartup" xml:space="preserve">
     <value>إخفاء عند البدء</value>
-    <comment>Header of the "Hide at startup" toggle card on the Settings page.</comment>
+        <comment>Header of the "Hide at startup" toggle card on the Settings page.</comment>
   </data>
-  <data name="Settings_HideAtStartupDescription" xml:space="preserve">
+    <data name="Settings_HideAtStartupDescription" xml:space="preserve">
     <value>إخفاء النافذة الرئيسية عند بدء تشغيل التطبيق</value>
-    <comment>Description below the "Hide at startup" toggle.</comment>
+        <comment>Description below the "Hide at startup" toggle.</comment>
   </data>
-  <data name="Settings_DoubleClickActivation" xml:space="preserve">
+    <data name="Settings_DoubleClickActivation" xml:space="preserve">
     <value>التفعيل بالنقر المزدوج</value>
-    <comment>Header of the double-click activation toggle card on the Settings page.</comment>
+        <comment>Header of the double-click activation toggle card on the Settings page.</comment>
   </data>
-  <data name="Settings_DoubleClickActivationDescription" xml:space="preserve">
+    <data name="Settings_DoubleClickActivationDescription" xml:space="preserve">
     <value>انقر نقرًا مزدوجًا فوق أيقونة شريط المهام لعرض تفاصيل البطارية</value>
-    <comment>Description below the double-click activation toggle.</comment>
+        <comment>Description below the double-click activation toggle.</comment>
   </data>
-  <data name="Settings_ShutDownWithoutConfirmation" xml:space="preserve">
+    <data name="Settings_ShutDownWithoutConfirmation" xml:space="preserve">
     <value>إيقاف التشغيل بدون تأكيد</value>
-    <comment>Header of the "Shut down without confirmation" toggle card on the Settings page.</comment>
+        <comment>Header of the "Shut down without confirmation" toggle card on the Settings page.</comment>
   </data>
-  <data name="Settings_ShutDownWithoutConfirmationDescription" xml:space="preserve">
+    <data name="Settings_ShutDownWithoutConfirmationDescription" xml:space="preserve">
     <value>عدم عرض تأكيد عند إيقاف تشغيل الجهاز</value>
-    <comment>Description below the "Shut down without confirmation" toggle.</comment>
+        <comment>Description below the "Shut down without confirmation" toggle.</comment>
   </data>
-  <data name="Settings_Refresh" xml:space="preserve">
+    <data name="Settings_Refresh" xml:space="preserve">
     <value>التحديث</value>
-    <comment>Header of the refresh-interval picker card on the Settings page.</comment>
+        <comment>Header of the refresh-interval picker card on the Settings page.</comment>
   </data>
-  <data name="Settings_RefreshDescription" xml:space="preserve">
+    <data name="Settings_RefreshDescription" xml:space="preserve">
     <value>عدد المرات التي يتم فيها تحديث حالة البطارية</value>
-    <comment>Description below the refresh interval picker.</comment>
+        <comment>Description below the refresh interval picker.</comment>
   </data>
-  <data name="Settings_RefreshSecondsFormat" xml:space="preserve">
+    <data name="Settings_RefreshSecondsFormat" xml:space="preserve">
     <value>{0} ثانية</value>
-    <comment>Format used by the refresh-interval picker entries. {0} = integer number of seconds.</comment>
+        <comment>Format used by the refresh-interval picker entries. {0} = integer number of seconds.</comment>
   </data>
-  <data name="Settings_TrayIconFont" xml:space="preserve">
+    <data name="Settings_TrayIconFont" xml:space="preserve">
     <value>خط أيقونة شريط المهام</value>
-    <comment>Header of the tray icon font expander card on the Settings page.</comment>
+        <comment>Header of the tray icon font expander card on the Settings page.</comment>
   </data>
-  <data name="Settings_TrayIconFontDescription" xml:space="preserve">
+    <data name="Settings_TrayIconFontDescription" xml:space="preserve">
     <value>تغيير خط وحجم وأسلوب أيقونة شريط المهام</value>
-    <comment>Description below the tray icon font expander.</comment>
+        <comment>Description below the tray icon font expander.</comment>
   </data>
-  <data name="Settings_FontSize" xml:space="preserve">
+    <data name="Settings_FontSize" xml:space="preserve">
     <value>الحجم</value>
-    <comment>Label next to the tray icon font size slider.</comment>
+        <comment>Label next to the tray icon font size slider.</comment>
   </data>
-  <data name="Settings_TrayIconColour" xml:space="preserve">
+    <data name="Settings_TrayIconColour" xml:space="preserve">
     <value>لون أيقونة شريط المهام</value>
-    <comment>Header of the tray icon colour expander card on the Settings page.</comment>
+        <comment>Header of the tray icon colour expander card on the Settings page.</comment>
   </data>
-  <data name="Settings_TrayIconColourDescription" xml:space="preserve">
+    <data name="Settings_TrayIconColourDescription" xml:space="preserve">
     <value>تغيير لون أيقونة شريط المهام لمستويات البطارية المختلفة</value>
-    <comment>Description below the tray icon colour expander.</comment>
+        <comment>Description below the tray icon colour expander.</comment>
   </data>
-  <data name="Settings_TrayIconBackgroundColour" xml:space="preserve">
-    <value>Tray icon background colour</value>
-    <comment>Header of the tray icon background colour expander card on the Settings page.</comment>
+    <data name="Settings_TrayIconBackgroundColour" xml:space="preserve">
+    <value>لون خلفية أيقونة شريط المهام</value>
+        <comment>Header of the tray icon background colour expander card on the Settings page.</comment>
   </data>
-  <data name="Settings_TrayIconBackgroundColourDescription" xml:space="preserve">
-    <value>Change tray icon background colour for different battery levels</value>
-    <comment>Description below the tray icon background colour expander.</comment>
+    <data name="Settings_TrayIconBackgroundColourDescription" xml:space="preserve">
+    <value>تغيير لون خلفية أيقونة شريط المهام لمستويات البطارية المختلفة</value>
+        <comment>Description below the tray icon background colour expander.</comment>
   </data>
-  <data name="Settings_LevelCritical" xml:space="preserve">
+    <data name="Settings_LevelCritical" xml:space="preserve">
     <value>حرج</value>
-    <comment>Label for the critical battery level (used in colour and notification settings).</comment>
+        <comment>Label for the critical battery level (used in colour and notification settings).</comment>
   </data>
-  <data name="Settings_LevelLow" xml:space="preserve">
+    <data name="Settings_LevelLow" xml:space="preserve">
     <value>منخفض</value>
-    <comment>Label for the low battery level (used in colour and notification settings).</comment>
+        <comment>Label for the low battery level (used in colour and notification settings).</comment>
   </data>
-  <data name="Settings_LevelHigh" xml:space="preserve">
+    <data name="Settings_LevelHigh" xml:space="preserve">
     <value>مرتفع</value>
-    <comment>Label for the high battery level (used in notification settings).</comment>
+        <comment>Label for the high battery level (used in notification settings).</comment>
   </data>
-  <data name="Settings_LevelCharging" xml:space="preserve">
+    <data name="Settings_LevelCharging" xml:space="preserve">
     <value>قيد الشحن</value>
-    <comment>Label for the charging battery level (used in colour settings).</comment>
+        <comment>Label for the charging battery level (used in colour settings).</comment>
   </data>
-  <data name="Settings_LevelNormal" xml:space="preserve">
+    <data name="Settings_LevelNormal" xml:space="preserve">
     <value>عادي</value>
-    <comment>Label for the normal battery level (used in colour settings).</comment>
+        <comment>Label for the normal battery level (used in colour settings).</comment>
   </data>
-  <data name="Settings_LevelFull" xml:space="preserve">
+    <data name="Settings_LevelFull" xml:space="preserve">
     <value>كامل</value>
-    <comment>Label for the full (100%) battery level (used in notification settings).</comment>
+        <comment>Label for the full (100%) battery level (used in notification settings).</comment>
   </data>
-  <data name="Settings_BatteryLevelsAndNotifications" xml:space="preserve">
+    <data name="Settings_BatteryLevelsAndNotifications" xml:space="preserve">
     <value>مستويات البطارية والإشعارات</value>
-    <comment>Header of the battery-levels-and-notifications expander card on the Settings page.</comment>
+        <comment>Header of the battery-levels-and-notifications expander card on the Settings page.</comment>
   </data>
-  <data name="Settings_BatteryLevelsAndNotificationsDescription" xml:space="preserve">
+    <data name="Settings_BatteryLevelsAndNotificationsDescription" xml:space="preserve">
     <value>تغيير الإشعارات لمستويات البطارية المختلفة</value>
-    <comment>Description below the battery levels and notifications expander.</comment>
+        <comment>Description below the battery levels and notifications expander.</comment>
   </data>
-  <data name="Settings_PowerAndBattery" xml:space="preserve">
+    <data name="Settings_PowerAndBattery" xml:space="preserve">
     <value>الطاقة والبطارية</value>
-    <comment>Header of the system power and battery card on the Settings page.</comment>
+        <comment>Header of the system power and battery card on the Settings page.</comment>
   </data>
-  <data name="Settings_PowerAndBatteryDescription" xml:space="preserve">
+    <data name="Settings_PowerAndBatteryDescription" xml:space="preserve">
     <value>فتح إعدادات الطاقة والبطارية للنظام</value>
-    <comment>Description below the system power and battery card.</comment>
+        <comment>Description below the system power and battery card.</comment>
   </data>
-  <data name="Settings_ResetAll" xml:space="preserve">
+    <data name="Settings_ResetAll" xml:space="preserve">
     <value>إعادة تعيين جميع الإعدادات</value>
-    <comment>Caption of the reset-all-settings button on the Settings page.</comment>
+        <comment>Caption of the reset-all-settings button on the Settings page.</comment>
   </data>
-  <data name="Settings_AutoColour" xml:space="preserve">
+    <data name="Settings_AutoColour" xml:space="preserve">
     <value>تلقائي</value>
-    <comment>Checkbox label next to each colour picker that toggles automatic system colour mode.</comment>
+        <comment>Checkbox label next to each colour picker that toggles automatic system colour mode.</comment>
   </data>
-  <data name="Settings_AutoColourTooltip" xml:space="preserve">
+    <data name="Settings_AutoColourTooltip" xml:space="preserve">
     <value>استخدام لون نص النظام</value>
-    <comment>Tooltip on the "Auto" checkbox of each colour picker.</comment>
+        <comment>Tooltip on the "Auto" checkbox of each colour picker.</comment>
   </data>
 
-  <!-- Settings page - dialogs -->
-  <data name="Settings_AutoStartDisabledDialogTitle" xml:space="preserve">
+    <!-- Settings page - dialogs -->
+    <data name="Settings_AutoStartDisabledDialogTitle" xml:space="preserve">
     <value>البدء التلقائي معطل</value>
-    <comment>Dialog title shown when enabling auto-start results in a Disabled state.</comment>
+        <comment>Dialog title shown when enabling auto-start results in a Disabled state.</comment>
   </data>
-  <data name="Settings_AutoStartDisabledDialogContent" xml:space="preserve">
+    <data name="Settings_AutoStartDisabledDialogContent" xml:space="preserve">
     <value>تم تعطيل البدء التلقائي لهذا التطبيق.
 
 لإعادة تمكينه، انتقل إلى "الإعدادات &gt; التطبيقات &gt; بدء التشغيل" وقم بتمكين "Battery Percentage Icon".</value>
-    <comment>Dialog body for the Disabled state. The path "Settings &gt; Apps &gt; Startup" and the app name in quotes both refer to Windows-rendered UI text and should match what the user sees on their machine.</comment>
+        <comment>Dialog body for the Disabled state. The path "Settings &gt; Apps &gt; Startup" and the app name in quotes both refer to Windows-rendered UI text and should match what the user sees on their machine.</comment>
   </data>
-  <data name="Settings_AutoStartDisabledByUserDialogTitle" xml:space="preserve">
+    <data name="Settings_AutoStartDisabledByUserDialogTitle" xml:space="preserve">
     <value>البدء التلقائي معطل من قبل المستخدم</value>
-    <comment>Dialog title shown when enabling auto-start results in a DisabledByUser state.</comment>
+        <comment>Dialog title shown when enabling auto-start results in a DisabledByUser state.</comment>
   </data>
-  <data name="Settings_AutoStartDisabledByUserDialogContent" xml:space="preserve">
+    <data name="Settings_AutoStartDisabledByUserDialogContent" xml:space="preserve">
     <value>تم تعطيل البدء التلقائي لهذا التطبيق يدويًا في إعدادات النظام.
 
 لإعادة تمكينه، انتقل إلى "الإعدادات &gt; التطبيقات &gt; بدء التشغيل" وقم بتمكين "Battery Percentage Icon".</value>
-    <comment>Dialog body for the DisabledByUser state.</comment>
+        <comment>Dialog body for the DisabledByUser state.</comment>
   </data>
-  <data name="Settings_AutoStartDisabledByPolicyDialogTitle" xml:space="preserve">
+    <data name="Settings_AutoStartDisabledByPolicyDialogTitle" xml:space="preserve">
     <value>البدء التلقائي معطل بواسطة النهج</value>
-    <comment>Dialog title shown when enabling auto-start results in a DisabledByPolicy state.</comment>
+        <comment>Dialog title shown when enabling auto-start results in a DisabledByPolicy state.</comment>
   </data>
-  <data name="Settings_AutoStartDisabledByPolicyDialogContent" xml:space="preserve">
+    <data name="Settings_AutoStartDisabledByPolicyDialogContent" xml:space="preserve">
     <value>تم تعطيل البدء التلقائي لهذا التطبيق يدويًا بواسطة نهج النظام.
 
 لإعادة تمكينه، أزل أي نهج نظام يقيد البدء التلقائي، ثم انتقل إلى "الإعدادات &gt; التطبيقات &gt; بدء التشغيل" لتمكين "Battery Percentage Icon".</value>
-    <comment>Dialog body for the DisabledByPolicy state.</comment>
+        <comment>Dialog body for the DisabledByPolicy state.</comment>
   </data>
-  <data name="Settings_ResetDialogTitle" xml:space="preserve">
+    <data name="Settings_ResetDialogTitle" xml:space="preserve">
     <value>إعادة تعيين جميع الإعدادات</value>
-    <comment>Title of the reset-all-settings confirmation dialog.</comment>
+        <comment>Title of the reset-all-settings confirmation dialog.</comment>
   </data>
-  <data name="Settings_ResetDialogContent" xml:space="preserve">
+    <data name="Settings_ResetDialogContent" xml:space="preserve">
     <value>هل أنت متأكد من رغبتك في إعادة تعيين جميع الإعدادات إلى قيمها الافتراضية؟</value>
-    <comment>Body of the reset-all-settings confirmation dialog.</comment>
+        <comment>Body of the reset-all-settings confirmation dialog.</comment>
   </data>
-  <data name="Settings_ResetDialogReset" xml:space="preserve">
+    <data name="Settings_ResetDialogReset" xml:space="preserve">
     <value>إعادة تعيين</value>
-    <comment>Primary button on the reset-all-settings confirmation dialog.</comment>
+        <comment>Primary button on the reset-all-settings confirmation dialog.</comment>
   </data>
-  <data name="Settings_ResetDialogCancel" xml:space="preserve">
+    <data name="Settings_ResetDialogCancel" xml:space="preserve">
     <value>إلغاء</value>
-    <comment>Close button on the reset-all-settings confirmation dialog.</comment>
+        <comment>Close button on the reset-all-settings confirmation dialog.</comment>
   </data>
 
-  <!-- Readable time-span fragments -->
-  <data name="Readable_LessThanOneMinute" xml:space="preserve">
+    <!-- Readable time-span fragments -->
+    <data name="Readable_LessThanOneMinute" xml:space="preserve">
     <value>أقل من دقيقة</value>
-    <comment>Time-span fragment used when the time span is shorter than one minute.</comment>
+        <comment>Time-span fragment used when the time span is shorter than one minute.</comment>
   </data>
-  <data name="Readable_HourSingular" xml:space="preserve">
+    <data name="Readable_HourSingular" xml:space="preserve">
     <value>ساعة</value>
-    <comment>Time-span fragment used when the hour count is exactly 1.</comment>
+        <comment>Time-span fragment used when the hour count is exactly 1.</comment>
   </data>
-  <data name="Readable_HourPlural" xml:space="preserve">
+    <data name="Readable_HourPlural" xml:space="preserve">
     <value>{0} ساعات</value>
-    <comment>Time-span fragment used when the hour count is greater than 1. Arabic morphology has dual (2) and broken-plural forms (3-10) plus singular accusative (11+); the broken-plural form here is correct for 3-10 hours and acceptable elsewhere. {0} = integer number of hours.</comment>
+        <comment>Time-span fragment used when the hour count is greater than 1. Arabic morphology has dual (2) and broken-plural forms (3-10) plus singular accusative (11+); the broken-plural form here is correct for 3-10 hours and acceptable elsewhere. {0} = integer number of hours.</comment>
   </data>
-  <data name="Readable_MinuteSingular" xml:space="preserve">
+    <data name="Readable_MinuteSingular" xml:space="preserve">
     <value>دقيقة</value>
-    <comment>Time-span fragment used when the minute count is exactly 1.</comment>
+        <comment>Time-span fragment used when the minute count is exactly 1.</comment>
   </data>
-  <data name="Readable_MinutePlural" xml:space="preserve">
+    <data name="Readable_MinutePlural" xml:space="preserve">
     <value>{0} دقائق</value>
-    <comment>Time-span fragment used when the minute count is greater than 1. Arabic morphology has dual (2) and broken-plural forms (3-10) plus singular accusative (11+); the broken-plural form here is correct for 3-10 minutes and acceptable elsewhere. {0} = integer number of minutes.</comment>
+        <comment>Time-span fragment used when the minute count is greater than 1. Arabic morphology has dual (2) and broken-plural forms (3-10) plus singular accusative (11+); the broken-plural form here is correct for 3-10 minutes and acceptable elsewhere. {0} = integer number of minutes.</comment>
   </data>
 </root>

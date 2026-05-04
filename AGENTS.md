@@ -22,7 +22,7 @@ Unlike a personal library, Percentage has a real public contract. The following 
 - **User settings**: any property in `App/Properties/Settings.settings` and the related `Default*` constants on the `App` class. Renaming, removing, or changing the type or format of an existing setting requires extending `MigrateUserSettings` and `TryMigratePreviousUserConfig` in `App/App.xaml.cs` so that users upgrading from older versions retain their preferences. The `RequiresUpgrade` flow and the existing hex-string color migrations are precedents.
 - **Microsoft Store package identity**: `Identity/@Name`, `Identity/@Publisher`, and the resulting Package Family Name in `Pack/Package.appxmanifest`. Changing any of these breaks Store updates for every installed user.
 - **Stable identifiers**: the `App.Id` GUID (`f05f920a-c997-4817-84bd-c54d87e40625`) is shared by the single-instance Mutex name in `App/App.xaml.cs` and by `StartupTask/@TaskId` in the appxmanifest. The toast `ToastActivatorCLSID` (`549f9494-b2ef-4e7a-89a4-f36ad71025a0`) and its matching `com:Class/@Id` must also remain stable. Never regenerate these identifiers.
-- **Minimum supported OS**: `<SupportedOSPlatformVersion>` in `App/App.csproj` and the `TargetDeviceFamily/@MinVersion` values in `Pack/Package.appxmanifest`. Tightening these cuts off existing users; never raise without explicit instruction.
+- **Minimum supported OS**: `<SupportedOSPlatformVersion>` in `App/App.csproj` and the `TargetDeviceFamily/@MinVersion` values in `Pack/Package.appxmanifest`. Tightening these cuts off existing users; never raise without explicit instruction. The current floor is `10.0.22000.0` (Windows 11 21H2), which matches `Pack/Pack.wapproj`'s `<TargetPlatformMinVersion>`; all three values must move together.
 - **Distribution flavors**: both the MSIX (Microsoft Store) flavor and the portable single-exe (GitHub Releases) flavor are supported. Auto-start configuration uses MSIX `StartupTask` only; the portable flavor relies on a manual shortcut in the user's Startup folder. Changes that affect startup behavior must consider both paths.
 - **Crash-handling UX**: the three unhandled-exception handlers in `App/App.xaml.cs` (`DispatcherUnhandledException`, `AppDomain.CurrentDomain.UnhandledException`, `TaskScheduler.UnobservedTaskException`), the `HandleException` message format, and the issue-reporting URL `https://github.com/soleon/Percentage/issues` are part of the support workflow. Do not remove the handlers or change the reporting URL without coordinating with project maintenance.
 
@@ -31,7 +31,7 @@ Breaking changes outside this contract (internal types, private helpers, refacto
 ## Dependency and Platform Policy
 
 - Always use the latest stable version of every NuGet package, .NET runtime, WPF platform, SDK, and tool.
-- When a technology has an LTS release track and the latest stable release is not on that track, target the latest LTS release instead. The current target is `net10.0-windows10.0.26100.0` (latest LTS .NET).
+- When a technology has an LTS release track and the latest stable release is not on that track, target the latest LTS release instead. The current targets are `net10.0-windows10.0.26100.0` (latest LTS .NET) for both `App/App.csproj` and `Tests/App.Tests/App.Tests.csproj`.
 - Single-target the chosen runtime. Do not multi-target older versions, add compatibility target frameworks, or add package-validation baselines.
 - When a newer stable (or newer LTS, where applicable) release of any dependency or platform is available, updating to it is the default expectation, not an opt-in. Confirm builds for all four configured platforms (`AnyCPU`, `x64`, `ARM64`, `x86`) and that the MSIX package still produces.
 - Avoid adding dependencies unless they clearly improve correctness, performance, maintainability, testability, or platform support.
@@ -70,10 +70,10 @@ Breaking changes outside this contract (internal types, private helpers, refacto
 
 ## Testing Policy
 
-- No automated test projects currently exist in this repository.
-- When extracting logic into testable units (services, helpers, value converters), prefer designs that admit deterministic unit tests and add tests where they reduce real risk.
+- The `Tests/App.Tests/App.Tests.csproj` xUnit.v3 project covers the pure logic in `App/Services/BatteryEvaluator.cs`. It runs against the same `net10.0-windows10.0.26100.0` target as the app and uses `InternalsVisibleTo` to reach the evaluator's `internal` types. Keep tests there as a regression net for the battery decision pipeline.
+- When extracting logic into testable units (services, helpers, value converters), prefer designs that admit deterministic unit tests and add tests where they reduce real risk. New tests belong alongside `BatteryEvaluatorTests.cs` unless a different scope (e.g. converters) warrants its own test file.
 - For all changes that affect user-visible behavior, perform manual smoke testing on Windows 11 covering the relevant subset of: tray icon rendering across light and dark themes and DPI scales; notification flow for critical, low, high, and full battery thresholds; settings persistence and migration from earlier versions of the app; auto-start (MSIX) and shortcut-based start (portable); single-instance behavior; and graceful exit.
-- Do not reduce or remove existing tests (if added later) without documenting the reason.
+- Do not reduce or remove existing tests without documenting the reason.
 
 ## Code Review Policy
 
@@ -95,7 +95,7 @@ Do not prefix review findings with bracketed severity labels such as `[P0]`, `[P
 
 ## Tooling Notes
 
-- Do not run `dotnet build`, `dotnet test`, `dotnet pack`, or `dotnet format` concurrently against the same solution or projects; shared `obj/` outputs can lock and cause transient MSBuild/CSC failures. This applies across the App and Pack projects in this repository, and across both Percentage and Codify when their builds may overlap.
+- Do not run `dotnet build`, `dotnet test`, `dotnet pack`, or `dotnet format` concurrently against the same solution or projects; shared `obj/` outputs can lock and cause transient MSBuild/CSC failures. This applies across the App, Pack, and App.Tests projects in this repository, and across both Percentage and Codify when their builds may overlap.
 - Building `Pack/Pack.wapproj` requires Visual Studio's MSIX/Desktop Bridge tooling. A bare `dotnet build` against the wapproj is not always sufficient; prefer a Visual Studio build or `msbuild` with the full Visual Studio targets when validating packaging changes.
 - When intentionally deleting a tracked file that already has staged edits, `git rm` may refuse the deletion; after confirming the deletion is intended, use `git rm -f -- <path>`.
 

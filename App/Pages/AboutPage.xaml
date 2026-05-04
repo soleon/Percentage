@@ -29,19 +29,20 @@
                                 Background="{DynamicResource InfoBarWarningSeverityBackgroundBrush}">
                     <ui:CardControl.Header>
                         <StackPanel>
-                            <ui:TextBlock
-                                FontTypography="BodyStrong"
-                                Text="{loc:Localize About_ErrorTitle}" />
+                            <ui:TextBlock FontTypography="BodyStrong"
+                                          Text="{loc:Localize About_ErrorTitle}" />
                             <ui:TextBlock TextWrapping="Wrap">
-                                    <Run Text="{loc:Localize About_ErrorMessageBefore}" />
-                                    <Hyperlink NavigateUri="https://github.com/soleon/Percentage/issues"
-                                               Click="OnGitHubIssuesLinkClick"><Run Text="{loc:Localize About_ErrorLinkText}" /></Hyperlink>.
+                                <Run Text="{loc:Localize About_ErrorMessageBefore}" />
+                                <Hyperlink NavigateUri="https://github.com/soleon/Percentage/issues"
+                                           Click="OnGitHubIssuesLinkClick">
+                                    <Run Text="{loc:Localize About_ErrorLinkText}" />
+                                </Hyperlink>
+                                .
                             </ui:TextBlock>
                         </StackPanel>
                     </ui:CardControl.Header>
-                    <controls:CopyButton
-                        TargetObject="{Binding AppError}"
-                        ToolTip="{loc:Localize About_CopyErrorTooltip}" />
+                    <controls:CopyButton TargetObject="{Binding AppError}"
+                                         ToolTip="{loc:Localize About_CopyErrorTooltip}" />
                 </ui:CardControl>
             </StackPanel>
         </ui:CardExpander>

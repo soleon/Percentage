@@ -31,14 +31,12 @@
                                        Icon="{ui:SymbolIcon TextBulletListSquare24}" />
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItem
-                    Content="{loc:Localize Nav_Settings}"
-                    TargetPageType="pages:SettingsPage"
-                    Icon="{ui:SymbolIcon Settings20}" />
-                <ui:NavigationViewItem
-                    Content="{loc:Localize Nav_About}"
-                    TargetPageType="pages:AboutPage"
-                    Icon="{ui:SymbolIcon Info20}" />
+                <ui:NavigationViewItem Content="{loc:Localize Nav_Settings}"
+                                       TargetPageType="pages:SettingsPage"
+                                       Icon="{ui:SymbolIcon Settings20}" />
+                <ui:NavigationViewItem Content="{loc:Localize Nav_About}"
+                                       TargetPageType="pages:AboutPage"
+                                       Icon="{ui:SymbolIcon Info20}" />
             </ui:NavigationView.FooterMenuItems>
             <ui:NavigationView.ContentOverlay>
                 <ui:SnackbarPresenter x:Name="SnackbarPresenter"

@@ -26,11 +26,9 @@
         <ui:CardControl Icon="{ui:SymbolIcon LocalLanguage20}">
             <ui:CardControl.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_LanguageHeader}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_LanguageDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_LanguageHeader}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_LanguageDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
             <ComboBox x:Name="LanguageComboBox"
@@ -44,30 +42,25 @@
         <ui:CardControl Icon="{ui:SymbolIcon CalendarPlay20}">
             <ui:CardControl.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_AutoStart}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_AutoStartDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_AutoStart}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_AutoStartDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
-            <ui:ToggleSwitch
-                x:Name="AutoStartToggleSwitch"
-                x:FieldModifier="private"
-                IsEnabled="False"
-                Checked="OnAutoStartChecked"
-                Unchecked="OnAutoStartUnchecked" />
+            <ui:ToggleSwitch x:Name="AutoStartToggleSwitch"
+                             x:FieldModifier="private"
+                             IsEnabled="False"
+                             Checked="OnAutoStartChecked"
+                             Unchecked="OnAutoStartUnchecked" />
         </ui:CardControl>
 
         <!-- Hide at startup -->
         <ui:CardControl Icon="{ui:SymbolIcon SlideHide20}">
             <ui:CardControl.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_HideAtStartup}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_HideAtStartupDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_HideAtStartup}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_HideAtStartupDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
             <ui:ToggleSwitch
@@ -78,11 +71,9 @@
         <ui:CardControl Icon="{ui:SymbolIcon CursorClick20}">
             <ui:CardControl.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_DoubleClickActivation}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_DoubleClickActivationDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_DoubleClickActivation}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_DoubleClickActivationDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
             <ui:ToggleSwitch
@@ -93,11 +84,9 @@
         <ui:CardControl Icon="{ui:SymbolIcon Power20}">
             <ui:CardControl.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_ShutDownWithoutConfirmation}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_ShutDownWithoutConfirmationDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_ShutDownWithoutConfirmation}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_ShutDownWithoutConfirmationDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
             <ui:ToggleSwitch
@@ -108,14 +97,13 @@
         <ui:CardControl Icon="{ui:SymbolIcon ArrowSync20}">
             <ui:CardControl.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_Refresh}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_RefreshDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_Refresh}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_RefreshDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
-            <ComboBox SelectedValue="{Binding RefreshSeconds, Source={x:Static properties:Settings.Default}, Mode=TwoWay}">
+            <ComboBox
+                SelectedValue="{Binding RefreshSeconds, Source={x:Static properties:Settings.Default}, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -140,11 +128,9 @@
         <ui:CardExpander Icon="{ui:SymbolIcon TextFont20}">
             <ui:CardExpander.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_TrayIconFont}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_TrayIconFontDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_TrayIconFont}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_TrayIconFontDescription}" />
                 </StackPanel>
             </ui:CardExpander.Header>
             <StackPanel>
@@ -185,15 +171,12 @@
         </ui:CardExpander>
 
         <!-- Tray icon colour -->
-        <ui:CardExpander
-            Icon="{ui:SymbolIcon Color20}">
+        <ui:CardExpander Icon="{ui:SymbolIcon Color20}">
             <ui:CardExpander.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_TrayIconColour}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_TrayIconColourDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_TrayIconColour}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_TrayIconColourDescription}" />
                 </StackPanel>
             </ui:CardExpander.Header>
             <Grid IsSharedSizeScope="True">
@@ -236,15 +219,12 @@
         </ui:CardExpander>
 
         <!-- Tray icon background colour -->
-        <ui:CardExpander
-            Icon="{ui:SymbolIcon Color20}">
+        <ui:CardExpander Icon="{ui:SymbolIcon Color20}">
             <ui:CardExpander.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_TrayIconBackgroundColour}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_TrayIconBackgroundColourDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_TrayIconBackgroundColour}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_TrayIconBackgroundColourDescription}" />
                 </StackPanel>
             </ui:CardExpander.Header>
             <Grid IsSharedSizeScope="True">
@@ -291,15 +271,12 @@
         </ui:CardExpander>
 
         <!-- Battery levels and notifications -->
-        <ui:CardExpander
-            Icon="{ui:SymbolIcon Battery520}">
+        <ui:CardExpander Icon="{ui:SymbolIcon Battery520}">
             <ui:CardExpander.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_BatteryLevelsAndNotifications}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_BatteryLevelsAndNotificationsDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_BatteryLevelsAndNotifications}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_BatteryLevelsAndNotificationsDescription}" />
                 </StackPanel>
             </ui:CardExpander.Header>
             <StackPanel Grid.IsSharedSizeScope="True">
@@ -330,11 +307,9 @@
                         Click="OnSystemPowerSettingsClick">
             <ui:CardControl.Header>
                 <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{loc:Localize Settings_PowerAndBattery}" />
-                    <ui:TextBlock
-                        Text="{loc:Localize Settings_PowerAndBatteryDescription}" />
+                    <ui:TextBlock FontTypography="BodyStrong"
+                                  Text="{loc:Localize Settings_PowerAndBattery}" />
+                    <ui:TextBlock Text="{loc:Localize Settings_PowerAndBatteryDescription}" />
                 </StackPanel>
             </ui:CardControl.Header>
         </ui:CardControl>

@@ -50,8 +50,7 @@
                                               SharedSizeGroup="NameColumn" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Text="{Binding StatusName, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <TextBlock Text="{Binding StatusName, RelativeSource={RelativeSource TemplatedParent}}" />
                         <DockPanel Grid.Column="1">
                             <ui:ToggleSwitch DockPanel.Dock="Right"
                                              IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}"
@@ -99,14 +98,20 @@
                                             MinWidth="24">
                                         <Border.Style>
                                             <Style TargetType="Border">
-                                                <Setter Property="Background" Value="{Binding}" />
+                                                <Setter Property="Background"
+                                                        Value="{Binding}" />
                                                 <Style.Triggers>
                                                     <MultiDataTrigger>
                                                         <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding IsAutoColour, RelativeSource={RelativeSource AncestorType=controls:AccentColourPicker}}" Value="True" />
-                                                            <Condition Binding="{Binding IsAutoTransparent, RelativeSource={RelativeSource AncestorType=controls:AccentColourPicker}}" Value="True" />
+                                                            <Condition
+                                                                Binding="{Binding IsAutoColour, RelativeSource={RelativeSource AncestorType=controls:AccentColourPicker}}"
+                                                                Value="True" />
+                                                            <Condition
+                                                                Binding="{Binding IsAutoTransparent, RelativeSource={RelativeSource AncestorType=controls:AccentColourPicker}}"
+                                                                Value="True" />
                                                         </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Setter Property="Background"
+                                                                Value="Transparent" />
                                                     </MultiDataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -129,18 +134,17 @@
                                     -->
                                     <Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                                        <Border
-                                            x:Name="ContentBorder"
-                                            Grid.Row="0"
-                                            MinWidth="{TemplateBinding MinWidth}"
-                                            MinHeight="{TemplateBinding MinHeight}"
-                                            Padding="0"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
-                                            Background="{TemplateBinding Background}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}"
-                                            CornerRadius="{TemplateBinding Border.CornerRadius}">
+                                        <Border x:Name="ContentBorder"
+                                                Grid.Row="0"
+                                                MinWidth="{TemplateBinding MinWidth}"
+                                                MinHeight="{TemplateBinding MinHeight}"
+                                                Padding="0"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="{TemplateBinding Border.CornerRadius}">
                                             <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                                 <Grid>
@@ -148,76 +152,71 @@
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Grid Grid.Column="0" Margin="{TemplateBinding Padding}">
-                                                        <ContentPresenter
-                                                            Name="PART_ContentPresenter"
-                                                            HorizontalAlignment="Stretch"
-                                                            VerticalAlignment="Stretch"
-                                                            Content="{TemplateBinding SelectionBoxItem}"
-                                                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                                            IsHitTestVisible="False"
-                                                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                                                    <Grid Grid.Column="0"
+                                                          Margin="{TemplateBinding Padding}">
+                                                        <ContentPresenter Name="PART_ContentPresenter"
+                                                                          HorizontalAlignment="Stretch"
+                                                                          VerticalAlignment="Stretch"
+                                                                          Content="{TemplateBinding SelectionBoxItem}"
+                                                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                                          IsHitTestVisible="False"
+                                                                          TextElement.Foreground="{TemplateBinding Foreground}" />
                                                     </Grid>
                                                     <Grid Grid.Column="1"
                                                           Margin="{DynamicResource ComboBoxChevronMargin}">
-                                                        <ui:SymbolIcon
-                                                            x:Name="ChevronIcon"
-                                                            Margin="0"
-                                                            VerticalAlignment="Center"
-                                                            FontSize="{DynamicResource ComboBoxChevronSize}"
-                                                            Foreground="{DynamicResource ComboBoxDropDownGlyphForeground}"
-                                                            RenderTransformOrigin="0.5, 0.5"
-                                                            Symbol="ChevronDown24">
+                                                        <ui:SymbolIcon x:Name="ChevronIcon"
+                                                                       Margin="0"
+                                                                       VerticalAlignment="Center"
+                                                                       FontSize="{DynamicResource ComboBoxChevronSize}"
+                                                                       Foreground="{DynamicResource ComboBoxDropDownGlyphForeground}"
+                                                                       RenderTransformOrigin="0.5, 0.5"
+                                                                       Symbol="ChevronDown24">
                                                             <ui:SymbolIcon.RenderTransform>
                                                                 <RotateTransform Angle="0" />
                                                             </ui:SymbolIcon.RenderTransform>
                                                         </ui:SymbolIcon>
                                                     </Grid>
-                                                    <Grid
-                                                        Grid.Column="0"
-                                                        Grid.ColumnSpan="2"
-                                                        Margin="0">
-                                                        <ToggleButton
-                                                            Name="ToggleButton"
-                                                            HorizontalAlignment="Stretch"
-                                                            VerticalAlignment="Stretch"
-                                                            ClickMode="Press"
-                                                            Focusable="False"
-                                                            Foreground="{TemplateBinding Foreground}"
-                                                            IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                            Style="{DynamicResource DefaultComboBoxToggleButtonStyle}" />
+                                                    <Grid Grid.Column="0"
+                                                          Grid.ColumnSpan="2"
+                                                          Margin="0">
+                                                        <ToggleButton Name="ToggleButton"
+                                                                      HorizontalAlignment="Stretch"
+                                                                      VerticalAlignment="Stretch"
+                                                                      ClickMode="Press"
+                                                                      Focusable="False"
+                                                                      Foreground="{TemplateBinding Foreground}"
+                                                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                      Style="{DynamicResource DefaultComboBoxToggleButtonStyle}" />
                                                     </Grid>
-                                                    <Grid Grid.Column="0" Margin="{TemplateBinding Padding}">
-                                                        <TextBox
-                                                            x:Name="PART_EditableTextBox"
-                                                            HorizontalAlignment="Stretch"
-                                                            VerticalAlignment="Stretch"
-                                                            FontSize="{TemplateBinding FontSize}"
-                                                            Foreground="{TemplateBinding Foreground}"
-                                                            IsReadOnly="{TemplateBinding IsReadOnly}"
-                                                            Style="{DynamicResource DefaultComboBoxTextBoxStyle}" />
+                                                    <Grid Grid.Column="0"
+                                                          Margin="{TemplateBinding Padding}">
+                                                        <TextBox x:Name="PART_EditableTextBox"
+                                                                 HorizontalAlignment="Stretch"
+                                                                 VerticalAlignment="Stretch"
+                                                                 FontSize="{TemplateBinding FontSize}"
+                                                                 Foreground="{TemplateBinding Foreground}"
+                                                                 IsReadOnly="{TemplateBinding IsReadOnly}"
+                                                                 Style="{DynamicResource DefaultComboBoxTextBoxStyle}" />
                                                     </Grid>
                                                 </Grid>
-                                                <Popup
-                                                    x:Name="Popup"
-                                                    MinWidth="{TemplateBinding ActualWidth}"
-                                                    VerticalAlignment="Center"
-                                                    AllowsTransparency="True"
-                                                    Focusable="False"
-                                                    IsOpen="{TemplateBinding IsDropDownOpen}"
-                                                    Placement="{TemplateBinding Popup.Placement}"
-                                                    PopupAnimation="{TemplateBinding Popup.PopupAnimation}"
-                                                    VerticalOffset="1">
-                                                    <Border
-                                                        x:Name="DropDownBorder"
-                                                        Margin="0"
-                                                        Padding="0,4,0,6"
-                                                        Background="{DynamicResource ComboBoxDropDownBackground}"
-                                                        BorderBrush="{DynamicResource ComboBoxDropDownBorderBrush}"
-                                                        BorderThickness="1"
-                                                        CornerRadius="{DynamicResource PopupCornerRadius}"
-                                                        SnapsToDevicePixels="True">
+                                                <Popup x:Name="Popup"
+                                                       MinWidth="{TemplateBinding ActualWidth}"
+                                                       VerticalAlignment="Center"
+                                                       AllowsTransparency="True"
+                                                       Focusable="False"
+                                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                                       Placement="{TemplateBinding Popup.Placement}"
+                                                       PopupAnimation="{TemplateBinding Popup.PopupAnimation}"
+                                                       VerticalOffset="1">
+                                                    <Border x:Name="DropDownBorder"
+                                                            Margin="0"
+                                                            Padding="0,4,0,6"
+                                                            Background="{DynamicResource ComboBoxDropDownBackground}"
+                                                            BorderBrush="{DynamicResource ComboBoxDropDownBorderBrush}"
+                                                            BorderThickness="1"
+                                                            CornerRadius="{DynamicResource PopupCornerRadius}"
+                                                            SnapsToDevicePixels="True">
                                                         <Border.RenderTransform>
                                                             <TranslateTransform />
                                                         </Border.RenderTransform>
@@ -231,44 +230,41 @@
                                                                 TextElement.FontWeight="{TemplateBinding FontWeight}"
                                                                 TextElement.Foreground="{TemplateBinding Foreground}"
                                                                 VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                                                <WrapPanel
-                                                                    MaxWidth="400"
-                                                                    Orientation="Horizontal"
-                                                                    IsItemsHost="True"
-                                                                    KeyboardNavigation.DirectionalNavigation="Contained"
-                                                                    TextElement.FontSize="{TemplateBinding FontSize}" />
+                                                                <WrapPanel MaxWidth="400"
+                                                                           Orientation="Horizontal"
+                                                                           IsItemsHost="True"
+                                                                           KeyboardNavigation.DirectionalNavigation="Contained"
+                                                                           TextElement.FontSize="{TemplateBinding FontSize}" />
                                                             </ui:DynamicScrollViewer>
                                                         </Grid>
                                                     </Border>
                                                 </Popup>
                                             </Grid>
                                         </Border>
-                                        <Border
-                                            x:Name="AccentBorder"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
-                                            BorderBrush="{DynamicResource ComboBoxBorderBrushFocused}"
-                                            BorderThickness="{DynamicResource ComboBoxAccentBorderThemeThickness}"
-                                            CornerRadius="{TemplateBinding Border.CornerRadius}"
-                                            Visibility="Collapsed" />
+                                        <Border x:Name="AccentBorder"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                BorderBrush="{DynamicResource ComboBoxBorderBrushFocused}"
+                                                BorderThickness="{DynamicResource ComboBoxAccentBorderThemeThickness}"
+                                                CornerRadius="{TemplateBinding Border.CornerRadius}"
+                                                Visibility="Collapsed" />
                                     </Grid>
                                     <ControlTemplate.Triggers>
-                                        <Trigger Property="IsDropDownOpen" Value="True">
+                                        <Trigger Property="IsDropDownOpen"
+                                                 Value="True">
                                             <Trigger.EnterActions>
                                                 <BeginStoryboard>
                                                     <Storyboard>
-                                                        <DoubleAnimation
-                                                            Storyboard.TargetName="ChevronIcon"
-                                                            Storyboard.TargetProperty="(ui:SymbolIcon.RenderTransform).(RotateTransform.Angle)"
-                                                            From="0"
-                                                            To="180"
-                                                            Duration="00:00:00.167" />
-                                                        <DoubleAnimation
-                                                            Storyboard.TargetName="DropDownBorder"
-                                                            Storyboard.TargetProperty="(Border.RenderTransform).(TranslateTransform.Y)"
-                                                            From="-90"
-                                                            To="0"
-                                                            Duration="00:00:00.167">
+                                                        <DoubleAnimation Storyboard.TargetName="ChevronIcon"
+                                                                         Storyboard.TargetProperty="(ui:SymbolIcon.RenderTransform).(RotateTransform.Angle)"
+                                                                         From="0"
+                                                                         To="180"
+                                                                         Duration="00:00:00.167" />
+                                                        <DoubleAnimation Storyboard.TargetName="DropDownBorder"
+                                                                         Storyboard.TargetProperty="(Border.RenderTransform).(TranslateTransform.Y)"
+                                                                         From="-90"
+                                                                         To="0"
+                                                                         Duration="00:00:00.167">
                                                             <DoubleAnimation.EasingFunction>
                                                                 <CircleEase EasingMode="EaseOut" />
                                                             </DoubleAnimation.EasingFunction>
@@ -279,56 +275,80 @@
                                             <Trigger.ExitActions>
                                                 <BeginStoryboard>
                                                     <Storyboard>
-                                                        <DoubleAnimation
-                                                            Storyboard.TargetName="ChevronIcon"
-                                                            Storyboard.TargetProperty="(ui:SymbolIcon.RenderTransform).(RotateTransform.Angle)"
-                                                            From="180"
-                                                            To="0"
-                                                            Duration="00:00:00.167" />
+                                                        <DoubleAnimation Storyboard.TargetName="ChevronIcon"
+                                                                         Storyboard.TargetProperty="(ui:SymbolIcon.RenderTransform).(RotateTransform.Angle)"
+                                                                         From="180"
+                                                                         To="0"
+                                                                         Duration="00:00:00.167" />
                                                     </Storyboard>
                                                 </BeginStoryboard>
                                             </Trigger.ExitActions>
                                         </Trigger>
-                                        <Trigger Property="HasItems" Value="False">
-                                            <Setter TargetName="DropDownBorder" Property="MinHeight"
+                                        <Trigger Property="HasItems"
+                                                 Value="False">
+                                            <Setter TargetName="DropDownBorder"
+                                                    Property="MinHeight"
                                                     Value="{DynamicResource ComboBoxPopupMinHeight}" />
                                         </Trigger>
-                                        <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="False">
-                                            <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0" />
+                                        <Trigger SourceName="Popup"
+                                                 Property="Popup.AllowsTransparency"
+                                                 Value="False">
+                                            <Setter TargetName="DropDownBorder"
+                                                    Property="CornerRadius"
+                                                    Value="0" />
                                         </Trigger>
-                                        <Trigger Property="IsGrouping" Value="True">
-                                            <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+                                        <Trigger Property="IsGrouping"
+                                                 Value="True">
+                                            <Setter Property="ScrollViewer.CanContentScroll"
+                                                    Value="False" />
                                         </Trigger>
-                                        <Trigger Property="IsEditable" Value="True">
-                                            <Setter Property="IsTabStop" Value="False" />
-                                            <Setter TargetName="PART_EditableTextBox" Property="Visibility"
+                                        <Trigger Property="IsEditable"
+                                                 Value="True">
+                                            <Setter Property="IsTabStop"
+                                                    Value="False" />
+                                            <Setter TargetName="PART_EditableTextBox"
+                                                    Property="Visibility"
                                                     Value="Visible" />
-                                            <Setter TargetName="PART_ContentPresenter" Property="Visibility"
+                                            <Setter TargetName="PART_ContentPresenter"
+                                                    Property="Visibility"
                                                     Value="Hidden" />
                                         </Trigger>
                                         <MultiTrigger>
                                             <MultiTrigger.Conditions>
-                                                <Condition Property="IsEnabled" Value="True" />
-                                                <Condition Property="IsKeyboardFocusWithin" Value="True" />
-                                                <Condition Property="IsEditable" Value="True" />
+                                                <Condition Property="IsEnabled"
+                                                           Value="True" />
+                                                <Condition Property="IsKeyboardFocusWithin"
+                                                           Value="True" />
+                                                <Condition Property="IsEditable"
+                                                           Value="True" />
                                             </MultiTrigger.Conditions>
-                                            <Setter TargetName="ContentBorder" Property="Background"
+                                            <Setter TargetName="ContentBorder"
+                                                    Property="Background"
                                                     Value="{DynamicResource ComboBoxBackgroundFocused}" />
-                                            <Setter TargetName="AccentBorder" Property="Visibility" Value="Visible" />
+                                            <Setter TargetName="AccentBorder"
+                                                    Property="Visibility"
+                                                    Value="Visible" />
                                         </MultiTrigger>
                                         <MultiTrigger>
                                             <MultiTrigger.Conditions>
-                                                <Condition Property="IsEnabled" Value="True" />
-                                                <Condition Property="IsMouseOver" Value="True" />
-                                                <Condition Property="IsKeyboardFocusWithin" Value="False" />
+                                                <Condition Property="IsEnabled"
+                                                           Value="True" />
+                                                <Condition Property="IsMouseOver"
+                                                           Value="True" />
+                                                <Condition Property="IsKeyboardFocusWithin"
+                                                           Value="False" />
                                             </MultiTrigger.Conditions>
-                                            <Setter TargetName="ContentBorder" Property="Background"
+                                            <Setter TargetName="ContentBorder"
+                                                    Property="Background"
                                                     Value="{DynamicResource ComboBoxBackgroundPointerOver}" />
                                         </MultiTrigger>
-                                        <Trigger Property="IsEnabled" Value="False">
-                                            <Setter TargetName="ContentBorder" Property="Background"
+                                        <Trigger Property="IsEnabled"
+                                                 Value="False">
+                                            <Setter TargetName="ContentBorder"
+                                                    Property="Background"
                                                     Value="{DynamicResource ComboBoxBackgroundDisabled}" />
-                                            <Setter TargetName="ContentBorder" Property="BorderBrush"
+                                            <Setter TargetName="ContentBorder"
+                                                    Property="BorderBrush"
                                                     Value="{DynamicResource ComboBoxBorderBrushDisabled}" />
                                             <Setter Property="Foreground"
                                                     Value="{DynamicResource ComboBoxForegroundDisabled}" />

@@ -1,15 +1,21 @@
-using System;
 using System.Globalization;
 using Percentage.App.Resources;
 
 namespace Percentage.App.Extensions;
 
+/// <summary>Localised humanisation helpers for tooltip / notification body text.</summary>
 internal static class ReadableExtensions
 {
+    /// <summary>
+    ///     Formats a <see cref="TimeSpan" /> as a localised "X hours Y minutes" string. Used by both
+    ///     the battery evaluator and the Details page so they speak the same vocabulary.
+    /// </summary>
     internal static string GetReadableTimeSpan(TimeSpan timeSpan)
     {
         if (timeSpan.TotalSeconds < 60)
+        {
             return Strings.Readable_LessThanOneMinute;
+        }
 
         var hours = timeSpan.Hours;
         var minutes = timeSpan.Minutes;

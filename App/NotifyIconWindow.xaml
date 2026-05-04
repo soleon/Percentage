@@ -11,10 +11,10 @@
         Width="0"
         Height="0">
     <controls:SafeNotifyIcon x:Name="NotifyIcon"
-                     x:FieldModifier="private"
-                     FocusOnLeftClick="False"
-                     LeftDoubleClick="OnNotifyIconLeftDoubleClick"
-                     LeftClick="OnNotifyIconLeftClick">
+                             x:FieldModifier="private"
+                             FocusOnLeftClick="False"
+                             LeftDoubleClick="OnNotifyIconLeftDoubleClick"
+                             LeftClick="OnNotifyIconLeftClick">
         <controls:SafeNotifyIcon.Menu>
             <ContextMenu>
                 <ui:MenuItem Header="{loc:Localize Tray_DetailsHeader}"

@@ -1,109 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Percentage.App.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="BatteryCriticalNotification" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="BatteryLowNotification" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="BatteryHighNotification" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="BatteryFullNotification" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="BatteryHighNotificationValue" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">80</Value>
-    </Setting>
-    <Setting Name="RefreshSeconds" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">60</Value>
-    </Setting>
-    <Setting Name="BatteryLowNotificationValue" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">20</Value>
-    </Setting>
-    <Setting Name="BatteryCriticalNotificationValue" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
-    </Setting>
-    <Setting Name="BatteryCriticalColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)">#E81123</Value>
-    </Setting>
-    <Setting Name="BatteryLowColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)">#CA5010</Value>
-    </Setting>
-    <Setting Name="BatteryChargingColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)">#10893E</Value>
-    </Setting>
-    <Setting Name="BatteryNormalColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="HideAtStartup" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="TrayIconFontFamily" Type="System.Windows.Media.FontFamily" Scope="User">
-      <Value Profile="(Default)">Microsoft Sans Serif</Value>
-    </Setting>
-    <Setting Name="TrayIconFontBold" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="TrayIconFontUnderline" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="IsAutoBatteryNormalColour" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="IsAutoBatteryLowColour" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="IsAutoBatteryChargingColour" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="IsAutoBatteryCriticalColour" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="BatteryCriticalBackgroundColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="BatteryLowBackgroundColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="BatteryChargingBackgroundColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="BatteryNormalBackgroundColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="IsAutoBatteryCriticalBackgroundColour" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="IsAutoBatteryLowBackgroundColour" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="IsAutoBatteryChargingBackgroundColour" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="IsAutoBatteryNormalBackgroundColour" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="TrayIconFontSize" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">16</Value>
-    </Setting>
-    <Setting Name="DoubleClickActivation" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="ShutDownWithoutConfirmation" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="RequiresUpgrade" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Language" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-  </Settings>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
+              GeneratedClassNamespace="Percentage.App.Properties" GeneratedClassName="Settings">
+    <Profiles/>
+    <Settings>
+        <Setting Name="BatteryCriticalNotification" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="BatteryLowNotification" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="BatteryHighNotification" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="BatteryFullNotification" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="BatteryHighNotificationValue" Type="System.Int32" Scope="User">
+            <Value Profile="(Default)">80</Value>
+        </Setting>
+        <Setting Name="RefreshSeconds" Type="System.Int32" Scope="User">
+            <Value Profile="(Default)">60</Value>
+        </Setting>
+        <Setting Name="BatteryLowNotificationValue" Type="System.Int32" Scope="User">
+            <Value Profile="(Default)">20</Value>
+        </Setting>
+        <Setting Name="BatteryCriticalNotificationValue" Type="System.Int32" Scope="User">
+            <Value Profile="(Default)">10</Value>
+        </Setting>
+        <Setting Name="BatteryCriticalColour" Type="System.String" Scope="User">
+            <Value Profile="(Default)">#E81123</Value>
+        </Setting>
+        <Setting Name="BatteryLowColour" Type="System.String" Scope="User">
+            <Value Profile="(Default)">#CA5010</Value>
+        </Setting>
+        <Setting Name="BatteryChargingColour" Type="System.String" Scope="User">
+            <Value Profile="(Default)">#10893E</Value>
+        </Setting>
+        <Setting Name="BatteryNormalColour" Type="System.String" Scope="User">
+            <Value Profile="(Default)"/>
+        </Setting>
+        <Setting Name="HideAtStartup" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">False</Value>
+        </Setting>
+        <Setting Name="TrayIconFontFamily" Type="System.Windows.Media.FontFamily" Scope="User">
+            <Value Profile="(Default)">Microsoft Sans Serif</Value>
+        </Setting>
+        <Setting Name="TrayIconFontBold" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">False</Value>
+        </Setting>
+        <Setting Name="TrayIconFontUnderline" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">False</Value>
+        </Setting>
+        <Setting Name="IsAutoBatteryNormalColour" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="IsAutoBatteryLowColour" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">False</Value>
+        </Setting>
+        <Setting Name="IsAutoBatteryChargingColour" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">False</Value>
+        </Setting>
+        <Setting Name="IsAutoBatteryCriticalColour" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">False</Value>
+        </Setting>
+        <Setting Name="BatteryCriticalBackgroundColour" Type="System.String" Scope="User">
+            <Value Profile="(Default)"/>
+        </Setting>
+        <Setting Name="BatteryLowBackgroundColour" Type="System.String" Scope="User">
+            <Value Profile="(Default)"/>
+        </Setting>
+        <Setting Name="BatteryChargingBackgroundColour" Type="System.String" Scope="User">
+            <Value Profile="(Default)"/>
+        </Setting>
+        <Setting Name="BatteryNormalBackgroundColour" Type="System.String" Scope="User">
+            <Value Profile="(Default)"/>
+        </Setting>
+        <Setting Name="IsAutoBatteryCriticalBackgroundColour" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="IsAutoBatteryLowBackgroundColour" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="IsAutoBatteryChargingBackgroundColour" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="IsAutoBatteryNormalBackgroundColour" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="TrayIconFontSize" Type="System.Double" Scope="User">
+            <Value Profile="(Default)">15</Value>
+        </Setting>
+        <Setting Name="DoubleClickActivation" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">False</Value>
+        </Setting>
+        <Setting Name="ShutDownWithoutConfirmation" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">False</Value>
+        </Setting>
+        <Setting Name="RequiresUpgrade" Type="System.Boolean" Scope="User">
+            <Value Profile="(Default)">True</Value>
+        </Setting>
+        <Setting Name="Language" Type="System.String" Scope="User">
+            <Value Profile="(Default)"/>
+        </Setting>
+    </Settings>
 </SettingsFile>
 

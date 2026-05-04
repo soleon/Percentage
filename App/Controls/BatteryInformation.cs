@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reactive.Linq;
@@ -10,17 +8,26 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Windows.Devices.Power;
-using Windows.System.Power;
 using Percentage.App.Extensions;
 using Percentage.App.Localization;
 using Percentage.App.Properties;
 using Percentage.App.Resources;
+using Percentage.App.Services;
 using Wpf.Ui.Controls;
 using PowerLineStatus = System.Windows.Forms.PowerLineStatus;
 
 namespace Percentage.App.Controls;
 
+/// <summary>
+///     Details-page control that renders the live battery readout (capacity, charge rate, time
+///     remaining, design / full / remaining capacity, status, health) as a list of
+///     <c>KeyValuePair</c> rows. Refreshes on a debounced timer and on language switches; no
+///     dependency properties because every value is computed from
+///     <see cref="SystemBatterySource" /> + <c>Battery.AggregateBattery</c>.
+/// </summary>
+#pragma warning disable CA1001 // _updateSubject is a Subject<bool> whose only Dispose effect is OnCompleted; this control's lifetime is bounded by the host page (DetailsPage).
 public partial class BatteryInformation : KeyValueItemsControl
+#pragma warning restore CA1001
 {
     private readonly BatteryInformationObservableValue _batteryHealth =
         new(SymbolRegular.BatterySaver20, () => Strings.Battery_Health);
@@ -57,6 +64,11 @@ public partial class BatteryInformation : KeyValueItemsControl
             new FrameworkPropertyMetadata(typeof(BatteryInformation)));
     }
 
+    /// <summary>
+    ///     Wires the control to a debounced 500ms refresh subject driven by an interval timer
+    ///     (<c>Settings.RefreshSeconds</c>) plus language-change events, and unsubscribes on
+    ///     <see cref="FrameworkElement.Unloaded" />.
+    /// </summary>
     public BatteryInformation()
     {
         RebuildItemsSource();
@@ -69,15 +81,31 @@ public partial class BatteryInformation : KeyValueItemsControl
             // This loop finds any CardControl in the item container that has a null style and sets the correct default
             // style to it.
             for (var i = 0; i < ItemContainerGenerator.Items.Count; i++)
+            {
                 if (ItemContainerGenerator.ContainerFromIndex(i) is ContentPresenter presenter &&
                     VisualTreeHelper.GetChildrenCount(presenter) > 0 &&
                     VisualTreeHelper.GetChild(presenter, 0) is CardControl { Style: null } card &&
                     FindResource(typeof(CardControl)) is Style style)
+                {
                     card.Style = style;
+                }
+            }
 
+            // try/catch so a transient battery/WMI failure surfaces through SetAppError
+            // instead of terminating the Rx chain and silently freezing this control.
             _updateSubject.Throttle(TimeSpan.FromMilliseconds(500))
                 .ObserveOn(AsyncOperationManager.SynchronizationContext)
-                .Subscribe(_ => Update());
+                .Subscribe(_ =>
+                {
+                    try
+                    {
+                        Update();
+                    }
+                    catch (Exception ex) when (ex is not OutOfMemoryException)
+                    {
+                        App.SetAppError(ex);
+                    }
+                });
 
             _updateSubject.OnNext(false);
 
@@ -104,7 +132,8 @@ public partial class BatteryInformation : KeyValueItemsControl
             {
                 updateSubscription?.Dispose();
                 updateSubscription = Observable.Interval(TimeSpan.FromSeconds(Settings.Default.RefreshSeconds))
-                    .ObserveOn(AsyncOperationManager.SynchronizationContext).Subscribe(_ => _updateSubject.OnNext(false));
+                    .ObserveOn(AsyncOperationManager.SynchronizationContext)
+                    .Subscribe(_ => _updateSubject.OnNext(false));
             }
         };
 
@@ -120,7 +149,7 @@ public partial class BatteryInformation : KeyValueItemsControl
 
     private void OnLocalizationChanged(object? sender, PropertyChangedEventArgs e)
     {
-        Dispatcher.InvokeAsync(() =>
+        _ = Dispatcher.InvokeAsync(() =>
         {
             RebuildItemsSource();
             _updateSubject.OnNext(false);
@@ -129,8 +158,8 @@ public partial class BatteryInformation : KeyValueItemsControl
 
     private void RebuildItemsSource()
     {
-        var ordered = new[]
-        {
+        BatteryInformationObservableValue[] ordered =
+        [
             _batteryLifePercent,
             _chargeRate,
             _powerLineStatus,
@@ -140,25 +169,36 @@ public partial class BatteryInformation : KeyValueItemsControl
             _remainingChargeCapacity,
             _batteryStatus,
             _batteryHealth
-        };
+        ];
 
-        var dict = new Dictionary<string, object>(ordered.Length);
+        Dictionary<string, object> dict = new(ordered.Length);
         foreach (var entry in ordered)
+        {
             dict[entry.Name] = entry;
+        }
+
         ItemsSource = dict;
     }
 
+    /// <summary>
+    ///     Pushes through the debounce so callers (e.g. <c>DetailsPage</c>) can force the next
+    ///     visible refresh after an external event.
+    /// </summary>
+    internal void RequestUpdate() => _updateSubject.OnNext(false);
+
     private void Update()
     {
-        var report = Battery.AggregateBattery.GetReport();
-        var powerStatus = SystemInformation.PowerStatus;
-        _batteryLifePercent.Value = report.Status == BatteryStatus.NotPresent
+        var readings = SystemBatterySource.Instance.Read();
+
+        _batteryLifePercent.Value = readings.ChargeStatus == BatteryChargeStatus.NoSystemBattery
             ? Strings.Battery_ValueUnknown
-            : powerStatus.BatteryLifePercent.ToString("P", CultureInfo.CurrentCulture);
-        var chargeRateInMilliWatts = report.ChargeRateInMilliwatts;
-        var fullChargeCapacityInMilliWattHours = report.FullChargeCapacityInMilliwattHours;
-        var remainingCapacityInMilliWattHours = report.RemainingCapacityInMilliwattHours;
-        switch (chargeRateInMilliWatts)
+            : readings.BatteryLifePercent.ToString("P", CultureInfo.CurrentCulture);
+
+        var rate = readings.ChargeRateInMilliwatts;
+        var full = readings.FullChargeCapacityInMilliwattHours;
+        var remaining = readings.RemainingCapacityInMilliwattHours;
+
+        switch (rate)
         {
             case null:
                 _batteryTime.Value = _chargeRate.Value = Strings.Battery_ValueUnknown;
@@ -168,49 +208,40 @@ public partial class BatteryInformation : KeyValueItemsControl
                 _chargeRate.Value = Strings.Battery_ValueNotCharging;
                 break;
             default:
-                if (chargeRateInMilliWatts > 0)
+                if (rate > 0)
                 {
-                    if (fullChargeCapacityInMilliWattHours.HasValue && remainingCapacityInMilliWattHours.HasValue)
-                        _batteryTime.Value = string.Format(
-                            CultureInfo.CurrentCulture,
-                            Strings.Battery_TimeUntilFull,
-                            ReadableExtensions.GetReadableTimeSpan(TimeSpan.FromHours(
-                                (fullChargeCapacityInMilliWattHours.Value - remainingCapacityInMilliWattHours.Value)
-                                / (double)chargeRateInMilliWatts.Value)));
-                    else
-                        _batteryTime.Value = Strings.Battery_ValueUnknown;
+                    _batteryTime.Value = full is { } f && remaining is { } r
+                        ? string.Format(CultureInfo.CurrentCulture, Strings.Battery_TimeUntilFull,
+                            ReadableExtensions.GetReadableTimeSpan(TimeSpan.FromHours((f - r) / (double)rate.Value)))
+                        : Strings.Battery_ValueUnknown;
                 }
                 else
                 {
-                    _batteryTime.Value = string.Format(
-                        CultureInfo.CurrentCulture,
-                        Strings.Battery_TimeRemaining,
-                        ReadableExtensions.GetReadableTimeSpan(TimeSpan.FromSeconds(powerStatus.BatteryLifeRemaining)));
+                    _batteryTime.Value = string.Format(CultureInfo.CurrentCulture, Strings.Battery_TimeRemaining,
+                        ReadableExtensions.GetReadableTimeSpan(
+                            TimeSpan.FromSeconds(readings.BatteryLifeRemainingSeconds)));
                 }
 
-                _chargeRate.Value = chargeRateInMilliWatts + " mW";
+                _chargeRate.Value = rate + " mW";
                 break;
         }
 
-        _powerLineStatus.Value = powerStatus.PowerLineStatus switch
+        _powerLineStatus.Value = readings.LineStatus switch
         {
             PowerLineStatus.Online => Strings.Battery_ValueConnected,
             PowerLineStatus.Offline => Strings.Battery_ValueDisconnected,
             _ => Strings.Battery_ValueUnknown
         };
-        var designCapacity = report.DesignCapacityInMilliwattHours;
-        _designCapacity.Value = designCapacity == null
-            ? Strings.Battery_ValueUnknown
-            : designCapacity + " mWh";
-        _fullChargeCapacity.Value = fullChargeCapacityInMilliWattHours == null
-            ? Strings.Battery_ValueUnknown
-            : fullChargeCapacityInMilliWattHours + " mWh";
-        _remainingChargeCapacity.Value = remainingCapacityInMilliWattHours == null
-            ? Strings.Battery_ValueUnknown
-            : remainingCapacityInMilliWattHours + " mWh";
-        if (designCapacity != null && fullChargeCapacityInMilliWattHours != null)
+
+        _designCapacity.Value = readings.DesignCapacityInMilliwattHours is { } designCapacity
+            ? designCapacity + " mWh"
+            : Strings.Battery_ValueUnknown;
+        _fullChargeCapacity.Value = full is { } fc ? fc + " mWh" : Strings.Battery_ValueUnknown;
+        _remainingChargeCapacity.Value = remaining is { } rc ? rc + " mWh" : Strings.Battery_ValueUnknown;
+
+        if (readings.DesignCapacityInMilliwattHours is { } design && full is { } ff)
         {
-            var health = (double)fullChargeCapacityInMilliWattHours.Value / designCapacity.Value;
+            var health = (double)ff / design;
             _batteryHealth.Value = (health > 1 ? 1 : health).ToString("P", CultureInfo.CurrentCulture);
         }
         else
@@ -218,9 +249,12 @@ public partial class BatteryInformation : KeyValueItemsControl
             _batteryHealth.Value = Strings.Battery_ValueUnknown;
         }
 
-        // Inserts a space between each word in battery status. Note: the source enum names are
-        // English; spacing them is a presentation tweak, not a translation.
-        _batteryStatus.Value = WordStartLetterRegex().Replace(report.Status.ToString(), " $0");
+        // BatteryReport.Status (Windows.System.Power.BatteryStatus enum) is the friendly
+        // status string ("Charging", "Discharging", etc.). Not exposed via BatteryReadings
+        // because the rest of the evaluator uses BatteryChargeStatus instead; this single
+        // direct call is cheap.
+        var aggregateReport = Battery.AggregateBattery.GetReport();
+        _batteryStatus.Value = WordStartLetterRegex().Replace(aggregateReport.Status.ToString(), " $0");
     }
 
     private sealed class BatteryInformationObservableValue(SymbolRegular icon, Func<string> nameProvider)
@@ -233,14 +267,6 @@ public partial class BatteryInformation : KeyValueItemsControl
     {
         public SymbolIcon SymbolIcon { get; } = new(symbol);
 
-        public override string? ToString()
-        {
-            return Value?.ToString();
-        }
-    }
-
-    internal void RequestUpdate()
-    {
-        _updateSubject.OnNext(false);
+        public override string? ToString() => Value?.ToString();
     }
 }
